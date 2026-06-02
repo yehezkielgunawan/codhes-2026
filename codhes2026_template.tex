@@ -1,0 +1,332 @@
+% CODHES 2026 Conference Paper Template
+% Converted from "CODHES 2026 Paper Template.docx"
+% Compile with: pdflatex -> bibtex -> pdflatex -> pdflatex
+%
+\documentclass[10pt,conference,a4paper]{IEEEtran}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}           % Times New Roman equivalent
+\usepackage{microtype}         % Better typography
+\usepackage{graphicx}          % Figures
+\usepackage{caption}           % Custom captions
+\usepackage{booktabs}          % Professional tables
+\usepackage{array}             % Extended column types
+\usepackage{multirow}          % Multi-row cells
+\usepackage{amsmath,amssymb}  % Math
+\usepackage{url}               % URL formatting
+\usepackage{hyperref}          % Hyperlinks (keep last)
+
+% ============================================================
+% PAGE GEOMETRY (matches DOCX: A4, margins ~45pt L/R, 54pt top, 72pt bottom)
+% ============================================================
+\usepackage[
+    a4paper,
+    left=45pt,
+    right=45pt,
+    top=54pt,
+    bottom=72pt,
+    headheight=36pt,
+    footskip=36pt
+]{geometry}
+
+% ============================================================
+% CUSTOM FORMATTING TO MATCH DOCX TEMPLATE
+% ============================================================
+
+% --- Abstract Formatting ---
+% DOCX: 9pt bold, justified, first-line indent 13.6pt, spacing after 10pt
+\renewcommand{\abstractname}{Abstract}
+\renewenvironment{abstract}{%
+    \normalfont\fontsize{9pt}{10.8pt}\selectfont\bfseries
+    \noindent\ignorespaces
+}{%
+    \par\addvspace{10pt}%
+}
+
+% --- Keywords Formatting ---
+% DOCX: italic, indented 13.7pt, spacing after 6pt
+\newenvironment{keywords}{%
+    \normalfont\itshape\fontsize{10pt}{12pt}\selectfont
+    \noindent\hspace{13.7pt}Keywords---\ignorespaces
+}{%
+    \par\addvspace{6pt}%
+}
+
+% --- Heading Styles (match DOCX specs) ---
+% H1: spacing before 8pt, after 4pt
+% H2: italic, before 6pt, after 3pt
+% H3: italic, exact 12pt line, first indent 14.4pt
+% H4: italic, before 2pt, after 2pt, first indent 25.2pt
+% H5: before 8pt, after 4pt
+
+\let\oldsection\section
+\let\oldsubsection\subsection
+\let\oldsubsubsection\subsubsection
+\let\oldparagraph\paragraph
+
+\renewcommand{\section}[1]{%
+    \oldsection{#1}%
+    \vspace{-4pt} % fine-tune spacing after
+}
+\renewcommand{\subsection}[1]{%
+    \oldsubsection{\textit{#1}}%
+    \vspace{-3pt} % fine-tune spacing after
+}
+\renewcommand{\subsubsection}[1]{%
+    \oldsubsubsection{\textit{#1}}%
+}
+\renewcommand{\paragraph}[1]{%
+    \oldparagraph{\textit{#1}}%
+}
+
+% --- Body Text ---
+% DOCX: 10pt, justified, first-line indent 14.4pt, line spacing 11.4pt (auto)
+\setlength{\parindent}{14.4pt}
+
+% --- References ---
+% DOCX: 8pt, exact 9pt line spacing, justified
+\let\oldthebibliography\thebibliography
+\let\endoldthebibliography\endthebibliography
+\renewenvironment{thebibliography}[1]{%
+    \normalfont\fontsize{8pt}{9pt}\selectfont
+    \oldthebibliography{#1}%
+}{%
+    \endoldthebibliography
+}
+
+% --- Figure and Table Captions ---
+% DOCX: 8pt (16 half-points), specific spacing
+\captionsetup{font=small, labelfont={small,bf}, textfont=small, skip=4pt}
+\captionsetup[table]{position=above, skip=6pt}
+\captionsetup[figure]{position=below, skip=4pt}
+
+% --- Table Styles (match DOCX) ---
+% DOCX table styles: 8pt for various elements
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+% Table head (centered, 8pt)
+\newcommand{\tablehead}[1]{\multicolumn{1}{c}{\fontsize{8pt}{9.6pt}\selectfont\bfseries #1}}
+% Table column head (centered, 8pt bold)
+\newcommand{\tablecolhead}[1]{\multicolumn{1}{c}{\fontsize{8pt}{9.6pt}\selectfont\bfseries #1}}
+% Table column subhead (centered, 7.5pt italic)
+\newcommand{\tablecolsubhead}[1]{\multicolumn{1}{c}{\fontsize{7.5pt}{9pt}\selectfont\itshape #1}}
+% Table copy (8pt)
+\newcommand{\tablecopy}[1]{\fontsize{8pt}{9.6pt}\selectfont #1}
+% Table footnote (6pt)
+\newcommand{\tablefootnote}[1]{\fontsize{6pt}{7.2pt}\selectfont #1}
+
+% ============================================================
+% TITLE AND AUTHOR SETUP
+% ============================================================
+% The template supports up to 6 authors in a 3-column × 2-row grid
+% Use \author blocks as shown below
+
+\title{%
+    \normalfont\fontsize{24pt}{28.8pt}\selectfont\bfseries
+    Paper Title (use style: paper title)%
+}
+
+% Author blocks: each block should contain:
+% line 1: Given Name Surname
+% line 2: dept. name of organization (of Affiliation)
+% line 3: name of organization (of Affiliation)
+% line 4: City, Country
+% line 5: email address or ORCID
+
+\author{%
+    \IEEEauthorblockN{1st Given Name Surname}
+    \IEEEauthorblockA{dept. name of organization (of Affiliation)\\
+    name of organization (of Affiliation)\\
+    City, Country\\
+    email address or ORCID}
+    \and
+    \IEEEauthorblockN{2nd Given Name Surname}
+    \IEEEauthorblockA{dept. name of organization (of Affiliation)\\
+    name of organization (of Affiliation)\\
+    City, Country\\
+    email address or ORCID}
+}
+
+% ============================================================
+% DOCUMENT BEGINS
+% ============================================================
+\begin{document}
+
+\maketitle
+
+% Abstract
+\begin{abstract}
+The abstract should summarize the contents of the paper in short terms, i.e. 150--250 words; justified between the margins and using the font/size specified below.
+\end{abstract}
+
+% Keywords
+\begin{keywords}
+component, formatting, style, styling, insert (key words)
+\end{keywords}
+
+\IEEEpeerreviewmaketitle
+
+% ============================================================
+% INTRODUCTION
+% ============================================================
+\section{Introduction}
+
+This template, modified in MS Word 2007 and saved as a ``Word 97--2003 Document'' for the PC, provides authors with most of the formatting specifications needed for preparing electronic versions of their papers. All standard paper components have been specified for three reasons: (1) introduction (2) literature review, and (3) method. Margins, column widths, line spacing, and type styles are built-in; examples of the type styles are provided throughout this document and are identified in italic type, within parentheses, following the example. Some components, such as multi-leveled equations, graphics, and tables are not prescribed, although the various table text styles are provided. The formatter will need to create these components, incorporating the applicable criteria that follow.
+
+% ============================================================
+% LITERATURE REVIEW
+% ============================================================
+\section{Literature Review/Theoretical Framework}
+
+\subsection{Selecting a Template}
+
+Complete all content and organizational editing before formatting. Please note sections A--D below for more proofreading, spelling and grammar information.
+
+\subsection{Maintaining the Integrity of the Specifications}
+
+Before you begin to format your paper, first write and save the content as a separate text file. Keep your text and graphic files separate until after the text has been formatted and styled.
+
+% ============================================================
+% METHOD
+% ============================================================
+\section{Method}
+
+Do not use hard tabs, and limit use of hard returns to only one return at the end of a paragraph. Do not add any kind of pagination anywhere in the paper. Do not number text heads---the template will do that for you. Please note that AI used as methodological tools should be declared within this section. The declaration shall elaborate how and to what extend the AI is involved.
+
+\subsection{Abbreviations and Acronyms}
+
+Define abbreviations and acronyms the first time they are used in the text, even after they have been defined in the abstract. Abbreviations such as SI, MKS, CGS, sc, dc, and rms do not have to be defined. Do not use abbreviations in the title or heads unless they are unavoidable.
+
+\subsection{Things to Consider}
+
+The subscript for the permeability of vacuum $\mu_0$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ``o''.
+
+Commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
+
+A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
+
+In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
+
+Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
+
+Do not confuse ``imply'' and ``infer''.
+
+The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
+
+There is no period after the ``et'' in the Latin abbreviation ``et al.''.
+
+The abbreviation ``i.e.'' means ``that is'', and the abbreviation ``e.g.'' means ``for example''.
+
+An excellent style manual for science writers is \cite{Eason1955}.
+
+% ============================================================
+% RESULT AND DISCUSSION
+% ============================================================
+\section{Result and Discussion}
+
+After the text edit has been completed, the paper is ready for the template. Duplicate the template file by using the Save As command, and use the naming convention prescribed by your conference for the name of your paper. In this newly created file, highlight all of the contents and import your prepared text file. You are now ready to style your paper; use the scroll down window on the left of the MS Word Formatting toolbar.
+
+\subsection{Authors and Affiliations}
+
+The template is designed for, but not limited to, six authors. Author names should be listed starting from left to right and then moving down to the next line. This is the author sequence that will be used in future citations and by indexing services. Names should not be listed in columns nor group by affiliation. Please keep your affiliations as succinct as possible (for example, do not differentiate among departments of the same organization).
+
+\subsubsection{For papers with more than six authors}
+
+Add author names horizontally, moving to a third row if needed for more than 8 authors.
+
+\subsubsection{For papers with less than six authors}
+
+To change the default, adjust the template as follows.
+
+\paragraph{Selection}
+
+Highlight all author and affiliation lines.
+
+\paragraph{Change number of columns}
+
+Select the Columns icon from the MS Word Standard toolbar and then select the correct number of columns from the selection palette.
+
+\subsection{Figures and Tables}
+
+\subsubsection{Positioning Figures and Tables}
+
+Place figures and tables at the top and bottom of columns. Avoid placing them in the middle of columns. Large figures and tables may span across both columns. Figure captions should be below the figures; table heads should appear above the tables. Insert figures and tables after they are cited in the text. Use the abbreviation ``Fig.~1'', even at the beginning of a sentence.
+
+\subsubsection{Table Type Styles}
+
+Table~\ref{tab:example} shows an example of table formatting.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Table Type Styles}
+    \label{tab:example}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{@{}C{1.5cm}C{2cm}C{2cm}C{2cm}@{}}
+        \toprule
+        \tablecolhead{Table Head} & \tablecolhead{Table Column Head} & \tablecolhead{Table Column Head} & \tablecolhead{Table Column Head} \\
+        \midrule
+        \tablecolsubhead{Table column subhead} & \tablecolsubhead{Subhead} & \tablecolsubhead{Subhead} & \tablecolsubhead{Subhead} \\
+        \midrule
+        \tablecopy{copy} & \tablecopy{More table copy\textsuperscript{a}} & \tablecopy{} & \tablecopy{} \\
+        \midrule
+        \tablecopy{} & \tablecopy{} & \tablecopy{} & \tablecopy{} \\
+        \bottomrule
+    \end{tabular}%
+    }
+    \vspace{3pt}
+    \tablefootnote{Sample of a Table footnote. (Table footnote)}
+\end{table}
+
+\subsubsection{Figure Captions}
+
+Figure~\ref{fig:example} shows an example figure placement.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.9\columnwidth]{example-image}
+    \fbox{\parbox{0.8\columnwidth}{\centering\vspace{2cm} Insert Figure Here \vspace{2cm}}}
+    \caption{Example of a figure caption.}
+    \label{fig:example}
+\end{figure}
+
+\subsubsection{Figure Labels}
+
+Use 8 point Times New Roman for Figure labels. Use words rather than symbols or abbreviations when writing Figure axis labels to avoid confusing the reader. As an example, write the quantity ``Magnetization'', or ``Magnetization, M'', not just ``M''. If including units in the label, present them within parentheses.
+
+% ============================================================
+% CONCLUSION
+% ============================================================
+\section{Conclusion}
+
+Please write the conclusion of the study, answering the research questions. Please also write the limitation of the study as well as the suggestion for the further research.
+
+% ============================================================
+% ACKNOWLEDGMENT
+% ============================================================
+\section*{Acknowledgment}
+
+The preferred spelling of the word ``acknowledgment'' in America is without an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. G.) thanks \ldots''. Instead, try ``R. B. G. thanks\ldots''. Put sponsor acknowledgments in the unnumbered footnote on the first page. The use of AI for language improvement should also be stated how and to what extent in this section.
+
+\vspace{6pt}
+\noindent\textbf{Author Contributions:} Conceptualization, \ldots; methodology, \ldots and \ldots; software, \ldots; validation, \ldots; formal analysis, \ldots; data collection, \ldots; writing, \ldots. All authors have read and agreed to the published version of the manuscript.
+
+% ============================================================
+% DATA AVAILABILITY STATEMENT
+% ============================================================
+\section*{Data Availability Statement}
+
+The data that support the findings of this study are openly available in [repository name] at [URL], reference number [reference number in case the data is available in public repository that issues datasets with DOIs].
+
+% ============================================================
+% REFERENCES
+% ============================================================
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
