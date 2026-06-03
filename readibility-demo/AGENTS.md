@@ -37,8 +37,10 @@ Run order before committing: `pnpm check` → `pnpm test` → `pnpm build`
 
 ## CI/CD
 
-- **CI** (`.github/workflows/ci.yml`): Runs `pnpm check` and `pnpm test` on push to `main` and PRs.
-- **CD** (`.github/workflows/deploy.yml`): **Manual trigger only** (`workflow_dispatch`). Deploys to Cloudflare Workers. Requires `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets.
+This project lives inside the `codhes-2026` monorepo. Workflows are at the repo root:
+
+- **CI** (`.github/workflows/readibility-demo-ci.yml`): Runs `pnpm check` and `pnpm test` on push to `main` and PRs, scoped to `readibility-demo/**` changes.
+- **CD** (`.github/workflows/readibility-demo-deploy.yml`): **Manual trigger only** (`workflow_dispatch`). Deploys to Cloudflare Workers. Requires `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets.
 
 ## Conventions
 
