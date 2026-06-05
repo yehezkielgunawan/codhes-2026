@@ -30,7 +30,7 @@ export function UrlForm() {
 				</button>
 			</div>
 
-			<div class="mt-6 flex gap-3">
+			<div class="mt-6 flex gap-3 flex-wrap">
 				<button
 					type="button"
 					id="scrape-btn"

@@ -25,6 +25,7 @@ Run order before committing: `pnpm check` → `pnpm test` → `pnpm build`
 - **Linting/Formatting:** Biome (tab indent, 80 char line width, double quotes, semicolons)
 - **Testing:** Vitest — test files co-located as `*.test.ts`
 - **Persistence:** IndexedDB (browser-side) — Cloudflare Worker is stateless
+- **TypeScript:** Strict mode with DOM types (`lib: ["ESNext", "DOM", "DOM.Iterable"]`)
 
 ### Application Flow
 
