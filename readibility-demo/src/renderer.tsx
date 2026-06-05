@@ -7,7 +7,16 @@ export const renderer = jsxRenderer(({ children }) => {
 			<head>
 				<meta charset="UTF-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<meta name="theme-color" content="#4f46e5" />
+				<meta
+					name="description"
+					content="Compare HTML documentation vs llms.txt files for readability and token efficiency."
+				/>
 				<title>Readability & Token Efficiency Analyzer</title>
+				<link rel="icon" href="/favicon.ico" sizes="any" />
+				<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+				<link rel="manifest" href="/manifest.json" />
 				<ViteClient />
 				<Link href="/src/style.css" rel="stylesheet" />
 			</head>
