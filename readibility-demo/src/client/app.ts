@@ -1,5 +1,6 @@
 import type { ComparisonResult } from "../lib/analysis";
 import { clearResults, loadResults, saveResults } from "../lib/db";
+import { exportCSV, exportMarkdown } from "../lib/export";
 import type { ScrapedData } from "../lib/scraper";
 
 interface AppState {
@@ -42,6 +43,14 @@ function init() {
 	getElement<HTMLButtonElement>("clear-btn").addEventListener(
 		"click",
 		clearAll,
+	);
+	getElement<HTMLButtonElement>("export-md-btn").addEventListener(
+		"click",
+		exportMarkdownHandler,
+	);
+	getElement<HTMLButtonElement>("export-csv-btn").addEventListener(
+		"click",
+		exportCSVHandler,
 	);
 
 	bindRemoveButtons();
@@ -295,6 +304,7 @@ async function loadSavedResults() {
 		if (saved.length > 0) {
 			state.results = saved;
 			displayResults();
+			updateUI();
 		}
 	} catch (error) {
 		console.error("Failed to load saved results:", error);
@@ -327,13 +337,33 @@ async function clearAll() {
 	`;
 }
 
+function exportMarkdownHandler() {
+	if (state.results.length === 0) {
+		alert("No results to export. Please analyze documentation first.");
+		return;
+	}
+	exportMarkdown(state.results);
+}
+
+function exportCSVHandler() {
+	if (state.results.length === 0) {
+		alert("No results to export. Please analyze documentation first.");
+		return;
+	}
+	exportCSV(state.results);
+}
+
 function updateUI() {
 	const scrapeBtn = getElement<HTMLButtonElement>("scrape-btn");
 	const analyzeBtn = getElement<HTMLButtonElement>("analyze-btn");
+	const exportMdBtn = getElement<HTMLButtonElement>("export-md-btn");
+	const exportCsvBtn = getElement<HTMLButtonElement>("export-csv-btn");
 
 	scrapeBtn.disabled = state.isScraping || state.isAnalyzing;
 	analyzeBtn.disabled =
 		state.isScraping || state.isAnalyzing || state.scrapedData.length === 0;
+	exportMdBtn.disabled = state.results.length === 0;
+	exportCsvBtn.disabled = state.results.length === 0;
 
 	scrapeBtn.textContent = state.isScraping
 		? "Scraping..."

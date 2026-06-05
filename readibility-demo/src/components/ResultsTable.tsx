@@ -28,6 +28,25 @@ export function ResultsTable() {
 			>
 				{/* Filled by client JS */}
 			</div>
+
+			<div class="flex gap-3 mt-6">
+				<button
+					type="button"
+					id="export-md-btn"
+					class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition disabled:opacity-50"
+					disabled
+				>
+					Export Markdown
+				</button>
+				<button
+					type="button"
+					id="export-csv-btn"
+					class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-500 transition disabled:opacity-50"
+					disabled
+				>
+					Export CSV
+				</button>
+			</div>
 		</div>
 	);
 }
