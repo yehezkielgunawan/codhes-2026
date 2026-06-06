@@ -1,5 +1,5 @@
 import { jsxRenderer } from "hono/jsx-renderer";
-import { Link, ViteClient } from "vite-ssr-components/hono";
+import { Link, Script, ViteClient } from "vite-ssr-components/hono";
 
 export const renderer = jsxRenderer(({ children }) => {
 	return (
@@ -22,7 +22,7 @@ export const renderer = jsxRenderer(({ children }) => {
 			</head>
 			<body class="bg-gray-50 text-gray-900 min-h-screen">
 				<main class="container mx-auto px-4 py-8 max-w-6xl">{children}</main>
-				<script type="module" src="/src/client/app.ts" />
+				<Script src="/src/client/app.tsx" />
 			</body>
 		</html>
 	);
