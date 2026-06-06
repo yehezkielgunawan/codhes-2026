@@ -38,7 +38,7 @@ uv add --dev <package>
 
 ## Context7 API Integration
 
-The tool uses [Context7 API](https://context7.com) as a fallback when `llms.txt` is not found.
+The tool uses [Context7 API](https://context7.com) as a fallback when `llms.txt` is not found or incomplete.
 
 **API Token:** Set `CONTEXT7_TOKEN` in `.env` file:
 ```bash
@@ -48,8 +48,9 @@ CONTEXT7_TOKEN=ctx7sk-your-token-here
 **Fallback Logic:**
 1. Try `/llm.txt` and `/llms.txt` directly
 2. If found, follow linked `.txt` files
-3. If `llms-full.txt` not referenced, try Context7 API
-4. If not found at all, try Context7 API as final fallback
+3. If `llms-full.txt` not referenced → try Context7 API
+4. **Compare lengths**: use Context7 only if it returns MORE content than `llms.txt`
+5. If not found at all → try Context7 API as final fallback
 
 **Disable:** Use `--no-context7` flag to skip Context7 API calls.
 

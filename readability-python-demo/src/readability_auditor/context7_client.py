@@ -38,23 +38,33 @@ def _extract_library_name(url: str) -> str:
     return mappings.get(domain, domain.split(".")[0])
 
 
-async def search_library(query: str, token: str) -> Optional[str]:
-    """Search for a library in Context7 and return its ID."""
+async def search_library(library_name: str, query: str, token: str) -> Optional[str]:
+    """Search for a library in Context7 and return its ID.
+    
+    Uses GET /v2/libs/search endpoint with libraryName and query parameters.
+    """
     async with httpx.AsyncClient(timeout=30.0) as client:
         try:
             response = await client.get(
-                f"{CONTEXT7_API_BASE}/search",
-                params={"query": query},
+                f"{CONTEXT7_API_BASE}/libs/search",
+                params={
+                    "libraryName": library_name,
+                    "query": query,
+                },
                 headers={"Authorization": f"Bearer {token}"},
             )
             
             if response.status_code == 200:
                 data = response.json()
-                libraries = data.get("libraries", [])
-                if libraries:
-                    return libraries[0].get("id")
-        except httpx.RequestError:
-            pass
+                results = data.get("results", [])
+                if results:
+                    best_match = results[0]
+                    library_id = best_match.get("id")
+                    title = best_match.get("title", "Unknown")
+                    logger.console.print(f"  [cyan]Found library: {title} ({library_id})[/cyan]")
+                    return library_id
+        except httpx.RequestError as e:
+            logger.console.print(f"  [yellow]Context7 search error: {e}[/yellow]")
     
     return None
 
@@ -86,6 +96,7 @@ async def get_llm_text_via_context7(base_url: str) -> Optional[str]:
     Fetch machine-optimized documentation via Context7 API.
     
     This is used as a fallback when llms.txt is not found directly on the URL.
+    Uses the official GET /v2/libs/search endpoint.
     """
     token = _get_api_token()
     if not token:
@@ -94,13 +105,16 @@ async def get_llm_text_via_context7(base_url: str) -> Optional[str]:
     
     library_name = _extract_library_name(base_url)
     
-    # Search for the library
-    library_id = await search_library(library_name, token)
+    # Search for the library using libraryName and query
+    library_id = await search_library(
+        library_name=library_name,
+        query="full documentation for library",
+        token=token,
+    )
+    
     if not library_id:
         logger.console.print(f"[yellow]Library not found in Context7: {library_name}[/yellow]")
         return None
-    
-    logger.console.print(f"[cyan]Found library in Context7: {library_id}[/cyan]")
     
     # Fetch full documentation context
     context = await fetch_context(library_id, "full documentation", token)

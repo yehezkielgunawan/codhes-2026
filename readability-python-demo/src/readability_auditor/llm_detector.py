@@ -46,8 +46,19 @@ async def detect_llm_txt(
                             if not _has_llms_full(main_content) and use_context7_fallback:
                                 context7_content = await get_llm_text_via_context7(base_url)
                                 if context7_content:
-                                    logger.console.print("[cyan]Using Context7 for full documentation[/cyan]")
-                                    return context7_content, "context7"
+                                    # Compare lengths: use Context7 only if it has more content
+                                    if len(context7_content) > len(combined_content):
+                                        logger.console.print(
+                                            f"[cyan]Using Context7 (longer: {len(context7_content):,} chars "
+                                            f"vs {len(combined_content):,} chars)[/cyan]"
+                                        )
+                                        return context7_content, "context7"
+                                    else:
+                                        logger.console.print(
+                                            f"[yellow]Context7 content shorter "
+                                            f"({len(context7_content):,} chars vs {len(combined_content):,} chars), "
+                                            f"using llms.txt[/yellow]"
+                                        )
                             
                             return combined_content, path.lstrip("/")
                         
