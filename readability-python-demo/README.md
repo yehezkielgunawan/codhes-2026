@@ -8,6 +8,7 @@ A Python CLI tool that automates the analysis of documentation readability, comp
 - **Linked .txt file aggregation** — Follows `.txt` links in `llms.txt` to fetch full documentation
 - **Context7 API fallback** — Uses Context7 API when `llms.txt` not found or `llms-full.txt` missing
 - **Deep documentation crawling** — BFS multi-page crawl (configurable depth/pages)
+- **Prose extraction** — Automatically strips code blocks, navigation, images, and UI elements from human docs for fair comparison
 - **Dual corpus scraping** — Fetches both human docs (HTML) and machine text (plain text)
 - **Readability metrics** — Calculates Flesch Reading Ease, Flesch-Kincaid Grade, Lexical Density, and Token-to-Word Ratio
 - **Structured export** — Outputs results to CSV and Markdown formats
