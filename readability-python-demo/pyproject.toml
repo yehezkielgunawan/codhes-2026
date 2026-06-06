@@ -1,0 +1,35 @@
+[project]
+name = "readability-auditor"
+version = "0.1.0"
+description = "CLI tool for auditing documentation readability"
+readme = "README.md"
+authors = [
+    { name = "yehezkielgunawan", email = "yehezkiel.gunawan@binus.ac.id" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "crawl4ai>=0.8.9",
+    "httpx>=0.28.1",
+    "nltk>=3.9.4",
+    "rich>=15.0.0",
+    "textstat>=0.7.13",
+    "tiktoken>=0.13.0",
+    "typer>=0.26.7",
+]
+
+[project.scripts]
+readability-auditor = "readability_auditor.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/readability_auditor"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.4.0",
+    "pytest-httpx>=0.36.2",
+]
