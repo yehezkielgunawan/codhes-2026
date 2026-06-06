@@ -24,8 +24,8 @@ htmlcov/
 
 # Output
 results/
+raw_texts/
 *.csv
-*.md
 !README.md
 
 # OS
