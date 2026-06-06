@@ -3,19 +3,19 @@
 **Researcher:** Yehezkiel Gunawan  
 **Current Date:** 2026-06-06  
 **Deadline:** 2026-06-15 (Phase 1) — 9 days remaining  
-**Status:** Python CLI tool complete, ready for data collection
+**Status:** Base experiment complete, LLM-as-a-Judge evaluation planned
 
 ---
 
 ## Executive Summary
 
-**Current State:** The Python CLI tool (`readability-python-demo`) is fully functional with 4 core tests passing. It uses `uv` for dependency management and includes deep crawling via `Crawl4AI`, linked `.txt` file aggregation, and export to CSV/Markdown/raw text.
+**Current State:** The Python CLI tool (`readability-python-demo`) is fully functional with 11 tests passing. Base data collection completed across 10 technical documentation platforms. Text cleaning pipeline implemented for fair prose comparison. Ready to add LLM-as-a-Judge evaluation phase.
 
-**Goal:** Collect data from 8-10 technical documentation platforms, analyze readability metrics, write the full paper, and submit within 9 days.
+**Goal:** Complete LLM-as-a-Judge semantic evaluation, analyze all data, write the full paper, and submit within 9 days.
 
 **Scope:** Technical documentation only (frameworks, libraries, platforms, developer tools) — excludes marketing sites, blogs, and non-technical content.
 
-**Confidence Level:** High. The Python tool is ready; main work is data collection and writing.
+**Confidence Level:** High. Base experiment done; LLM evaluation and writing remain.
 
 ---
 
@@ -29,6 +29,8 @@
 - Detects `llm.txt` / `llms.txt` with `[FOUND]` / `[NOT FOUND]` logging
 - Deep crawling: BFS multi-page crawl (`--max-depth`, `--max-pages`)
 - Linked `.txt` aggregation: follows links in `llms.txt` to fetch full content
+- Context7 API fallback with length comparison
+- Prose extraction: strips code blocks, navigation, images for fair comparison
 - Dual export: CSV + Markdown + raw text files (`results/raw_texts/`)
 - Metrics: Flesch Reading Ease, Flesch-Kincaid Grade, Lexical Density, Token-to-Word Ratio
 
@@ -41,61 +43,109 @@ uv run pytest tests/ -v
 
 ---
 
-## Day-by-Day Plan
+## Completed: Base Experiment (June 6)
 
-### Day 1: Data Collection (June 6)
+- [x] Python CLI tool implemented and tested (11 tests passing)
+- [x] Text cleaning pipeline for fair prose extraction
+- [x] Context7 API integration with fallback logic
+- [x] Data collection from 10 technical documentation platforms
+- [x] Raw data exported to `results/raw_texts/`
+- [x] Initial metrics calculated (FRE, FKGL, LD, T/W)
 
-**Morning (2-3 hours):**
-
-- [ ] Identify 8-10 technical documentation platforms with both HTML docs and `llms.txt`
-- [ ] Verify URLs are accessible
-- [ ] Create `urls.txt` with target platforms
-- [ ] Run tool on 2-3 platforms to validate pipeline
-
-**Afternoon (2-3 hours):**
-
-- [ ] Run full audit on all platforms
-- [ ] Validate data quality (word count, completeness)
-- [ ] Check `results/raw_texts/` for both `_human.md` and `_machine.txt` files
-- [ ] Save raw data
-
-**Evening (1 hour):**
-
-- [ ] Export results as CSV
-- [ ] Calculate descriptive statistics
-- [ ] Verify sufficient data (> 20,000 words total)
-
-**Target Platforms (Technical Documentation Only):**
-
-1. FastAPI (https://fastapi.tiangolo.com)
-2. LangChain (https://langchain.com)
-3. Pydantic (https://docs.pydantic.dev)
+**Platforms Analyzed:**
+1. React (https://react.dev)
+2. GitHub Docs (https://docs.github.com)
+3. Supabase (https://supabase.com/docs)
 4. Vercel (https://vercel.com/docs)
-5. Cloudflare (https://developers.cloudflare.com)
-6. Stripe (https://stripe.com/docs)
-7. GitHub (https://docs.github.com)
-8. Supabase (https://supabase.com/docs)
-9. Cursor (https://docs.cursor.com)
-10. Hono (https://hono.dev/docs)
+5. Stripe (https://stripe.com/docs)
+6. LangChain (https://docs.langchain.com)
+7. Cloudflare (https://developers.cloudflare.com)
+8. Hono (https://hono.dev/docs)
+9. FastAPI (https://fastapi.tiangolo.com)
+10. Cursor (https://docs.cursor.com)
 
 ---
 
-### Day 2: Deep Analysis (June 7)
+## Planned: LLM-as-a-Judge Evaluation (June 7)
+
+**Rationale:** Traditional readability metrics (FRE, FKGL) were designed for human prose and may not fully capture the quality of machine-optimized documentation. Using an LLM to evaluate LLM-optimized text provides a "machine reviewer for machine docs" approach that is methodologically sound and novel.
+
+**Model:** `nvidia/nemotron-3.5-content-safety:free` via OpenRouter
+- Free tier available
+- Content safety and quality evaluation capabilities
+- Suitable for semantic analysis of technical documentation
+
+**Evaluation Dimensions:**
+1. **Clarity** — Is the documentation clear and unambiguous?
+2. **Completeness** — Does it cover the topic adequately?
+3. **Conciseness** — Is it free of unnecessary verbosity?
+4. **Technical Accuracy** — Are technical details correct?
+5. **LLM-Friendliness** — Is it optimized for machine consumption?
+
+**Implementation Plan:**
+- [ ] Set up OpenRouter API client
+- [ ] Design evaluation prompts for each dimension
+- [ ] Run evaluation on both human and machine text corpora
+- [ ] Compare LLM scores between human docs and `llms.txt`
+- [ ] Correlate LLM scores with traditional metrics (FRE, FKGL)
+
+**Expected Outcome:**
+- Quantitative LLM-based readability scores
+- Correlation analysis: Do traditional metrics align with LLM judgment?
+- Novel contribution: First study to use LLM-as-a-Judge for documentation readability
+
+---
+
+## Day-by-Day Plan
+
+### Day 1: Data Collection (June 6) ✅ COMPLETE
+
+**Status:** Base experiment complete. 10 platforms analyzed, raw data collected.
+
+---
+
+### Day 2: LLM-as-a-Judge Evaluation (June 7)
 
 **Morning (2-3 hours):**
 
-- [ ] Run statistical analysis on collected data
-- [ ] Paired comparison: HTML docs vs `llm.txt` (FRE, FKGL, token count)
+- [ ] Set up OpenRouter API client in Python
+- [ ] Design evaluation prompts for 5 dimensions
+- [ ] Test prompts on sample documentation
+- [ ] Validate output format
+
+**Afternoon (2-3 hours):**
+
+- [ ] Run LLM evaluation on all 10 platforms
+- [ ] Evaluate both human docs and `llms.txt` for each platform
+- [ ] Collect and organize LLM scores
+- [ ] Handle any API errors or retries
+
+**Evening (1 hour):**
+
+- [ ] Export LLM evaluation results to CSV
+- [ ] Preliminary comparison: human vs machine LLM scores
+- [ ] Document methodology for paper
+
+**Deliverable:** LLM evaluation complete for all 10 platforms
+
+---
+
+### Day 3: Deep Statistical Analysis (June 8)
+
+**Morning (2-3 hours):**
+
+- [ ] Merge traditional metrics with LLM scores
+- [ ] Paired comparison: HTML docs vs `llm.txt` (FRE, FKGL, LLM scores)
 - [ ] Effect size calculation (Cohen's d)
-- [ ] Pearson correlation: lexical density ↔ token efficiency
+- [ ] Pearson correlation: traditional metrics ↔ LLM scores
 - [ ] Generate summary statistics table
 
 **Afternoon (2-3 hours):**
 
 - [ ] Create publication-ready charts
-  - Bar chart: Readability comparison (FRE)
+  - Bar chart: Readability comparison (FRE + LLM scores)
   - Bar chart: Token count comparison
-  - Scatter plot: FRE vs token ratio
+  - Scatter plot: FRE vs LLM clarity score
   - Box plot: Distribution of differences
 - [ ] Save charts as PNG/SVG to `paper/figures/`
 
@@ -109,7 +159,7 @@ uv run pytest tests/ -v
 
 ---
 
-### Day 3: Paper Writing - Introduction + Related Work (June 8)
+### Day 4: Paper Writing - Introduction + Related Work (June 9)
 
 **Morning (3-4 hours):**
 
@@ -126,6 +176,7 @@ uv run pytest tests/ -v
   - Tokenization: BPE (Sennrich et al., 2016)
   - LLM context windows: "Lost in the Middle" (Liu et al., 2023)
   - Prompt compression: LLMLingua (Jiang et al., 2023)
+  - LLM-as-a-Judge: recent work on using LLMs for evaluation
   - Documentation formats: plain text vs HTML for technical docs
   - Gap analysis: no study compares HTML vs `llm.txt` in technical documentation
 
@@ -139,22 +190,24 @@ uv run pytest tests/ -v
 
 ---
 
-### Day 4: Paper Writing - Methodology (June 9)
+### Day 5: Paper Writing - Methodology (June 10)
 
 **Morning (3-4 hours):**
 
 - [ ] Write Methodology (1500-2000 words)
   - Research design: Paired comparison, quantitative content analysis
-  - Corpus selection: 8-10 technical platforms, criteria
+  - Corpus selection: 10 technical platforms, criteria
   - Data collection: Python CLI tool (`readability-python-demo`)
+  - Text cleaning: prose extraction pipeline
   - Metrics: Table 2 (formulas, instruments)
-  - Validation: spot checks, regex verification
+  - LLM-as-a-Judge: OpenRouter model, evaluation dimensions, prompts
 
 **Afternoon (2-3 hours):**
 
 - [ ] Write Analysis Procedure
   - Statistical tests: paired comparison, effect sizes
   - Software: Python `textstat`, `tiktoken`, `nltk`
+  - LLM evaluation: OpenRouter API, prompt design
   - Tool: `readability-python-demo` CLI
   - Validation steps
 
@@ -168,17 +221,19 @@ uv run pytest tests/ -v
 
 ---
 
-### Day 5: Paper Writing - Results (June 10)
+### Day 6: Paper Writing - Results (June 11)
 
 **Morning (3-4 hours):**
 
 - [ ] Write Results (2000-2500 words)
   - Descriptive statistics table
-  - Readability comparison table
+  - Readability comparison table (traditional + LLM scores)
   - Token efficiency table
   - Lexical density analysis
+  - LLM-as-a-Judge evaluation results
+  - Correlation: traditional metrics vs LLM scores
   - Statistical significance
-  - Insert charts (Figure 1, 2, 3)
+  - Insert charts (Figure 1, 2, 3, 4)
 
 **Afternoon (2-3 hours):**
 
@@ -196,15 +251,16 @@ uv run pytest tests/ -v
 
 ---
 
-### Day 6: Paper Writing - Discussion + Conclusion (June 11)
+### Day 7: Paper Writing - Discussion + Conclusion (June 12)
 
 **Morning (3-4 hours):**
 
 - [ ] Write Discussion (1500-2000 words)
   - Interpretation: Why is `llm.txt` more token-efficient in technical docs?
+  - LLM-as-a-Judge insights: Do machines prefer machine-optimized docs?
   - Implications for technical writers
   - Implications for LLM users
-  - Limitations: small sample, English-only, technical docs only
+  - Limitations: small sample, English-only, technical docs only, LLM bias
   - Future work: expand to 50 platforms, Markdown comparison, user studies
 
 **Afternoon (2-3 hours):**
@@ -224,7 +280,7 @@ uv run pytest tests/ -v
 
 ---
 
-### Day 7: Polish and Quality Check (June 12)
+### Day 8: Polish and Quality Check (June 13)
 
 **Morning (2-3 hours):**
 
@@ -251,7 +307,7 @@ uv run pytest tests/ -v
 
 ---
 
-### Day 8: Submit (June 13)
+### Day 9: Submit (June 14)
 
 **Morning (1-2 hours):**
 
@@ -285,6 +341,8 @@ uv run pytest tests/ -v
 | **Statistical significance weak** | Medium | Medium | Report as exploratory; focus on effect sizes |
 | **Writing fatigue** | High | Medium | Write in 2-hour blocks; take breaks |
 | **Turnitin similarity high** | Low | High | Check early; paraphrase if needed |
+| **OpenRouter API issues** | Low | Medium | Have backup model ready; cache responses |
+| **LLM evaluation bias** | Medium | Medium | Use multiple dimensions; report limitations |
 
 ---
 
@@ -294,12 +352,13 @@ uv run pytest tests/ -v
 |-----|---------|-------------|------------|
 | 1 | — | — | — |
 | 2 | — | — | — |
-| 3 | Intro + Related Work | 2,500 | 2,500 |
-| 4 | Methodology | 2,000 | 4,500 |
-| 5 | Results | 2,500 | 7,000 |
-| 6 | Discussion + Conclusion | 2,000 | 9,000 |
-| 7 | Polish | — | 9,000+ |
-| 8 | Submit | — | 9,000+ |
+| 3 | — | — | — |
+| 4 | Intro + Related Work | 2,500 | 2,500 |
+| 5 | Methodology | 2,000 | 4,500 |
+| 6 | Results | 2,500 | 7,000 |
+| 7 | Discussion + Conclusion | 2,000 | 9,000 |
+| 8 | Polish | — | 9,000+ |
+| 9 | Submit | — | 9,000+ |
 
 **Average daily writing:** 2,000 words (manageable in 4-5 hours)
 
@@ -308,6 +367,7 @@ uv run pytest tests/ -v
 ## Tools Ready
 
 - **Analysis:** `readability-python-demo` CLI (Python + uv)
+- **LLM Evaluation:** OpenRouter API (`nvidia/nemotron-3.5-content-safety:free`)
 - **Writing:** LaTeX template (`codhes2026_template.tex`)
 - **Charts:** Python matplotlib or seaborn
 - **Stats:** Python scipy (t-test, correlation)
@@ -317,11 +377,12 @@ uv run pytest tests/ -v
 
 ## Success Metrics
 
-- [ ] 8-10 technical documentation pairs collected and analyzed
-- [ ] 4 core tests passing (current: ✅ 4/4)
+- [x] 10 technical documentation pairs collected and analyzed
+- [x] 11 tests passing (current: ✅ 11/11)
+- [ ] LLM-as-a-Judge evaluation complete for all 10 platforms
 - [ ] 8,000+ words in final paper
 - [ ] All charts publication-ready
-- [ ] Statistical analysis complete
+- [ ] Statistical analysis complete (traditional + LLM metrics)
 - [ ] LaTeX compiles with 0 errors
 - [ ] Turnitin similarity < 20%
 - [ ] Submitted before June 15, 2026
@@ -333,15 +394,17 @@ uv run pytest tests/ -v
 **Why this is achievable:**
 
 1. The hard part (tool building) is DONE
-2. We have 9 days
-3. The data is public and accessible
-4. The analysis is automated
-5. The paper structure is clear (6 sections)
+2. Base experiment is COMPLETE
+3. We have 9 days
+4. The data is public and accessible
+5. The analysis is automated
+6. The paper structure is clear (6 sections)
 
 **Why this matters:**
 
 - First academic study on `llm.txt` readability in technical documentation
 - Novel contribution to technolinguistics
+- **Novel methodology:** LLM-as-a-Judge for documentation evaluation
 - Direct impact on technical writing practices
 - Conference presentation opportunity
 
