@@ -1,0 +1,37 @@
+name: CI (readability-python-demo)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "readability-python-demo/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "readability-python-demo/**"
+
+defaults:
+  run:
+    working-directory: readability-python-demo
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run tests
+        run: uv run pytest tests/ -v
