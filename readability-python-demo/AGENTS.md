@@ -63,11 +63,12 @@ readability-python-demo/
 │   ├── llm_detector.py        # Detects llm.txt/llms.txt, follows links, Context7 fallback
 │   ├── context7_client.py     # Context7 API client for fallback
 │   ├── scraper.py             # Crawl4AI deep crawling
+│   ├── text_cleaner.py        # Cleans human docs (strips code blocks, nav, images)
 │   ├── metrics.py             # Readability calculations
 │   ├── exporter.py            # CSV + Markdown + raw text export
 │   ├── logger.py              # Rich console output
 │   └── models.py              # AuditResult, Metrics dataclasses
-├── tests/                     # pytest tests
+├── tests/                     # pytest tests (11 tests)
 ├── urls.txt                   # Sample input
 ├── .env                       # CONTEXT7_TOKEN (gitignored)
 └── results/                   # Output (gitignored)
@@ -83,6 +84,7 @@ readability-python-demo/
 - **Crawl4AI needs browsers** — Run `uv run playwright install chromium` first
 - **NLTK auto-downloads** — `stopwords` corpus downloads on first import
 - **Raw text export** — Scraped content saves to `results/raw_texts/{domain}_human.md` and `{domain}_machine.txt`
+- **Human docs are cleaned** — `text_cleaner.py` strips code blocks, navigation, images, and inline code before metrics calculation. This ensures fair comparison with machine text.
 
 ## Testing
 

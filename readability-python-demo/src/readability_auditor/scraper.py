@@ -8,6 +8,7 @@ from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
 from crawl4ai.deep_crawling import BFSDeepCrawlStrategy
 
 from . import logger
+from .text_cleaner import clean_human_documentation
 
 
 async def scrape_human_documentation(
@@ -55,7 +56,14 @@ async def scrape_human_documentation(
                         combined = "\n\n".join(all_content)
                         logger.log_scrape(doc_url, len(combined))
                         logger.console.print(f"  [dim]Crawled {len(results)} pages[/dim]")
-                        return combined
+                        
+                        # Clean the content to extract only prose
+                        cleaned = clean_human_documentation(combined)
+                        logger.console.print(
+                            f"  [dim]Cleaned: {len(combined):,} → {len(cleaned):,} chars "
+                            f"({len(cleaned)/len(combined)*100:.1f}% retained)[/dim]"
+                        )
+                        return cleaned
             except asyncio.TimeoutError:
                 continue
             except Exception:
