@@ -1,9 +1,10 @@
 # Deep Research Report: Technolinguistic Analysis of Documentation Readability in llm.txt Standards
 
-**Research Date:** 2026-06-02
+**Research Date:** 2026-06-06
 **Researcher:** Yehezkiel Gunawan, assisted by AI Assistant (Kimi/OpenCode)
 **Purpose:** Pre-publication deep research for CODHES 2026 Conference Paper
 **Topic:** From Human-Centric to Machine-Optimized: A Technolinguistic Analysis of Documentation Readability in llm.txt Standards
+**Scope:** Technical documentation only (frameworks, libraries, platforms, developer tools)
 
 ---
 
@@ -12,6 +13,8 @@
 This research report synthesizes findings from web sources, GitHub repositories, technical documentation, and academic references to validate the research proposal: **a quantitative computational analysis comparing human-readable HTML documentation versus machine-optimized `llm.txt` files** across readability metrics (Flesch Reading Ease, FKGL, Lexical Density) and tokenization efficiency.
 
 **Key Finding:** This research addresses a genuine gap in the academic literature. While industry has widely adopted `llm.txt` standards (2,000+ repositories) and acknowledges token efficiency concerns, **no peer-reviewed study has systematically measured the readability paradox** — that machine-optimized documentation sacrifices human readability for computational efficiency.
+
+**Scope Refinement:** This study focuses exclusively on **technical documentation** (API docs, framework guides, developer platforms) to ensure corpus homogeneity and relevance to the technolinguistics community.
 
 **CODHES Alignment:** Strong. The research directly addresses the "Technolinguistics" subtopic (#14) and intersects with "Computers and Human Behavior" (#2), "Data Mining in Digital Humanities" (#3), and "Sustainable Digital Practices" (#13).
 
@@ -112,9 +115,9 @@ This explicitly frames the **human-vs-machine optimization tension** that the pr
 
 ### 2.1 Historical Development
 
-| Metric                     | Creator                 | Year | Origin                              |
-| -------------------------- | ----------------------- | ---- | ----------------------------------- |
-| Flesch Reading Ease        | Rudolf Flesch           | 1948 | Journal of Applied Psychology       |
+| Metric | Creator | Year | Origin |
+|--------|---------|------|--------|
+| Flesch Reading Ease | Rudolf Flesch | 1948 | Journal of Applied Psychology |
 | Flesch-Kincaid Grade Level | J. Peter Kincaid et al. | 1975 | US Navy Research Branch Report 8-75 |
 
 ### 2.2 Formulas
@@ -133,16 +136,16 @@ This explicitly frames the **human-vs-machine optimization tension** that the pr
 
 ### 2.3 Score Interpretation
 
-| FRE Score | School Level (US) | Description         |
-| --------- | ----------------- | ------------------- |
-| 100-90    | 5th grade         | Very easy           |
-| 90-80     | 6th grade         | Easy                |
-| 80-70     | 7th grade         | Fairly easy         |
-| 70-60     | 8th-9th grade     | Plain English       |
-| 60-50     | 10th-12th grade   | Fairly difficult    |
-| 50-30     | College           | Difficult           |
-| 30-10     | College graduate  | Very difficult      |
-| <10       | Professional      | Extremely difficult |
+| FRE Score | School Level (US) | Description |
+|-----------|-------------------|-------------|
+| 100-90 | 5th grade | Very easy |
+| 90-80 | 6th grade | Easy |
+| 80-70 | 7th grade | Fairly easy |
+| 70-60 | 8th-9th grade | Plain English |
+| 60-50 | 10th-12th grade | Fairly difficult |
+| 50-30 | College | Difficult |
+| 30-10 | College graduate | Very difficult |
+| <10 | Professional | Extremely difficult |
 
 ### 2.4 Academic Credibility
 
@@ -173,11 +176,11 @@ From Wikipedia and academic sources:
 
 ### 3.1 What is BPE?
 
-From OpenAI's official tiktoken documentation [15]:
+From OpenAI's official tiktoken documentation:
 
 > "Byte Pair Encoding (BPE) is a method for converting text into a sequence of numbers, known as tokens, which language models process. BPE is reversible, lossless, and compresses text, typically resulting in tokens that represent about 4 bytes each. It also helps models by identifying common subwords, aiding in generalization and grammar understanding."
 
-**Academic foundation:** BPE was introduced to NLP by Sennrich, Haddow & Birch (2016) [7] in their ACL paper _"Neural Machine Translation of Rare Words with Subword Units."_ This seminal work demonstrated that encoding rare and unknown words as sequences of subword units improves translation quality by 1.1-1.3 BLEU points over back-off dictionary baselines. The paper is now cited by over 15,000 subsequent works and remains the definitive reference for BPE in natural language processing.
+**Academic foundation:** BPE was introduced to NLP by Sennrich, Haddow & Birch (2016) in their ACL paper _"Neural Machine Translation of Rare Words with Subword Units."_ This seminal work demonstrated that encoding rare and unknown words as sequences of subword units improves translation quality by 1.1-1.3 BLEU points over back-off dictionary baselines. The paper is now cited by over 15,000 subsequent works and remains the definitive reference for BPE in natural language processing.
 
 ### 3.2 Key Characteristics
 
@@ -188,21 +191,21 @@ From OpenAI's official tiktoken documentation [15]:
 
 ### 3.3 Tokenization Examples
 
-| Text Element                            | Typical Token Count   |
-| --------------------------------------- | --------------------- |
-| "the", "and"                            | 1 token each          |
-| "tokenization"                          | 2-3 tokens            |
-| Whitespace, punctuation                 | 1 token each          |
-| Markdown formatting (headings, bullets) | Adds token overhead   |
-| Code blocks                             | Often token-intensive |
+| Text Element | Typical Token Count |
+|--------------|-------------------|
+| "the", "and" | 1 token each |
+| "tokenization" | 2-3 tokens |
+| Whitespace, punctuation | 1 token each |
+| Markdown formatting (headings, bullets) | Adds token overhead |
+| Code blocks | Often token-intensive |
 
 ### 3.4 Token Efficiency as Industry Concern
 
 Research findings from peer-reviewed literature and industry:
 
-- **"Token efficiency over readability"** is an explicit design principle in some projects (e.g., Nerd-Lang contributing guidelines)
-- **LLMLingua** (Jiang et al., 2023) [10]: Published at EMNLP 2023, achieves up to 20x prompt compression with minimal performance loss. The paper demonstrates that well-structured compression can preserve semantic integrity while significantly reducing token count.
-- **"Lost in the Middle"** (Liu et al., 2023) [9]: Published in TACL, shows that LLM performance degrades when relevant information occurs in the middle of long contexts — directly motivating the need for concise, front-loaded documentation formats like `llm.txt`.
+- **"Token efficiency over readability"** is an explicit design principle in some projects
+- **LLMLingua** (Jiang et al., 2023): Published at EMNLP 2023, achieves up to 20x prompt compression with minimal performance loss. The paper demonstrates that well-structured compression can preserve semantic integrity while significantly reducing token count.
+- **"Lost in the Middle"** (Liu et al., 2023): Published in TACL, shows that LLM performance degrades when relevant information occurs in the middle of long contexts — directly motivating the need for concise, front-loaded documentation formats like `llm.txt`.
 - **Optimal data formats research:** Plain text is most token-efficient; XML is least efficient; Markdown excels for documentation with good human/LLM readability balance
 
 ### 3.5 The Token Economy
@@ -229,8 +232,7 @@ From the GitHub search and web sources:
 
 1. **Mozilla Readability** algorithm extracts semantic content by analyzing DOM structure, paragraph density, and link distribution — implicitly acknowledging that raw HTML is not optimal for reading
 2. **Semantic context filtering research** shows prompt structure and token efficiency affect LLM performance (10-15% improvement with well-structured prompts)
-3. **Nerd-Lang** explicitly states: "Token efficiency over readability — Every design decision optimizes for fewer tokens"
-4. **Optimal data formats research** confirms: "Plain text is most token-efficient but lacks structure; Markdown excels for documentation with excellent human and LLM readability"
+3. **Optimal data formats research** confirms: "Plain text is most token-efficient but lacks structure; Markdown excels for documentation with excellent human and LLM readability"
 
 ### 4.3 Academic Gap
 
@@ -245,14 +247,14 @@ This confirms the **novelty** of the proposed research.
 
 ### 4.4 Related Academic Work (Partial Overlaps)
 
-| Study                                       | Relevance                         | Gap                                                               |
-| ------------------------------------------- | --------------------------------- | ----------------------------------------------------------------- |
-| Flesch (1948) / Kincaid (1975)              | Foundational readability formulas | Never applied to machine-optimized docs                           |
-| LLMLingua (Jiang et al., 2023) [10]         | Prompt compression                | Focuses on compression algorithms, not documentation standards    |
-| "Lost in the Middle" (Liu et al., 2023) [9] | Long-context LLM behavior         | Shows context window limitations but does not study documentation |
-| Optimal Data Formats for LLMs               | Format comparison                 | Theoretical comparison, no empirical corpus analysis              |
-| Mozilla Readability                         | HTML-to-text extraction           | Algorithmic extraction, not readability measurement               |
-| Semantic Context Filtering                  | Content optimization for LLMs     | Focuses on filtering, not documentation standards                 |
+| Study | Relevance | Gap |
+|-------|-----------|-----|
+| Flesch (1948) / Kincaid (1975) | Foundational readability formulas | Never applied to machine-optimized docs |
+| LLMLingua (Jiang et al., 2023) | Prompt compression | Focuses on compression algorithms, not documentation standards |
+| "Lost in the Middle" (Liu et al., 2023) | Long-context LLM behavior | Shows context window limitations but does not study documentation |
+| Optimal Data Formats for LLMs | Format comparison | Theoretical comparison, no empirical corpus analysis |
+| Mozilla Readability | HTML-to-text extraction | Algorithmic extraction, not readability measurement |
+| Semantic Context Filtering | Content optimization for LLMs | Focuses on filtering, not documentation standards |
 
 ---
 
@@ -262,58 +264,63 @@ This confirms the **novelty** of the proposed research.
 
 The CODHES 2026 research themes explicitly include:
 
-| CODHES Subtopic                            | #   | How This Research Addresses It                                                                  |
-| ------------------------------------------ | --- | ----------------------------------------------------------------------------------------------- |
-| **Technolinguistics**                      | 14  | **Direct match** — studying how technology (LLMs) influences language structure (documentation) |
-| Computers and Human Behavior               | 2   | The human readability vs machine efficiency tension                                             |
-| Data Mining in Digital Humanities          | 3   | Computational extraction and analysis of documentation corpora                                  |
-| Sustainable Digital Practices              | 13  | Token efficiency = computational sustainability (less energy, lower API costs)                  |
-| Digital Eco Linguistics & Cyber-Ecology    | 6   | "Eco" in the sense of system efficiency and linguistic ecology                                  |
-| AI in Digital Humanities                   | 1   | LLM consumption patterns as a digital humanities subject                                        |
-| Digital Storytelling and Narrative Studies | 9   | Documentation as a narrative form optimized for different audiences                             |
+| CODHES Subtopic | # | How This Research Addresses It |
+|-----------------|---|-------------------------------|
+| **Technolinguistics** | 14 | **Direct match** — studying how technology (LLMs) influences language structure (documentation) |
+| Computers and Human Behavior | 2 | The human readability vs machine efficiency tension |
+| Data Mining in Digital Humanities | 3 | Computational extraction and analysis of documentation corpora |
+| Sustainable Digital Practices | 13 | Token efficiency = computational sustainability (less energy, lower API costs) |
+| Digital Eco Linguistics & Cyber-Ecology | 6 | "Eco" in the sense of system efficiency and linguistic ecology |
+| AI in Digital Humanities | 1 | LLM consumption patterns as a digital humanities subject |
+| Digital Storytelling and Narrative Studies | 9 | Documentation as a narrative form optimized for different audiences |
 
 ### 5.2 CODHES Paper Requirements
 
 From official guidelines (https://humanities.binus.ac.id/codhes):
 
-| Requirement                                                               | Status                                  |
-| ------------------------------------------------------------------------- | --------------------------------------- |
-| **Length:** 8,000-10,000 words                                            | Needs expansion from current outline    |
-| **Language:** English only                                                | Must translate from Indonesian proposal |
-| **Structure:** Intro, Lit Review, Method, Findings/Discussion, Conclusion | Matches proposed outline                |
-| **AI Policy:** Max 20% AI-generated content without acknowledgement       | Must declare AI use in methodology      |
-| **Format:** CODHES template (IEEEtran-based)                              | Already converted to LaTeX              |
-| **Plagiarism check:** Required (Turnitin/similarity)                      | Must run before submission              |
-| **Presentation:** 15-20 minutes if accepted                               | Prepare slides                          |
+| Requirement | Status |
+|-------------|--------|
+| **Length:** 8,000-10,000 words | Needs expansion from current outline |
+| **Language:** English only | Must translate from Indonesian proposal |
+| **Structure:** Intro, Lit Review, Method, Findings/Discussion, Conclusion | Matches proposed outline |
+| **AI Policy:** Max 20% AI-generated content without acknowledgement | Must declare AI use in methodology |
+| **Format:** CODHES template (IEEEtran-based) | Already converted to LaTeX |
+| **Plagiarism check:** Required (Turnitin/similarity) | Must run before submission |
+| **Presentation:** 15-20 minutes if accepted | Prepare slides |
 
 ### 5.3 Timeline
 
-| Phase                 | Date              | Status                         |
-| --------------------- | ----------------- | ------------------------------ |
-| Call for Papers opens | May 1, 2026       | Past                           |
-| **Phase 1 Deadline**  | **June 15, 2026** | **URGENT — 13 days remaining** |
-| Notification Phase 1  | July 15, 2026     | —                              |
-| Phase 2 Deadline      | July 20, 2026     | Backup option                  |
+| Phase | Date | Status |
+|-------|------|--------|
+| Call for Papers opens | May 1, 2026 | Past |
+| **Phase 1 Deadline** | **June 15, 2026** | **URGENT — 9 days remaining** |
+| Notification Phase 1 | July 15, 2026 | — |
+| Phase 2 Deadline | July 20, 2026 | Backup option |
 
-**CRITICAL:** The paper must be written and submitted within approximately 2 weeks for Phase 1.
+**CRITICAL:** The paper must be written and submitted within approximately 9 days for Phase 1.
 
 ---
 
 ## 6. Platform and Corpus Verification
 
-### 6.1 Proposed Sample Platforms
+### 6.1 Proposed Sample Platforms (Technical Documentation Only)
 
-The proposal identifies 5 platform pairs (HTML docs vs `llm.txt`):
+The study focuses exclusively on technical documentation platforms:
 
-| #   | Platform            | Category             | Status (Verified via directory.llmstxt.cloud)                          |
-| --- | ------------------- | -------------------- | ---------------------------------------------------------------------- |
-| 1   | **FastAPI**         | Web Framework        | llms.txt available: Not explicitly listed, but standard Python project |
-| 2   | **LangChain**       | AI Orchestration     | Hugging Face / AI category — strong industry presence                  |
-| 3   | **Supabase**        | Backend-as-a-Service | Database/Backend tools likely have llms.txt patterns                   |
-| 4   | **Vercel**          | Deployment Platform  | **Confirmed:** sdk.vercel.ai/llms.txt (293K tokens)                    |
-| 5   | **Stripe / GitHub** | Developer Utilities  | **Confirmed:** developer presence, API docs patterns                   |
+| # | Platform | Category | Status |
+|---|----------|----------|--------|
+| 1 | **FastAPI** | Python Web Framework | Technical docs + potential llms.txt |
+| 2 | **LangChain** | AI Orchestration | Technical docs + potential llms.txt |
+| 3 | **Pydantic** | Data Validation | Technical docs + potential llms.txt |
+| 4 | **Vercel** | Deployment Platform | **Confirmed:** sdk.vercel.ai/llms.txt |
+| 5 | **Cloudflare** | Infrastructure | **Confirmed:** developers.cloudflare.com/llms.txt |
+| 6 | **Stripe** | Payment Platform | Technical API docs |
+| 7 | **GitHub** | Developer Platform | Technical docs |
+| 8 | **Supabase** | Backend-as-a-Service | Technical docs |
+| 9 | **Cursor** | AI Editor | Technical docs |
+| 10 | **Hono** | Web Framework | Technical docs |
 
-**Verification note:** The exact `llm.txt` files for FastAPI, LangChain, Supabase must be confirmed by direct URL inspection. The llms.txt directories show massive adoption but not all tech platforms are individually listed.
+**Scope Note:** This study deliberately excludes marketing sites, blogs, and non-technical content. All platforms are developer tools, frameworks, or technical infrastructure with professional documentation.
 
 ### 6.2 Alternative/Broader Sample Strategy
 
@@ -338,27 +345,28 @@ The proposal's **Quantitative Content Analysis** + **Computational Linguistics**
 
 1. **Transforms qualitative text into numerical metrics** (FRE, FKGL, Lexical Density, Token Ratio)
 2. **Objective and replicable** — same corpus yields identical results
-3. **Macro-level analysis** — sufficient data points (30,000+ words) for statistical power
+3. **Macro-level analysis** — sufficient data points (20,000+ words) for statistical power
 4. **Paired comparison design** — controls for content differences by comparing versions of the same documentation
 
 ### 7.2 Suggested Statistical Enhancements
 
 To strengthen the paper beyond descriptive statistics:
 
-| Test                        | Purpose                                         | Expected Finding                                              |
-| --------------------------- | ----------------------------------------------- | ------------------------------------------------------------- |
-| **Paired t-test**           | Compare HTML vs llm.txt FRE/FKGL scores         | Significant difference (p < 0.05)                             |
-| **Effect size (Cohen's d)** | Magnitude of readability difference             | Medium to large effect                                        |
-| **Pearson correlation**     | Lexical Density ↔ Token Efficiency relationship | Positive correlation (higher density = fewer tokens per word) |
-| **Linear regression**       | Predict token count from readability features   | FRE negatively predicts token count                           |
+| Test | Purpose | Expected Finding |
+|------|---------|----------------|
+| **Paired comparison** | Compare HTML vs llm.txt FRE/FKGL scores | Significant difference |
+| **Effect size (Cohen's d)** | Magnitude of readability difference | Medium to large effect |
+| **Pearson correlation** | Lexical Density ↔ Token Efficiency relationship | Positive correlation |
+| **Linear regression** | Predict token count from readability features | FRE negatively predicts token count |
 
 ### 7.3 Limitations to Address
 
-1. **Small sample size (n=5 platforms)** — frame as exploratory/pilot study
+1. **Small sample size (n=8-10 platforms)** — frame as exploratory/pilot study
 2. **English-only documentation** — FRE formulas assume English
 3. **Purposive sampling** — not random, limits generalizability
 4. **Readability formulas ignore content complexity** — technical docs naturally score lower
 5. **Token count varies by LLM model** — specify cl100k_base (GPT-4) encoding
+6. **Technical documentation only** — results may not generalize to other genres
 
 ---
 
@@ -413,13 +421,13 @@ To strengthen the paper beyond descriptive statistics:
 13. **Ding, S., Renduchintala, A., & Duh, K.** (2019). A call for prudent choice of subword merge operations in neural machine translation. In _Proceedings of MT Summit 2019_. https://aclanthology.org/W19-6608/
     - _Why credible:_ Published at MT Summit. Shows that sub-optimal BPE configurations can reduce system performance by 3-4 BLEU points — underscores the importance of tokenization-aware text design.
 
-### 8.6 Software and Tools (Official Documentation)
+### 8.6 Software and Tools
 
-14. **clearnote01.** (2023). _text-readability_ [npm package]. https://www.npmjs.com/package/text-readability
-    - _Why credible:_ npm package implementing Flesch Reading Ease, FKGL, and other established formulas. Based on the proven `textstat` Python library.
+14. **Textstat.** (2023). _textstat: Calculate statistical features from text_ [Python package]. https://github.com/shivam5992/textstat
+    - _Why credible:_ Python library implementing Flesch Reading Ease, FKGL, and other established formulas. Used in the `readability-python-demo` CLI tool.
 
-15. **OpenAI.** (2023). _js-tiktoken_ [npm package]. GitHub. https://github.com/dqbd/tiktoken
-    - _Why credible:_ JavaScript port of OpenAI's tiktoken, used for accurate token counting with the `cl100k_base` encoding.
+15. **OpenAI.** (2023). _tiktoken_ [Python package]. GitHub. https://github.com/openai/tiktoken
+    - _Why credible:_ Official Python package for OpenAI's BPE tokenizer, used for accurate token counting with the `cl100k_base` encoding in the analysis tool.
 
 ---
 
@@ -427,39 +435,40 @@ To strengthen the paper beyond descriptive statistics:
 
 ### 9.1 Strengths
 
-| Factor                   | Assessment                                                                |
-| ------------------------ | ------------------------------------------------------------------------- |
-| **Novelty**              | High — no existing academic study on this specific topic                  |
-| **Timeliness**           | Excellent — `llm.txt` is brand new (Sept 2024), peak relevance            |
-| **Conference alignment** | Direct match with CODHES "Technolinguistics" theme                        |
-| **Methodological rigor** | Sound — established formulas, replicable approach                         |
-| **Data availability**    | High — thousands of public `llm.txt` files                                |
-| **Tool feasibility**     | Confirmed — `text-readability`, `js-tiktoken`, `stopword` libraries exist |
-| **Practical impact**     | High — implications for technical writers and documentation standards     |
+| Factor | Assessment |
+|--------|-----------|
+| **Novelty** | High — no existing academic study on this specific topic |
+| **Timeliness** | Excellent — `llm.txt` is brand new (Sept 2024), peak relevance |
+| **Conference alignment** | Direct match with CODHES "Technolinguistics" theme |
+| **Methodological rigor** | Sound — established formulas, replicable approach |
+| **Data availability** | High — thousands of public `llm.txt` files |
+| **Tool feasibility** | Confirmed — Python `textstat`, `tiktoken`, `nltk` libraries |
+| **Practical impact** | High — implications for technical writers and documentation standards |
 
 ### 9.2 Risks and Mitigations
 
-| Risk                                 | Mitigation                                                                                       |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| **Sample size too small**            | Frame as exploratory; use 10 document pairs minimum; justify with "pioneer technology" argument  |
-| **English language requirement**     | Write in English; acknowledge this is a limitation for non-English docs                          |
-| **Timeline pressure (June 15)**      | Prioritize core analysis; skip advanced statistics if needed; submit Phase 2 (July 20) as backup |
-| **Readability formula limitations**  | Discuss limitations transparently; focus on relative comparison, not absolute norms              |
-| **Novelty challenge from reviewers** | Emphasize the technolinguistic angle; cite the standard's recent emergence                       |
+| Risk | Mitigation |
+|------|-----------|
+| **Sample size too small** | Frame as exploratory; use 8-10 document pairs; justify with "pioneer technology" argument |
+| **English language requirement** | Write in English; acknowledge this is a limitation for non-English docs |
+| **Timeline pressure (June 15)** | Prioritize core analysis; skip advanced statistics if needed; submit Phase 2 (July 20) as backup |
+| **Readability formula limitations** | Discuss limitations transparently; focus on relative comparison, not absolute norms |
+| **Novelty challenge from reviewers** | Emphasize the technolinguistic angle; cite the standard's recent emergence |
+| **Technical docs only scope** | Frame as deliberate scope for homogeneity; suggest future work for broader genres |
 
 ### 9.3 Overall Viability Score
 
-| Criterion               | Score (1-10) |
-| ----------------------- | ------------ |
-| Academic novelty        | 9            |
-| Methodological validity | 8            |
-| Conference alignment    | 10           |
-| Data feasibility        | 9            |
-| Timeline feasibility    | 6            |
-| Overall impact          | 9            |
-| **AVERAGE**             | **8.5 / 10** |
+| Criterion | Score (1-10) |
+|-----------|-------------|
+| Academic novelty | 9 |
+| Methodological validity | 8 |
+| Conference alignment | 10 |
+| Data feasibility | 9 |
+| Timeline feasibility | 6 |
+| Overall impact | 9 |
+| **AVERAGE** | **8.5 / 10** |
 
-**Conclusion:** This is a **viable, novel, and timely research project** suitable for CODHES 2026. The main constraint is the tight timeline (13 days to Phase 1 deadline).
+**Conclusion:** This is a **viable, novel, and timely research project** suitable for CODHES 2026. The main constraint is the tight timeline (9 days to Phase 1 deadline).
 
 ---
 
@@ -467,33 +476,33 @@ To strengthen the paper beyond descriptive statistics:
 
 ### 10.1 Analysis Tool Implementation (Completed)
 
-The JavaScript analysis tool has been fully implemented and deployed:
+The Python CLI tool has been fully implemented:
 
 | Component | Status | Details |
 |-----------|--------|---------|
-| **Web Application** | Complete | Hono + Cloudflare Workers + Tailwind CSS |
-| **Analysis Engine** | Complete | FRE, FKGL, Gunning Fog, SMOG, Coleman-Liau, ARI, Lexical Density, Token Count (cl100k_base) |
-| **Scraper** | Complete | cheerio-based HTML extraction + auto llms.txt detection |
-| **Export** | Complete | Markdown + CSV export with all 10 metrics |
-| **Persistence** | Complete | IndexedDB (browser-side, survives refresh) |
-| **Testing** | Complete | 25 tests passing (Vitest) |
-| **Code Quality** | Complete | Biome linting + formatting enforced |
-| **Deployment** | Ready | Cloudflare Workers (manual trigger via GitHub Actions) |
+| **CLI Interface** | Complete | Typer-based, single command |
+| **LLM Detection** | Complete | Async HTTP check for `/llm.txt` and `/llms.txt` |
+| **Linked .txt Aggregation** | Complete | Follows links in `llms.txt` to fetch full content |
+| **Deep Crawling** | Complete | BFS multi-page crawl via Crawl4AI |
+| **Analysis Engine** | Complete | FRE, FKGL, Lexical Density, Token Count (cl100k_base), Token-to-Word Ratio |
+| **Export** | Complete | CSV + Markdown + raw text files (`results/raw_texts/`) |
+| **Testing** | Complete | 4 tests passing (pytest) |
+| **Logging** | Complete | Rich console output with `[FOUND]`/`[NOT FOUND]` tags |
 
 **Tech Stack:**
-- **Frontend:** Hono JSX (SSR), Tailwind CSS v4, Vanilla JS client
-- **Backend:** Hono API routes (Cloudflare Workers)
-- **Analysis:** `text-readability` (Flesch/FKGL), `js-tiktoken` (BPE tokens), `cheerio` (HTML parsing)
-- **Testing:** Vitest with 16 tests
-- **Deployment:** Cloudflare Workers with wrangler
+- **CLI:** Typer (Python type hints)
+- **HTTP:** httpx (async)
+- **Scraping:** Crawl4AI with BFSDeepCrawlStrategy
+- **Analysis:** `textstat` (Flesch/FKGL), `tiktoken` (BPE tokens), `nltk` (stopwords)
+- **Output:** `rich` (console), CSV, Markdown
+- **Package Manager:** `uv`
 
 **Key Features:**
-- Dynamic URL input (max 10 URLs)
-- Auto-detection of `/llms.txt` files
-- Progress bar during scraping/analysis
-- Separate Scrape → Analyze flow
-- Export results as Markdown or CSV (ISO date filename)
-- Results persist in IndexedDB
+- Automatic `llm.txt` / `llms.txt` detection
+- Deep crawling with configurable depth and page limits
+- Linked `.txt` file aggregation for complete corpus
+- Raw text export to `results/raw_texts/{domain}_human.md` and `{domain}_machine.txt`
+- Progress logging with status tags
 
 ### 10.2 Paper Infrastructure (Completed)
 
@@ -504,29 +513,31 @@ The JavaScript analysis tool has been fully implemented and deployed:
 
 ### 10.3 Remaining Tasks (Research Execution)
 
-1. [ ] Collect 10 documentation pairs (HTML + llm.txt)
-2. [ ] Run analysis on all 10 pairs
-3. [ ] Generate statistical analysis (t-test, correlation, effect size)
+1. [ ] Collect 8-10 technical documentation pairs (HTML + llm.txt)
+2. [ ] Run analysis on all pairs using Python CLI
+3. [ ] Generate statistical analysis (effect sizes, correlation)
 4. [ ] Write full paper (8,000-10,000 words)
 5. [ ] Create publication-ready charts
 6. [ ] Run similarity check
 7. [ ] Submit to CODHES CMT
 
+---
+
 ## 11. Recommended Next Steps (Updated)
 
 ### Phase 1: Data Collection (Days 1-2)
 
-1. [ ] Verify exact URLs for 10 platform pairs
-2. [ ] Scrape HTML documentation (main pages only)
-3. [ ] Collect llm.txt files (auto via tool)
-4. [ ] Validate data quality (word count > 30,000 total)
+1. [ ] Verify exact URLs for 8-10 technical platform pairs
+2. [ ] Create `urls.txt` with target platforms
+3. [ ] Run Python CLI: `uv run readability-auditor --input urls.txt`
+4. [ ] Validate data quality (check `results/raw_texts/` for completeness)
+5. [ ] Verify sufficient word count (> 20,000 total)
 
 ### Phase 2: Analysis (Days 2-3)
 
-5. [ ] Run analysis on all 10 pairs using the tool
-6. [ ] Export results as CSV for statistical analysis
+6. [ ] Review CSV results
 7. [ ] Calculate descriptive statistics (mean, std, min, max)
-8. [ ] Run paired t-tests (HTML vs llm.txt)
+8. [ ] Run paired comparison analysis
 9. [ ] Calculate effect sizes (Cohen's d)
 10. [ ] Run Pearson correlation (lexical density ↔ token efficiency)
 
@@ -583,9 +594,11 @@ The JavaScript analysis tool has been fully implemented and deployed:
 
 ### A.4 Technical Libraries and Tools
 
-- text-readability npm package (Flesch/FKGL implementation)
-- js-tiktoken npm package (OpenAI BPE tokenization)
-- stopword npm package (lexical density calculation)
+- textstat Python package (Flesch/FKGL implementation)
+- tiktoken Python package (OpenAI BPE tokenization)
+- nltk Python package (stopwords for lexical density)
+- Crawl4AI Python package (web scraping)
+- httpx Python package (async HTTP)
 
 ### A.5 Conference and Institutional Sources
 
