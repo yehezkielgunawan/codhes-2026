@@ -55,6 +55,11 @@ def run(
         "--follow-links/--no-follow-links",
         help="Follow .txt links in llms.txt to fetch additional content",
     ),
+    use_context7: bool = typer.Option(
+        True,
+        "--use-context7/--no-context7",
+        help="Use Context7 API as fallback when llms.txt not found",
+    ),
     verbose: bool = typer.Option(
         False,
         "--verbose",
@@ -71,10 +76,10 @@ def run(
         raise typer.Exit(1)
 
     typer.echo(f"Starting audit for {len(urls)} URLs...")
-    typer.echo(f"Crawl config: max_depth={max_depth}, max_pages={max_pages}, follow_links={follow_links}")
+    typer.echo(f"Crawl config: max_depth={max_depth}, max_pages={max_pages}, follow_links={follow_links}, context7={use_context7}")
     typer.echo()
 
-    results = asyncio.run(_audit_urls(urls, max_depth, max_pages, follow_links))
+    results = asyncio.run(_audit_urls(urls, max_depth, max_pages, follow_links, use_context7))
 
     export_results(results, output_dir)
 
@@ -84,22 +89,26 @@ def run(
     typer.echo(f"\nResults saved to: {output_dir}/")
 
 
-async def _audit_urls(urls: list[str], max_depth: int, max_pages: int, follow_links: bool) -> list[AuditResult]:
+async def _audit_urls(urls: list[str], max_depth: int, max_pages: int, follow_links: bool, use_context7: bool) -> list[AuditResult]:
     """Process all URLs asynchronously."""
     results = []
 
     for url in urls:
-        result = await _audit_single_url(url, max_depth, max_pages, follow_links)
+        result = await _audit_single_url(url, max_depth, max_pages, follow_links, use_context7)
         results.append(result)
 
     return results
 
 
-async def _audit_single_url(base_url: str, max_depth: int, max_pages: int, follow_links: bool) -> AuditResult:
+async def _audit_single_url(base_url: str, max_depth: int, max_pages: int, follow_links: bool, use_context7: bool) -> AuditResult:
     """Audit a single URL."""
     result = AuditResult(base_url=base_url, llm_status="NOT_FOUND")
 
-    machine_text, file_type = await detect_llm_txt(base_url, follow_links=follow_links)
+    machine_text, file_type = await detect_llm_txt(
+        base_url, 
+        follow_links=follow_links,
+        use_context7_fallback=use_context7,
+    )
 
     if not machine_text:
         return result

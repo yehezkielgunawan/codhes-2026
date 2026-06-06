@@ -6,15 +6,20 @@ from typing import Optional, Tuple, List
 from urllib.parse import urljoin
 
 from . import logger
+from .context7_client import get_llm_text_via_context7
 
 
 async def detect_llm_txt(
-    base_url: str, timeout: float = 10.0, follow_links: bool = True
+    base_url: str, 
+    timeout: float = 10.0, 
+    follow_links: bool = True,
+    use_context7_fallback: bool = True,
 ) -> Tuple[Optional[str], Optional[str]]:
     """
     Check if domain has llm.txt or llms.txt.
     
     If follow_links is True, also fetches linked .txt files and combines content.
+    If use_context7_fallback is True, uses Context7 API when llms.txt not found.
 
     Returns:
         Tuple of (content, file_type) or (None, None) if not found.
@@ -36,11 +41,26 @@ async def detect_llm_txt(
                             combined_content = await _fetch_linked_txt_files(
                                 client, base_url, main_content, target_url
                             )
+                            
+                            # Check if we have llms-full.txt, if not try Context7
+                            if not _has_llms_full(main_content) and use_context7_fallback:
+                                context7_content = await get_llm_text_via_context7(base_url)
+                                if context7_content:
+                                    logger.console.print("[cyan]Using Context7 for full documentation[/cyan]")
+                                    return context7_content, "context7"
+                            
                             return combined_content, path.lstrip("/")
                         
                         return main_content, path.lstrip("/")
             except httpx.RequestError:
                 continue
+
+    # Fallback to Context7 API if llms.txt not found
+    if use_context7_fallback:
+        logger.console.print("[yellow]llms.txt not found, trying Context7 API...[/yellow]")
+        context7_content = await get_llm_text_via_context7(base_url)
+        if context7_content:
+            return context7_content, "context7"
 
     logger.log_not_found(base_url)
     return None, None
@@ -101,3 +121,8 @@ def _extract_txt_links(content: str, source_url: str) -> List[str]:
             links.append(url)
     
     return links
+
+
+def _has_llms_full(content: str) -> bool:
+    """Check if llms-full.txt is referenced in the content."""
+    return "llms-full.txt" in content.lower() or "llm-full.txt" in content.lower()
