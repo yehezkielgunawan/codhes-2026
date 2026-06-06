@@ -33,8 +33,25 @@ uv add --dev <package>
 | `textstat` | Readability metrics | `flesch_reading_ease()`, `flesch_kincaid_grade()` |
 | `tiktoken` | Token counting | Uses `cl100k_base` encoding |
 | `nltk` | Stopwords | Auto-downloads on first import |
-| `httpx` | Async HTTP | For llm.txt detection |
+| `httpx` | Async HTTP | For llm.txt detection and Context7 API |
 | `rich` | Console output | Status tags, progress |
+
+## Context7 API Integration
+
+The tool uses [Context7 API](https://context7.com) as a fallback when `llms.txt` is not found.
+
+**API Token:** Set `CONTEXT7_TOKEN` in `.env` file:
+```bash
+CONTEXT7_TOKEN=ctx7sk-your-token-here
+```
+
+**Fallback Logic:**
+1. Try `/llm.txt` and `/llms.txt` directly
+2. If found, follow linked `.txt` files
+3. If `llms-full.txt` not referenced, try Context7 API
+4. If not found at all, try Context7 API as final fallback
+
+**Disable:** Use `--no-context7` flag to skip Context7 API calls.
 
 ## Project Structure
 
@@ -42,7 +59,8 @@ uv add --dev <package>
 readability-python-demo/
 ├── src/readability_auditor/   # Source code (NOT root)
 │   ├── cli.py                 # Typer app, no subcommands
-│   ├── llm_detector.py        # Detects llm.txt/llms.txt, follows links
+│   ├── llm_detector.py        # Detects llm.txt/llms.txt, follows links, Context7 fallback
+│   ├── context7_client.py     # Context7 API client for fallback
 │   ├── scraper.py             # Crawl4AI deep crawling
 │   ├── metrics.py             # Readability calculations
 │   ├── exporter.py            # CSV + Markdown + raw text export
@@ -50,6 +68,7 @@ readability-python-demo/
 │   └── models.py              # AuditResult, Metrics dataclasses
 ├── tests/                     # pytest tests
 ├── urls.txt                   # Sample input
+├── .env                       # CONTEXT7_TOKEN (gitignored)
 └── results/                   # Output (gitignored)
     ├── results.csv
     ├── report.md

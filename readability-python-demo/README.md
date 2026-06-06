@@ -6,6 +6,7 @@ A Python CLI tool that automates the analysis of documentation readability, comp
 
 - **Automated LLM compliance detection** — Checks if domains publish `llm.txt` or `llms.txt`
 - **Linked .txt file aggregation** — Follows `.txt` links in `llms.txt` to fetch full documentation
+- **Context7 API fallback** — Uses Context7 API when `llms.txt` not found or `llms-full.txt` missing
 - **Deep documentation crawling** — BFS multi-page crawl (configurable depth/pages)
 - **Dual corpus scraping** — Fetches both human docs (HTML) and machine text (plain text)
 - **Readability metrics** — Calculates Flesch Reading Ease, Flesch-Kincaid Grade, Lexical Density, and Token-to-Word Ratio
@@ -57,9 +58,24 @@ Options:
   -d, --max-depth INT           Max depth for crawling docs (1-5) [default: 2]
   -p, --max-pages INT           Max pages to crawl per URL (1-50) [default: 10]
   --follow-links/--no-follow-links  Follow .txt links in llms.txt [default: follow-links]
+  --use-context7/--no-context7  Use Context7 API as fallback [default: use-context7]
   -v, --verbose                 Enable verbose logging
   --help                        Show this message and exit
 ```
+
+## Context7 API Integration
+
+The tool can use the [Context7 API](https://context7.com) as a fallback when:
+- `llms.txt` or `llm.txt` is not found on the domain
+- `llms-full.txt` is not referenced in the found `llms.txt`
+
+To use this feature, set your Context7 API token in `.env`:
+
+```bash
+CONTEXT7_TOKEN=ctx7sk-your-token-here
+```
+
+The token is automatically loaded from the `.env` file when running the CLI.
 
 ## Metrics Explained
 
