@@ -1,5 +1,5 @@
 https://react.dev/
-https://python.langchain.com
+https://docs.github.com/en
 https://supabase.com/docs
 https://vercel.com/docs
 https://stripe.com/docs

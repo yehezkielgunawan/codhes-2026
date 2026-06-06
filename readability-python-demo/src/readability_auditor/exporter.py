@@ -1,19 +1,22 @@
 """Export audit results to CSV and Markdown."""
 
 import csv
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import List
+from urllib.parse import urlparse
 
 from .models import AuditResult
 
 
 def export_results(results: List[AuditResult], output_dir: Path) -> None:
-    """Export results to CSV and Markdown files."""
+    """Export results to CSV, Markdown, and raw text files."""
     output_dir.mkdir(parents=True, exist_ok=True)
 
     _export_csv(results, output_dir / "results.csv")
     _export_markdown(results, output_dir / "report.md")
+    _export_raw_texts(results, output_dir / "raw_texts")
 
 
 def _export_csv(results: List[AuditResult], filepath: Path) -> None:
@@ -101,3 +104,28 @@ def _export_markdown(results: List[AuditResult], filepath: Path) -> None:
 
     with open(filepath, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
+
+
+def _sanitize_domain(url: str) -> str:
+    """Convert URL to safe filename."""
+    domain = urlparse(url).netloc or url
+    return re.sub(r"[^\w\-.]", "_", domain)
+
+
+def _export_raw_texts(results: List[AuditResult], output_dir: Path) -> None:
+    """Export raw scraped texts to individual files."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    for result in results:
+        if result.llm_status != "FOUND":
+            continue
+
+        domain = _sanitize_domain(result.base_url)
+
+        if result.machine_text:
+            machine_path = output_dir / f"{domain}_machine.txt"
+            machine_path.write_text(result.machine_text, encoding="utf-8")
+
+        if result.human_text:
+            human_path = output_dir / f"{domain}_human.md"
+            human_path.write_text(result.human_text, encoding="utf-8")
