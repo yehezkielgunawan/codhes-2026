@@ -3,3 +3,8 @@ https://docs.github.com/en
 https://supabase.com/docs
 https://vercel.com/docs
 https://stripe.com/docs
+https://docs.langchain.com/
+https://developers.cloudflare.com/
+https://docs.cursor.com/
+https://hono.dev/docs/
+https://fastapi.tiangolo.com/
