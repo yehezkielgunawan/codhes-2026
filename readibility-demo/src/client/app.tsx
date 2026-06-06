@@ -256,7 +256,7 @@ function ResultsTable({
 										<td
 											class={`px-4 py-3 font-medium ${metricIndex === 0 ? "" : "text-gray-400"}`}
 										>
-											{metricIndex === 0 ? item.name : ""}
+											{metricIndex === 0 ? item.url : ""}
 										</td>
 										<td class="px-4 py-3">{metric.label}</td>
 										<td class="px-4 py-3">{diff.html.toFixed(2)}</td>
