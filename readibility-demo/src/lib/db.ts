@@ -1,13 +1,22 @@
 import type { ComparisonResult } from "./analysis";
 
 const DB_NAME = "readability-analysis";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORE_NAME = "results";
+const SCRAPED_STORE_NAME = "scraped-data";
 
 export interface StoredResult {
 	name: string;
 	url: string;
 	result: ComparisonResult;
+	timestamp: number;
+}
+
+export interface StoredScrapedData {
+	name: string;
+	url: string;
+	htmlText: string;
+	llmText: string;
 	timestamp: number;
 }
 
@@ -27,6 +36,9 @@ function openDB(): Promise<IDBDatabase> {
 			const db = (event.target as IDBOpenDBRequest).result;
 			if (!db.objectStoreNames.contains(STORE_NAME)) {
 				db.createObjectStore(STORE_NAME, { keyPath: "name" });
+			}
+			if (!db.objectStoreNames.contains(SCRAPED_STORE_NAME)) {
+				db.createObjectStore(SCRAPED_STORE_NAME, { keyPath: "name" });
 			}
 		};
 	});
@@ -81,6 +93,70 @@ export async function clearResults(): Promise<void> {
 	return new Promise((resolve, reject) => {
 		const transaction = db.transaction([STORE_NAME], "readwrite");
 		const store = transaction.objectStore(STORE_NAME);
+		const request = store.clear();
+
+		request.onsuccess = () => {
+			db.close();
+			resolve();
+		};
+		request.onerror = () => {
+			db.close();
+			reject(request.error);
+		};
+	});
+}
+
+export async function saveScrapedData(
+	data: StoredScrapedData[],
+): Promise<void> {
+	const db = await openDB();
+
+	return new Promise((resolve, reject) => {
+		const transaction = db.transaction([SCRAPED_STORE_NAME], "readwrite");
+		const store = transaction.objectStore(SCRAPED_STORE_NAME);
+
+		store.clear();
+
+		for (const item of data) {
+			store.add(item);
+		}
+
+		transaction.oncomplete = () => {
+			db.close();
+			resolve();
+		};
+		transaction.onerror = () => {
+			db.close();
+			reject(transaction.error);
+		};
+	});
+}
+
+export async function loadScrapedData(): Promise<StoredScrapedData[]> {
+	const db = await openDB();
+
+	return new Promise((resolve, reject) => {
+		const transaction = db.transaction([SCRAPED_STORE_NAME], "readonly");
+		const store = transaction.objectStore(SCRAPED_STORE_NAME);
+		const request = store.getAll();
+
+		request.onsuccess = () => {
+			db.close();
+			resolve(request.result as StoredScrapedData[]);
+		};
+		request.onerror = () => {
+			db.close();
+			reject(request.error);
+		};
+	});
+}
+
+export async function clearScrapedData(): Promise<void> {
+	const db = await openDB();
+
+	return new Promise((resolve, reject) => {
+		const transaction = db.transaction([SCRAPED_STORE_NAME], "readwrite");
+		const store = transaction.objectStore(SCRAPED_STORE_NAME);
 		const request = store.clear();
 
 		request.onsuccess = () => {

@@ -1,7 +1,16 @@
 import { useEffect, useState } from "hono/jsx";
 import { render } from "hono/jsx/dom";
+import JSZip from "jszip";
+import { BulkUrlInput } from "../components/BulkUrlInput";
 import type { ComparisonResult } from "../lib/analysis";
-import { clearResults, loadResults, saveResults } from "../lib/db";
+import {
+	clearResults,
+	clearScrapedData,
+	loadResults,
+	loadScrapedData,
+	saveResults,
+	saveScrapedData,
+} from "../lib/db";
 import { exportCSV, exportMarkdown } from "../lib/export";
 import type { ScrapedData } from "../lib/scraper";
 
@@ -256,7 +265,7 @@ function ResultsTable({
 										<td
 											class={`px-4 py-3 font-medium ${metricIndex === 0 ? "" : "text-gray-400"}`}
 										>
-											{metricIndex === 0 ? item.name : ""}
+											{metricIndex === 0 ? item.url : ""}
 										</td>
 										<td class="px-4 py-3">{metric.label}</td>
 										<td class="px-4 py-3">{diff.html.toFixed(2)}</td>
@@ -310,6 +319,7 @@ export function App() {
 	const [progressVisible, setProgressVisible] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const [progressText, setProgressText] = useState("");
+	const [inputMode, setInputMode] = useState<"single" | "bulk">("single");
 
 	useEffect(() => {
 		loadResults()
@@ -320,6 +330,16 @@ export function App() {
 			})
 			.catch((error) => {
 				console.error("Failed to load saved results:", error);
+			});
+
+		loadScrapedData()
+			.then((saved) => {
+				if (saved.length > 0) {
+					setScrapedData(saved);
+				}
+			})
+			.catch((error) => {
+				console.error("Failed to load saved scraped data:", error);
 			});
 	}, []);
 
@@ -356,6 +376,13 @@ export function App() {
 				setProgressText(`${i} / ${validUrls.length} URLs processed`);
 				await new Promise((resolve) => setTimeout(resolve, 100));
 			}
+
+			await saveScrapedData(
+				data.results.map((r: ScrapedData) => ({
+					...r,
+					timestamp: Date.now(),
+				})),
+			);
 
 			alert(`Scraped ${data.results.length} URLs successfully!`);
 		} catch (error) {
@@ -443,6 +470,7 @@ export function App() {
 		setProgressVisible(false);
 
 		await clearResults();
+		await clearScrapedData();
 	};
 
 	const handleExportMarkdown = () => {
@@ -461,6 +489,50 @@ export function App() {
 		exportCSV(results);
 	};
 
+	const handleDownloadScrapedData = async () => {
+		if (scrapedData.length === 0) {
+			alert("No scraped data to download. Please scrape documentation first.");
+			return;
+		}
+
+		try {
+			const zip = new JSZip();
+			const folder = zip.folder("scraped-data");
+
+			if (!folder) {
+				throw new Error("Failed to create zip folder");
+			}
+
+			for (const data of scrapedData) {
+				folder.file(`${data.name}.html.txt`, data.htmlText);
+
+				if (data.llmText) {
+					folder.file(`${data.name}.llm.txt`, data.llmText);
+				}
+			}
+
+			const blob = await zip.generateAsync({ type: "blob" });
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement("a");
+			link.href = url;
+			link.download = `scraped-data-${new Date().toISOString().split("T")[0]}.zip`;
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+			URL.revokeObjectURL(url);
+		} catch (error) {
+			console.error("Failed to create zip:", error);
+			alert(
+				`Failed to create zip: ${error instanceof Error ? error.message : "Unknown error"}`,
+			);
+		}
+	};
+
+	const handleBulkUrlsParsed = (parsedUrls: string[]) => {
+		setUrls(parsedUrls);
+		alert(`Loaded ${parsedUrls.length} URLs. You can now scrape them.`);
+	};
+
 	return (
 		<div>
 			<header class="mb-8 text-center">
@@ -472,6 +544,27 @@ export function App() {
 					efficiency.
 				</p>
 			</header>
+
+			<div class="mb-4 flex gap-2">
+				<button
+					type="button"
+					class={`px-4 py-2 rounded-md transition ${inputMode === "single" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
+					onClick={() => setInputMode("single")}
+				>
+					Single Input
+				</button>
+				<button
+					type="button"
+					class={`px-4 py-2 rounded-md transition ${inputMode === "bulk" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
+					onClick={() => setInputMode("bulk")}
+				>
+					Bulk Paste
+				</button>
+			</div>
+
+			{inputMode === "bulk" && (
+				<BulkUrlInput onUrlsParsed={handleBulkUrlsParsed} />
+			)}
 
 			<UrlForm
 				urls={urls}
@@ -495,6 +588,23 @@ export function App() {
 				onExportMarkdown={handleExportMarkdown}
 				onExportCSV={handleExportCSV}
 			/>
+
+			{scrapedData.length > 0 && (
+				<div class="bg-white rounded-lg shadow-md p-6 mt-6">
+					<h2 class="text-xl font-semibold mb-4 text-gray-800">Scraped Data</h2>
+					<p class="text-sm text-gray-600 mb-4">
+						{scrapedData.length} documentation page
+						{scrapedData.length !== 1 ? "s" : ""} scraped and saved locally.
+					</p>
+					<button
+						type="button"
+						class="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+						onClick={handleDownloadScrapedData}
+					>
+						Download All Scraped Data
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }

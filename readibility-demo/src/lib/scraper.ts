@@ -39,11 +39,20 @@ export function extractMainContent(html: string): string {
 	return $("body").text().replace(/\s+/g, " ").trim();
 }
 
+function fetchWithTimeout(url: string, timeoutMs = 10000): Promise<Response> {
+	const controller = new AbortController();
+	const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+	return fetch(url, { signal: controller.signal }).finally(() =>
+		clearTimeout(timeout),
+	);
+}
+
 export async function fetchDocumentation(url: string): Promise<ScrapedData> {
 	const urlObj = new URL(url);
 	const name = urlObj.hostname.replace(/^www\./, "").split(".")[0];
 
-	const htmlResponse = await fetch(url);
+	const htmlResponse = await fetchWithTimeout(url);
 	if (!htmlResponse.ok) {
 		throw new Error(`Failed to fetch HTML: ${htmlResponse.status}`);
 	}
@@ -54,7 +63,7 @@ export async function fetchDocumentation(url: string): Promise<ScrapedData> {
 	let llmText = "";
 
 	try {
-		const llmResponse = await fetch(llmUrl);
+		const llmResponse = await fetchWithTimeout(llmUrl, 5000);
 		if (llmResponse.ok) {
 			llmText = await llmResponse.text();
 		}
@@ -66,16 +75,19 @@ export async function fetchDocumentation(url: string): Promise<ScrapedData> {
 }
 
 export async function fetchMultiple(urls: string[]): Promise<ScrapedData[]> {
-	const results: ScrapedData[] = [];
+	const results = await Promise.allSettled(
+		urls.map((url) => fetchDocumentation(url)),
+	);
 
-	for (const url of urls) {
-		try {
-			const data = await fetchDocumentation(url);
-			results.push(data);
-		} catch (error) {
-			console.error(`Error fetching ${url}:`, error);
+	const scraped: ScrapedData[] = [];
+	for (let i = 0; i < results.length; i++) {
+		const result = results[i];
+		if (result.status === "fulfilled") {
+			scraped.push(result.value);
+		} else {
+			console.error(`Error fetching ${urls[i]}:`, result.reason);
 		}
 	}
 
-	return results;
+	return scraped;
 }
