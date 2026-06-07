@@ -1,6 +1,7 @@
 """CLI interface using Typer."""
 
 import asyncio
+import os
 from pathlib import Path
 
 import typer
@@ -9,9 +10,11 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from . import logger
 from .exporter import export_results
 from .llm_detector import detect_llm_txt
+from .llm_evaluator import LLMEvaluator
 from .metrics import calculate_metrics
-from .models import AuditResult
+from .models import AuditResult, LLMScores
 from .scraper import scrape_human_documentation
+from .text_loader import find_text_pairs, load_raw_texts
 
 app = typer.Typer(help="Audit documentation readability")
 
@@ -60,6 +63,26 @@ def run(
         "--use-context7/--no-context7",
         help="Use Context7 API as fallback when llms.txt not found",
     ),
+    evaluate_llm: bool = typer.Option(
+        False,
+        "--evaluate-llm/--no-evaluate-llm",
+        help="Run LLM-as-a-Judge evaluation on documentation",
+    ),
+    evaluate_only: bool = typer.Option(
+        False,
+        "--evaluate-only",
+        help="Run LLM evaluation only on existing raw_texts (skip scraping)",
+    ),
+    llm_model: str = typer.Option(
+        "nvidia/nemotron-nano-12b-v2-vl:free",
+        "--llm-model",
+        help="OpenRouter model for LLM evaluation",
+    ),
+    llm_api_key: str = typer.Option(
+        "",
+        "--llm-api-key",
+        help="OpenRouter API key (or set OPENROUTER_API_KEY env var)",
+    ),
     verbose: bool = typer.Option(
         False,
         "--verbose",
@@ -68,6 +91,24 @@ def run(
     ),
 ) -> None:
     """Run full audit pipeline on URLs from input file."""
+    # Handle evaluate-only mode
+    if evaluate_only:
+        typer.echo("Running LLM evaluation on existing raw_texts...")
+        results = asyncio.run(
+            _evaluate_from_raw_texts(
+                output_dir,
+                llm_model,
+                llm_api_key,
+            )
+        )
+        export_results(results, output_dir)
+
+        success = sum(1 for r in results if r.llm_status == "FOUND")
+        failed = len(results) - success
+        logger.log_complete(success, failed)
+        typer.echo(f"\nResults saved to: {output_dir}/")
+        return
+
     with open(input, "r", encoding="utf-8") as f:
         urls = [line.strip() for line in f if line.strip() and not line.startswith("#")]
 
@@ -76,10 +117,28 @@ def run(
         raise typer.Exit(1)
 
     typer.echo(f"Starting audit for {len(urls)} URLs...")
-    typer.echo(f"Crawl config: max_depth={max_depth}, max_pages={max_pages}, follow_links={follow_links}, context7={use_context7}")
+    typer.echo(
+        f"Crawl config: max_depth={max_depth}, max_pages={max_pages}, follow_links={follow_links}, context7={use_context7}"
+    )
+
+    if evaluate_llm:
+        typer.echo(f"LLM evaluation: enabled (model={llm_model})")
+
     typer.echo()
 
-    results = asyncio.run(_audit_urls(urls, max_depth, max_pages, follow_links, use_context7))
+    results = asyncio.run(
+        _audit_urls(
+            urls,
+            max_depth,
+            max_pages,
+            follow_links,
+            use_context7,
+            evaluate_llm,
+            llm_model,
+            llm_api_key,
+            output_dir,
+        )
+    )
 
     export_results(results, output_dir)
 
@@ -89,29 +148,182 @@ def run(
     typer.echo(f"\nResults saved to: {output_dir}/")
 
 
-async def _audit_urls(urls: list[str], max_depth: int, max_pages: int, follow_links: bool, use_context7: bool) -> list[AuditResult]:
+async def _audit_urls(
+    urls: list[str],
+    max_depth: int,
+    max_pages: int,
+    follow_links: bool,
+    use_context7: bool,
+    evaluate_llm: bool,
+    llm_model: str,
+    llm_api_key: str,
+    output_dir: Path,
+) -> list[AuditResult]:
     """Process all URLs asynchronously."""
     results = []
 
+    # Initialize LLM evaluator if needed
+    evaluator = None
+    if evaluate_llm:
+        api_key = llm_api_key or os.getenv("OPENROUTER_API_KEY", "")
+        if not api_key:
+            typer.echo(
+                "Warning: OPENROUTER_API_KEY not set. LLM evaluation will be skipped.",
+                err=True,
+            )
+        else:
+            evaluator = LLMEvaluator(
+                api_key=api_key,
+                model=llm_model,
+                cache_dir=output_dir / "llm_cache",
+            )
+
     for url in urls:
-        result = await _audit_single_url(url, max_depth, max_pages, follow_links, use_context7)
+        result = await _audit_single_url(
+            url,
+            max_depth,
+            max_pages,
+            follow_links,
+            use_context7,
+            evaluator,
+        )
         results.append(result)
 
     return results
 
 
-async def _audit_single_url(base_url: str, max_depth: int, max_pages: int, follow_links: bool, use_context7: bool) -> AuditResult:
+async def _audit_single_url(
+    base_url: str,
+    max_depth: int,
+    max_pages: int,
+    follow_links: bool,
+    use_context7: bool,
+    evaluator: LLMEvaluator | None,
+) -> AuditResult:
     """Audit a single URL."""
     result = AuditResult(base_url=base_url, llm_status="NOT_FOUND")
 
     machine_text, file_type = await detect_llm_txt(
-        base_url, 
+        base_url,
         follow_links=follow_links,
         use_context7_fallback=use_context7,
     )
 
     if not machine_text:
         return result
+
+
+async def _evaluate_from_raw_texts(
+    output_dir: Path,
+    llm_model: str,
+    llm_api_key: str,
+) -> list[AuditResult]:
+    """Run LLM evaluation on existing raw_texts files."""
+    raw_texts_dir = output_dir / "raw_texts"
+
+    if not raw_texts_dir.exists():
+        typer.echo(f"Error: raw_texts directory not found at {raw_texts_dir}", err=True)
+        raise typer.Exit(1)
+
+    # Initialize LLM evaluator
+    api_key = llm_api_key or os.getenv("OPENROUTER_API_KEY", "")
+    if not api_key:
+        typer.echo("Error: OPENROUTER_API_KEY not set.", err=True)
+        raise typer.Exit(1)
+
+    evaluator = LLMEvaluator(
+        api_key=api_key,
+        model=llm_model,
+        cache_dir=output_dir / "llm_cache",
+    )
+
+    typer.echo(f"LLM model: {llm_model}")
+    typer.echo(f"Reading from: {raw_texts_dir}")
+    typer.echo()
+
+    # Find all text pairs
+    pairs = find_text_pairs(raw_texts_dir)
+
+    if not pairs:
+        typer.echo("Error: No text files found in raw_texts directory.", err=True)
+        raise typer.Exit(1)
+
+    typer.echo(f"Found {len(pairs)} platforms to evaluate")
+    typer.echo()
+
+    results = []
+
+    for domain, paths in pairs.items():
+        typer.echo(f"[EVALUATE] {domain}")
+
+        # Load texts
+        machine_text = load_raw_texts(paths["machine"])
+        human_text = load_raw_texts(paths["human"])
+
+        if not machine_text:
+            typer.echo(f"  Skipping: no machine text")
+            continue
+
+        # Create result
+        result = AuditResult(
+            base_url=f"https://{domain}",
+            llm_status="FOUND",
+            llm_file_type="llms.txt",
+            machine_text=machine_text,
+            machine_metrics=calculate_metrics(machine_text),
+        )
+
+        if human_text:
+            result.human_text = human_text
+            result.human_metrics = calculate_metrics(human_text)
+
+        # Log metrics
+        if result.machine_metrics:
+            logger.log_metrics(
+                "Machine",
+                result.machine_metrics.flesch_reading_ease,
+                result.machine_metrics.flesch_kincaid_grade,
+                result.machine_metrics.lexical_density,
+                result.machine_metrics.token_to_word_ratio,
+            )
+
+        if result.human_metrics:
+            logger.log_metrics(
+                "Human",
+                result.human_metrics.flesch_reading_ease,
+                result.human_metrics.flesch_kincaid_grade,
+                result.human_metrics.lexical_density,
+                result.human_metrics.token_to_word_ratio,
+            )
+
+        # Run LLM evaluation
+        typer.echo(f"  Evaluating with LLM...")
+
+        # Evaluate machine text
+        machine_scores = await evaluator.evaluate_document(
+            machine_text,
+            domain,
+            "llm.txt",
+        )
+        if machine_scores:
+            result.machine_llm_scores = LLMScores(**machine_scores)
+            typer.echo(f"  Machine LRI: {machine_scores['overall_lri']:.1f}")
+
+        # Evaluate human text
+        if human_text:
+            human_scores = await evaluator.evaluate_document(
+                human_text,
+                domain,
+                "human_docs",
+            )
+            if human_scores:
+                result.human_llm_scores = LLMScores(**human_scores)
+                typer.echo(f"  Human LRI: {human_scores['overall_lri']:.1f}")
+
+        results.append(result)
+        typer.echo()
+
+    return results
 
     result.llm_file_type = file_type
     result.llm_status = "FOUND"
@@ -142,5 +354,30 @@ async def _audit_single_url(base_url: str, max_depth: int, max_pages: int, follo
                 result.human_metrics.lexical_density,
                 result.human_metrics.token_to_word_ratio,
             )
+
+    # Run LLM evaluation if enabled
+    if evaluator and result.machine_text:
+        typer.echo(f"  Evaluating with LLM...")
+
+        # Evaluate machine text (llm.txt)
+        machine_scores = await evaluator.evaluate_document(
+            result.machine_text,
+            base_url,
+            "llm.txt",
+        )
+        if machine_scores:
+            result.machine_llm_scores = LLMScores(**machine_scores)
+            typer.echo(f"  Machine LRI: {machine_scores['overall_lri']:.1f}")
+
+        # Evaluate human text
+        if result.human_text:
+            human_scores = await evaluator.evaluate_document(
+                result.human_text,
+                base_url,
+                "human_docs",
+            )
+            if human_scores:
+                result.human_llm_scores = LLMScores(**human_scores)
+                typer.echo(f"  Human LRI: {human_scores['overall_lri']:.1f}")
 
     return result

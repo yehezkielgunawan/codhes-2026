@@ -18,6 +18,18 @@ class Metrics:
 
 
 @dataclass
+class LLMScores:
+    """LLM evaluation scores for documentation quality."""
+
+    clarity: float
+    completeness: float
+    conciseness: float
+    technical_accuracy: float
+    llm_friendliness: float
+    overall_lri: float
+
+
+@dataclass
 class AuditResult:
     """Result of auditing a single URL."""
 
@@ -29,5 +41,7 @@ class AuditResult:
     machine_text: Optional[str] = None
     human_metrics: Optional[Metrics] = None
     machine_metrics: Optional[Metrics] = None
+    human_llm_scores: Optional[LLMScores] = None
+    machine_llm_scores: Optional[LLMScores] = None
     timestamp: datetime = field(default_factory=datetime.now)
     error: Optional[str] = None
