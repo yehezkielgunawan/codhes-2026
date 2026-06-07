@@ -11,8 +11,11 @@ A Python CLI tool that automates the analysis of documentation readability, comp
 - **Prose extraction** — Automatically strips code blocks, navigation, images, and UI elements from human docs for fair comparison
 - **Dual corpus scraping** — Fetches both human docs (HTML) and machine text (plain text)
 - **Readability metrics** — Calculates Flesch Reading Ease, Flesch-Kincaid Grade, Lexical Density, and Token-to-Word Ratio
+- **LLM-as-a-Judge evaluation** — Evaluates documentation quality using OpenRouter API on 5 dimensions (Clarity, Completeness, Conciseness, Technical Accuracy, LLM-Friendliness)
+- **LLM Readability Index (LRI)** — Quantifies LLM evaluation scores on 0-100 scale for comparison with traditional metrics
 - **Structured export** — Outputs results to CSV and Markdown formats
 - **Progress logging** — Real-time status tags for found/not-found URLs
+- **Resumable evaluation** — Caches LLM API responses for fault-tolerant batch processing
 
 ## Installation
 
@@ -29,6 +32,8 @@ cd readability-python-demo
 ```
 
 ## Usage
+
+### Basic Audit (Traditional Metrics Only)
 
 1. Create a `urls.txt` file with target URLs (one per line):
 
@@ -48,6 +53,25 @@ uv run readability-auditor --input urls.txt --output-dir ./results
    - `results/results.csv` — Raw data with all metrics
    - `results/report.md` — Formatted summary with comparison tables
 
+### LLM-as-a-Judge Evaluation
+
+To evaluate documentation quality using an LLM:
+
+```bash
+# Set your OpenRouter API key
+export OPENROUTER_API_KEY=sk-or-...
+
+# Run audit with LLM evaluation
+uv run readability-auditor --input urls.txt --output-dir ./results --evaluate-llm
+
+# Or evaluate existing raw_texts (skip scraping)
+uv run readability-auditor --output-dir ./results --evaluate-only
+```
+
+Results include:
+- `results/llm_evaluation.csv` — LLM scores for each dimension
+- `results/llm_cache/` — Cached API responses (resumable)
+
 ## CLI Options
 
 ```bash
@@ -60,6 +84,10 @@ Options:
   -p, --max-pages INT           Max pages to crawl per URL (1-50) [default: 10]
   --follow-links/--no-follow-links  Follow .txt links in llms.txt [default: follow-links]
   --use-context7/--no-context7  Use Context7 API as fallback [default: use-context7]
+  --evaluate-llm/--no-evaluate-llm  Run LLM-as-a-Judge evaluation [default: no-evaluate-llm]
+  --evaluate-only               Run LLM evaluation on existing raw_texts (skip scraping)
+  --llm-model TEXT              OpenRouter model for LLM evaluation [default: meta-llama/llama-3.2-3b-instruct:free]
+  --llm-api-key TEXT            OpenRouter API key (or set OPENROUTER_API_KEY env var)
   -v, --verbose                 Enable verbose logging
   --help                        Show this message and exit
 ```
@@ -78,6 +106,30 @@ CONTEXT7_TOKEN=ctx7sk-your-token-here
 
 The token is automatically loaded from the `.env` file when running the CLI.
 
+## OpenRouter API Integration
+
+The tool uses [OpenRouter](https://openrouter.ai) for LLM-as-a-Judge evaluation:
+
+```bash
+# Set API key in .env or environment variable
+OPENROUTER_API_KEY=sk-or-...
+```
+
+**Default model:** `meta-llama/llama-3.2-3b-instruct:free` (free tier)
+
+**Evaluation dimensions (1-5 Likert scale):**
+1. **Clarity** — Is the documentation clear and unambiguous?
+2. **Completeness** — Does it cover the topic adequately?
+3. **Conciseness** — Is it free of unnecessary verbosity?
+4. **Technical Accuracy** — Are technical details correct?
+5. **LLM-Friendliness** — Is it optimized for machine consumption?
+
+**LLM Readability Index (LRI):**
+```
+LRI = (Average of 5 dimensions - 1) / 4 × 100
+```
+Maps 1-5 Likert scale to 0-100 for comparison with Flesch Reading Ease.
+
 ## Metrics Explained
 
 | Metric | Description |
@@ -86,10 +138,13 @@ The token is automatically loaded from the `.env` file when running the CLI.
 | **Flesch-Kincaid Grade (FK)** | US school grade level needed to understand the text |
 | **Lexical Density (LD)** | Percentage of content words (nouns, verbs, adjectives, adverbs) |
 | **Token-to-Word Ratio (T/W)** | AI tokenization efficiency. Lower = more efficient for LLMs |
+| **LLM Readability Index (LRI)** | LLM evaluation score (0-100) from 5-dimension assessment |
 
 ## Research Context
 
-This tool supports academic research on the "Paradox of Readability" — the linguistic shift from human-readable to machine-optimized documentation in the AI era.
+This tool supports academic research on the "Paradox of Readabilities" — the linguistic shift from human-readable to machine-optimized documentation in the AI era.
+
+**Novel contribution:** First study to use LLM-as-a-Judge methodology for technical documentation readability assessment.
 
 ## License
 

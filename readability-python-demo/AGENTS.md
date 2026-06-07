@@ -5,8 +5,14 @@
 ```bash
 cd readability-python-demo
 
-# Run CLI
+# Run CLI (basic audit)
 uv run readability-auditor --input urls.txt --output-dir ./results
+
+# Run CLI with LLM evaluation
+uv run readability-auditor --input urls.txt --output-dir ./results --evaluate-llm
+
+# Run LLM evaluation on existing raw_texts (skip scraping)
+uv run readability-auditor --output-dir ./results --evaluate-only
 
 # Run tests
 uv run pytest tests/ -v
@@ -33,7 +39,7 @@ uv add --dev <package>
 | `textstat` | Readability metrics | `flesch_reading_ease()`, `flesch_kincaid_grade()` |
 | `tiktoken` | Token counting | Uses `cl100k_base` encoding |
 | `nltk` | Stopwords | Auto-downloads on first import |
-| `httpx` | Async HTTP | For llm.txt detection and Context7 API |
+| `httpx` | Async HTTP | For llm.txt detection, Context7 API, and OpenRouter API |
 | `rich` | Console output | Status tags, progress |
 
 ## Context7 API Integration
@@ -54,6 +60,34 @@ CONTEXT7_TOKEN=ctx7sk-your-token-here
 
 **Disable:** Use `--no-context7` flag to skip Context7 API calls.
 
+## OpenRouter API Integration
+
+The tool uses [OpenRouter](https://openrouter.ai) for LLM-as-a-Judge evaluation.
+
+**API Token:** Set `OPENROUTER_API_KEY` in `.env` file or environment:
+```bash
+OPENROUTER_API_KEY=sk-or-...
+```
+
+**Default Model:** `meta-llama/llama-3.2-3b-instruct:free` (free tier)
+
+**Evaluation Dimensions (1-5 Likert scale):**
+1. Clarity — Is the documentation clear and unambiguous?
+2. Completeness — Does it cover the topic adequately?
+3. Conciseness — Is it free of unnecessary verbosity?
+4. Technical Accuracy — Are technical details correct?
+5. LLM-Friendliness — Is it optimized for machine consumption?
+
+**LLM Readability Index (LRI):**
+```
+LRI = (Average of 5 dimensions - 1) / 4 × 100
+```
+Maps 1-5 Likert scale to 0-100 for comparison with Flesch Reading Ease.
+
+**Caching:** API responses cached to `results/llm_cache/{domain}_{doc_type}_{chunk}.json` for resumable batch processing.
+
+**Rate Limiting:** Automatic retry with exponential backoff and `Retry-After` header respect.
+
 ## Project Structure
 
 ```
@@ -62,18 +96,23 @@ readability-python-demo/
 │   ├── cli.py                 # Typer app, no subcommands
 │   ├── llm_detector.py        # Detects llm.txt/llms.txt, follows links, Context7 fallback
 │   ├── context7_client.py     # Context7 API client for fallback
+│   ├── llm_evaluator.py       # LLM-as-a-Judge evaluation engine
+│   ├── llm_prompts.py         # Prompt templates and JSON parsing
+│   ├── text_loader.py         # Loads raw texts for evaluate-only mode
 │   ├── scraper.py             # Crawl4AI deep crawling
 │   ├── text_cleaner.py        # Cleans human docs (strips code blocks, nav, images)
 │   ├── metrics.py             # Readability calculations
 │   ├── exporter.py            # CSV + Markdown + raw text export
 │   ├── logger.py              # Rich console output
-│   └── models.py              # AuditResult, Metrics dataclasses
-├── tests/                     # pytest tests (11 tests)
+│   └── models.py              # AuditResult, Metrics, LLMScores dataclasses
+├── tests/                     # pytest tests (50 tests)
 ├── urls.txt                   # Sample input
-├── .env                       # CONTEXT7_TOKEN (gitignored)
+├── .env                       # CONTEXT7_TOKEN, OPENROUTER_API_KEY (gitignored)
 └── results/                   # Output (gitignored)
     ├── results.csv
+    ├── llm_evaluation.csv     # LLM scores (if --evaluate-llm)
     ├── report.md
+    ├── llm_cache/             # Cached LLM API responses
     └── raw_texts/             # Scraped content
 ```
 
@@ -85,9 +124,21 @@ readability-python-demo/
 - **NLTK auto-downloads** — `stopwords` corpus downloads on first import
 - **Raw text export** — Scraped content saves to `results/raw_texts/{domain}_human.md` and `{domain}_machine.txt`
 - **Human docs are cleaned** — `text_cleaner.py` strips code blocks, navigation, images, and inline code before metrics calculation. This ensures fair comparison with machine text.
+- **LLM evaluation is async** — Uses `httpx.AsyncClient` with rate limiting and retry logic
+- **Cache is resumable** — If API fails mid-batch, re-run will skip cached chunks
+- **OpenRouter free tier rate limits** — May hit 429 errors; tool auto-retries with backoff
 
 ## Testing
 
 - Uses `pytest` with `pytest-asyncio` and `pytest-httpx`
 - Async tests work out of the box
 - Mock HTTP with `httpx_mock` fixture
+- 50 tests total (11 original + 39 new for LLM evaluation)
+
+## Environment Variables
+
+Set in `.env` file (gitignored):
+```bash
+CONTEXT7_TOKEN=ctx7sk-your-token-here
+OPENROUTER_API_KEY=sk-or-...
+```

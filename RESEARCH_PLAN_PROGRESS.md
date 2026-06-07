@@ -1,21 +1,21 @@
 # CODHES 2026 Research Plan: Python-Based Documentation Readability Analysis
 
 **Researcher:** Yehezkiel Gunawan  
-**Current Date:** 2026-06-06  
-**Deadline:** 2026-06-15 (Phase 1) — 9 days remaining  
-**Status:** Base experiment complete, LLM-as-a-Judge evaluation planned
+**Current Date:** 2026-06-07  
+**Deadline:** 2026-06-15 (Phase 1) — 8 days remaining  
+**Status:** Day 2 coding complete, LLM evaluation pending (rate limited)
 
 ---
 
 ## Executive Summary
 
-**Current State:** The Python CLI tool (`readability-python-demo`) is fully functional with 11 tests passing. Base data collection completed across 10 technical documentation platforms. Text cleaning pipeline implemented for fair prose comparison. Ready to add LLM-as-a-Judge evaluation phase.
+**Current State:** The Python CLI tool (`readability-python-demo`) is fully functional with **50 tests passing**. Base data collection completed across 10 technical documentation platforms. LLM-as-a-Judge evaluation module implemented with OpenRouter integration, 5-dimension Likert scale assessment, and LLM Readability Index (LRI) calculation. Experiment run pending due to API rate limiting.
 
-**Goal:** Complete LLM-as-a-Judge semantic evaluation, analyze all data, write the full paper, and submit within 9 days.
+**Goal:** Complete LLM-as-a-Judge semantic evaluation, analyze all data, write the full paper, and submit within 8 days.
 
 **Scope:** Technical documentation only (frameworks, libraries, platforms, developer tools) — excludes marketing sites, blogs, and non-technical content.
 
-**Confidence Level:** High. Base experiment done; LLM evaluation and writing remain.
+**Confidence Level:** High. Tool implementation done; experiment execution and writing remain.
 
 ---
 
@@ -26,6 +26,7 @@
 **Entry Point:** `uv run readability-auditor --input urls.txt --output-dir ./results`
 
 **Key Features:**
+
 - Detects `llm.txt` / `llms.txt` with `[FOUND]` / `[NOT FOUND]` logging
 - Deep crawling: BFS multi-page crawl (`--max-depth`, `--max-pages`)
 - Linked `.txt` aggregation: follows links in `llms.txt` to fetch full content
@@ -33,11 +34,25 @@
 - Prose extraction: strips code blocks, navigation, images for fair comparison
 - Dual export: CSV + Markdown + raw text files (`results/raw_texts/`)
 - Metrics: Flesch Reading Ease, Flesch-Kincaid Grade, Lexical Density, Token-to-Word Ratio
+- **LLM-as-a-Judge evaluation:** 5-dimension Likert scale assessment via OpenRouter API
+- **LLM Readability Index (LRI):** Quantifies LLM scores on 0-100 scale for comparison with FRE
+- **Resumable evaluation:** Caches API responses for fault-tolerant batch processing
 
 **Commands:**
+
 ```bash
 cd readability-python-demo
+
+# Basic audit (traditional metrics only)
 uv run readability-auditor --input urls.txt --output-dir ./results
+
+# LLM evaluation during scraping
+uv run readability-auditor --input urls.txt --output-dir ./results --evaluate-llm
+
+# LLM evaluation on existing raw_texts (skip scraping)
+uv run readability-auditor --output-dir ./results --evaluate-only
+
+# Run tests
 uv run pytest tests/ -v
 ```
 
@@ -53,6 +68,7 @@ uv run pytest tests/ -v
 - [x] Initial metrics calculated (FRE, FKGL, LD, T/W)
 
 **Platforms Analyzed:**
+
 1. React (https://react.dev)
 2. GitHub Docs (https://docs.github.com)
 3. Supabase (https://supabase.com/docs)
@@ -66,33 +82,89 @@ uv run pytest tests/ -v
 
 ---
 
-## Planned: LLM-as-a-Judge Evaluation (June 7)
+## Day 2: LLM-as-a-Judge Implementation (June 7)
 
-**Rationale:** Traditional readability metrics (FRE, FKGL) were designed for human prose and may not fully capture the quality of machine-optimized documentation. Using an LLM to evaluate LLM-optimized text provides a "machine reviewer for machine docs" approach that is methodologically sound and novel.
+### Coding Phase ✅ COMPLETE
 
-**Model:** `nvidia/nemotron-3.5-content-safety:free` via OpenRouter
+- [x] Set up OpenRouter API client in Python (`llm_evaluator.py`)
+- [x] Design evaluation prompts for 5 dimensions (`llm_prompts.py`)
+- [x] Implement LLM Readability Index (LRI) calculation
+- [x] Add `--evaluate-llm` flag for running evaluation during scraping
+- [x] Add `--evaluate-only` flag for running evaluation on existing raw_texts
+- [x] Implement text loader for reading from `results/raw_texts/`
+- [x] Add caching mechanism for resumable batch processing
+- [x] Implement retry logic with exponential backoff and rate limit handling
+- [x] Export LLM evaluation results to `llm_evaluation.csv`
+- [x] Update `report.md` to include LLM evaluation section
+- [x] Write comprehensive tests (50 tests passing, up from 11)
+- [x] Update README.md and AGENTS.md with new features
+
+**Implementation Details:**
+
+**Model:** `meta-llama/llama-3.2-3b-instruct:free` via OpenRouter
 - Free tier available
-- Content safety and quality evaluation capabilities
-- Suitable for semantic analysis of technical documentation
+- General-purpose LLM suitable for documentation evaluation
+- Reliable JSON output format
 
-**Evaluation Dimensions:**
+**Evaluation Dimensions (1-5 Likert scale):**
+
 1. **Clarity** — Is the documentation clear and unambiguous?
 2. **Completeness** — Does it cover the topic adequately?
 3. **Conciseness** — Is it free of unnecessary verbosity?
 4. **Technical Accuracy** — Are technical details correct?
 5. **LLM-Friendliness** — Is it optimized for machine consumption?
 
-**Implementation Plan:**
-- [ ] Set up OpenRouter API client
-- [ ] Design evaluation prompts for each dimension
-- [ ] Run evaluation on both human and machine text corpora
-- [ ] Compare LLM scores between human docs and `llms.txt`
-- [ ] Correlate LLM scores with traditional metrics (FRE, FKGL)
+**Quantification Method:**
 
-**Expected Outcome:**
-- Quantitative LLM-based readability scores
-- Correlation analysis: Do traditional metrics align with LLM judgment?
-- Novel contribution: First study to use LLM-as-a-Judge for documentation readability
+```
+LRI = (Average of 5 dimensions - 1) / 4 × 100
+```
+
+Maps 1-5 Likert scale to 0-100 for direct comparison with Flesch Reading Ease:
+- All 1s → 0/100
+- All 3s → 50/100
+- All 5s → 100/100
+
+**New Modules:**
+
+- `llm_evaluator.py` — Evaluation engine with chunking, API calls, caching
+- `llm_prompts.py` — Prompt templates, JSON parsing, validation
+- `text_loader.py` — Reads raw texts for evaluate-only mode
+
+**Modified Modules:**
+
+- `models.py` — Added `LLMScores` dataclass
+- `cli.py` — Added `--evaluate-llm` and `--evaluate-only` flags
+- `exporter.py` — Added LLM results export to CSV and Markdown
+
+**Test Coverage:**
+
+- 50 tests total (11 original + 39 new)
+- Tests cover prompt building, JSON parsing, chunking, LRI calculation, text loading
+- All tests passing
+
+### Experiment Phase ⏳ PENDING (Rate Limited)
+
+**Status:** Hit OpenRouter free tier rate limit (429 errors) during initial run. Will resume tomorrow with cached results.
+
+**Next Steps:**
+
+```bash
+# Resume LLM evaluation (will skip already-cached chunks)
+uv run readability-auditor --output-dir ./results --evaluate-only
+```
+
+**Expected Output:**
+
+- `results/llm_evaluation.csv` — LLM scores for each dimension
+- `results/llm_cache/` — Cached API responses (resumable)
+- Updated `results/report.md` with LLM evaluation section
+
+**Mitigation Strategy:**
+
+1. **Caching:** Already-cached chunks will be skipped on re-run
+2. **Rate limit handling:** Tool automatically waits and retries on 429 errors
+3. **Alternative:** Consider adding credits to OpenRouter account or using paid model
 
 ---
 
@@ -104,27 +176,11 @@ uv run pytest tests/ -v
 
 ---
 
-### Day 2: LLM-as-a-Judge Evaluation (June 7)
+### Day 2: LLM-as-a-Judge Implementation (June 7) 🔄 IN PROGRESS
 
-**Morning (2-3 hours):**
+**Coding Phase:** ✅ COMPLETE (all modules implemented, 50 tests passing)
 
-- [ ] Set up OpenRouter API client in Python
-- [ ] Design evaluation prompts for 5 dimensions
-- [ ] Test prompts on sample documentation
-- [ ] Validate output format
-
-**Afternoon (2-3 hours):**
-
-- [ ] Run LLM evaluation on all 10 platforms
-- [ ] Evaluate both human docs and `llms.txt` for each platform
-- [ ] Collect and organize LLM scores
-- [ ] Handle any API errors or retries
-
-**Evening (1 hour):**
-
-- [ ] Export LLM evaluation results to CSV
-- [ ] Preliminary comparison: human vs machine LLM scores
-- [ ] Document methodology for paper
+**Experiment Phase:** ⏳ PENDING (rate limited, will resume tomorrow)
 
 **Deliverable:** LLM evaluation complete for all 10 platforms
 
@@ -333,32 +389,32 @@ uv run pytest tests/ -v
 
 ## Risk Mitigation
 
-| Risk | Probability | Impact | Mitigation |
-|------|------------|--------|-----------|
-| **Some platforms lack llm.txt** | Medium | High | Have 3 backup platforms ready (Next.js, Postman, Mintlify) |
-| **LaTeX compilation errors** | Low | Medium | Test compilation daily; use Overleaf as fallback |
-| **Word count short** | Medium | High | Expand discussion section; add examples |
-| **Statistical significance weak** | Medium | Medium | Report as exploratory; focus on effect sizes |
-| **Writing fatigue** | High | Medium | Write in 2-hour blocks; take breaks |
-| **Turnitin similarity high** | Low | High | Check early; paraphrase if needed |
-| **OpenRouter API issues** | Low | Medium | Have backup model ready; cache responses |
-| **LLM evaluation bias** | Medium | Medium | Use multiple dimensions; report limitations |
+| Risk                              | Probability | Impact | Mitigation                                                 |
+| --------------------------------- | ----------- | ------ | ---------------------------------------------------------- |
+| **Some platforms lack llm.txt**   | Medium      | High   | Have 3 backup platforms ready (Next.js, Postman, Mintlify) |
+| **LaTeX compilation errors**      | Low         | Medium | Test compilation daily; use Overleaf as fallback           |
+| **Word count short**              | Medium      | High   | Expand discussion section; add examples                    |
+| **Statistical significance weak** | Medium      | Medium | Report as exploratory; focus on effect sizes               |
+| **Writing fatigue**               | High        | Medium | Write in 2-hour blocks; take breaks                        |
+| **Turnitin similarity high**      | Low         | High   | Check early; paraphrase if needed                          |
+| **OpenRouter API rate limits**    | High        | Medium | Cache responses, resume from checkpoint, consider paid tier|
+| **LLM evaluation bias**           | Medium      | Medium | Use multiple dimensions; report limitations                |
 
 ---
 
 ## Daily Writing Target
 
-| Day | Section | Target Words | Cumulative |
-|-----|---------|-------------|------------|
-| 1 | — | — | — |
-| 2 | — | — | — |
-| 3 | — | — | — |
-| 4 | Intro + Related Work | 2,500 | 2,500 |
-| 5 | Methodology | 2,000 | 4,500 |
-| 6 | Results | 2,500 | 7,000 |
-| 7 | Discussion + Conclusion | 2,000 | 9,000 |
-| 8 | Polish | — | 9,000+ |
-| 9 | Submit | — | 9,000+ |
+| Day | Section                 | Target Words | Cumulative |
+| --- | ----------------------- | ------------ | ---------- |
+| 1   | —                       | —            | —          |
+| 2   | —                       | —            | —          |
+| 3   | —                       | —            | —          |
+| 4   | Intro + Related Work    | 2,500        | 2,500      |
+| 5   | Methodology             | 2,000        | 4,500      |
+| 6   | Results                 | 2,500        | 7,000      |
+| 7   | Discussion + Conclusion | 2,000        | 9,000      |
+| 8   | Polish                  | —            | 9,000+     |
+| 9   | Submit                  | —            | 9,000+     |
 
 **Average daily writing:** 2,000 words (manageable in 4-5 hours)
 
@@ -367,7 +423,7 @@ uv run pytest tests/ -v
 ## Tools Ready
 
 - **Analysis:** `readability-python-demo` CLI (Python + uv)
-- **LLM Evaluation:** OpenRouter API (`nvidia/nemotron-3.5-content-safety:free`)
+- **LLM Evaluation:** OpenRouter API (`meta-llama/llama-3.2-3b-instruct:free`)
 - **Writing:** LaTeX template (`codhes2026_template.tex`)
 - **Charts:** Python matplotlib or seaborn
 - **Stats:** Python scipy (t-test, correlation)
@@ -378,8 +434,9 @@ uv run pytest tests/ -v
 ## Success Metrics
 
 - [x] 10 technical documentation pairs collected and analyzed
-- [x] 11 tests passing (current: ✅ 11/11)
-- [ ] LLM-as-a-Judge evaluation complete for all 10 platforms
+- [x] 50 tests passing (current: ✅ 50/50)
+- [x] LLM-as-a-Judge evaluation module implemented
+- [ ] LLM evaluation complete for all 10 platforms (pending rate limit)
 - [ ] 8,000+ words in final paper
 - [ ] All charts publication-ready
 - [ ] Statistical analysis complete (traditional + LLM metrics)
@@ -395,16 +452,19 @@ uv run pytest tests/ -v
 
 1. The hard part (tool building) is DONE
 2. Base experiment is COMPLETE
-3. We have 9 days
-4. The data is public and accessible
-5. The analysis is automated
-6. The paper structure is clear (6 sections)
+3. LLM evaluation module is IMPLEMENTED
+4. We have 8 days
+5. The data is public and accessible
+6. The analysis is automated
+7. The paper structure is clear (6 sections)
+8. **Caching ensures resumable evaluation** — no progress lost
 
 **Why this matters:**
 
 - First academic study on `llm.txt` readability in technical documentation
 - Novel contribution to technolinguistics
 - **Novel methodology:** LLM-as-a-Judge for documentation evaluation
+- **Novel quantification:** LLM Readability Index (LRI) for comparing LLM scores with traditional metrics
 - Direct impact on technical writing practices
 - Conference presentation opportunity
 
