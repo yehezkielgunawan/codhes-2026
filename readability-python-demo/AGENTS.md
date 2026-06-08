@@ -5,14 +5,17 @@
 ```bash
 cd readability-python-demo
 
-# Run CLI (basic audit)
-uv run readability-auditor --input urls.txt --output-dir ./results
+# Run full audit pipeline
+uv run readability-auditor run --input urls.txt --output-dir ./results
 
-# Run CLI with LLM evaluation
-uv run readability-auditor --input urls.txt --output-dir ./results --evaluate-llm
+# Run with LLM evaluation
+uv run readability-auditor run --input urls.txt --output-dir ./results --evaluate-llm
 
 # Run LLM evaluation on existing raw_texts (skip scraping)
-uv run readability-auditor --output-dir ./results --evaluate-only
+uv run readability-auditor run --output-dir ./results --evaluate-only
+
+# Scrape single URL (useful for fixing missing data)
+uv run readability-auditor scrape https://docs.cursor.com --max-pages 10
 
 # Run tests
 uv run pytest tests/ -v
@@ -118,15 +121,17 @@ readability-python-demo/
 
 ## Gotchas
 
-- **No `run` subcommand** — CLI is `uv run readability-auditor --input ...` (not `run --input`)
+- **Two commands** — CLI has `run` (full pipeline) and `scrape` (single URL) subcommands
 - **Source in `src/`** — Package lives in `src/readability_auditor/`, not root
 - **Crawl4AI needs browsers** — Run `uv run playwright install chromium` first
+- **JavaScript rendering** — Scraper uses `wait_for` and `delay_before_return_html` for SPAs (e.g., Cursor docs)
 - **NLTK auto-downloads** — `stopwords` corpus downloads on first import
 - **Raw text export** — Scraped content saves to `results/raw_texts/{domain}_human.md` and `{domain}_machine.txt`
 - **Human docs are cleaned** — `text_cleaner.py` strips code blocks, navigation, images, and inline code before metrics calculation. This ensures fair comparison with machine text.
 - **LLM evaluation is async** — Uses `httpx.AsyncClient` with rate limiting and retry logic
 - **Cache is resumable** — If API fails mid-batch, re-run will skip cached chunks
 - **OpenRouter free tier rate limits** — May hit 429 errors; tool auto-retries with backoff
+- **Minimum content threshold** — Cleaned content must be >500 chars or scraper tries next URL
 
 ## Testing
 
