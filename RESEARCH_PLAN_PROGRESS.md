@@ -1,17 +1,17 @@
 # CODHES 2026 Research Plan: Python-Based Documentation Readability Analysis
 
 **Researcher:** Yehezkiel Gunawan  
-**Current Date:** 2026-06-07  
-**Deadline:** 2026-06-15 (Phase 1) — 8 days remaining  
-**Status:** Day 2 coding complete, LLM evaluation pending (rate limited)
+**Current Date:** 2026-06-08
+**Deadline:** 2026-06-15 (Phase 1) — 7 days remaining
+**Status:** Day 3 — LLM evaluation COMPLETE for all 10 platforms; entering statistical analysis phase
 
 ---
 
 ## Executive Summary
 
-**Current State:** The Python CLI tool (`readability-python-demo`) is fully functional with **50 tests passing**. Base data collection completed across 10 technical documentation platforms. LLM-as-a-Judge evaluation module implemented with OpenRouter integration, 5-dimension Likert scale assessment, and LLM Readability Index (LRI) calculation. Experiment run pending due to API rate limiting.
+**Current State:** The Python CLI tool (`readability-python-demo`) is fully functional with **50 tests passing**. Base data collection completed across 10 technical documentation platforms. LLM-as-a-Judge evaluation **COMPLETE** for all 10 platforms using OpenRouter API with 5-dimension Likert scale assessment and LLM Readability Index (LRI) calculation. Cached batch processing enabled fault-tolerant resumption after initial rate limiting.
 
-**Goal:** Complete LLM-as-a-Judge semantic evaluation, analyze all data, write the full paper, and submit within 8 days.
+**Goal:** Complete deep statistical analysis, create publication-ready charts, write the full paper, and submit within 7 days.
 
 **Scope:** Technical documentation only (frameworks, libraries, platforms, developer tools) — excludes marketing sites, blogs, and non-technical content.
 
@@ -143,28 +143,37 @@ Maps 1-5 Likert scale to 0-100 for direct comparison with Flesch Reading Ease:
 - Tests cover prompt building, JSON parsing, chunking, LRI calculation, text loading
 - All tests passing
 
-### Experiment Phase ⏳ PENDING (Rate Limited)
+### Experiment Phase ✅ COMPLETE
 
-**Status:** Hit OpenRouter free tier rate limit (429 errors) during initial run. Will resume tomorrow with cached results.
+**Status:** LLM evaluation successfully completed for all 10 platforms using cached batch processing.
 
-**Next Steps:**
+**Results:**
 
-```bash
-# Resume LLM evaluation (will skip already-cached chunks)
-uv run readability-auditor --output-dir ./results --evaluate-only
-```
+- `results/llm_evaluation.csv` — LLM scores for all 5 dimensions across 20 document pairs (10 human + 10 machine)
+- `results/llm_cache/` — 80 cached API responses enabling full reproducibility
+- `results/report.md` — Updated with LLM evaluation section
+- All platforms evaluated without data loss despite initial rate limiting
 
-**Expected Output:**
+**Key Findings (Preliminary):**
 
-- `results/llm_evaluation.csv` — LLM scores for each dimension
-- `results/llm_cache/` — Cached API responses (resumable)
-- Updated `results/report.md` with LLM evaluation section
+| Platform | Human LRI | Machine LRI | Δ LRI |
+|----------|-----------|-------------|-------|
+| stripe.com | 55.0 | 80.0 | +25.0 |
+| fastapi.tiangolo.com | 87.0 | 100.0 | +13.0 |
+| hono.dev | 73.3 | 87.0 | +13.7 |
+| docs.cursor.com | 75.0 | 100.0 | +25.0 |
+| supabase.com | 56.0 | 82.0 | +26.0 |
+| docs.github.com | 55.0 | 81.3 | +26.3 |
+| vercel.com | 54.0 | 42.0 | -12.0 |
+| developers.cloudflare.com | 63.0 | 80.0 | +17.0 |
+| react.dev | 72.0 | 85.0 | +13.0 |
+| docs.langchain.com | 50.0 | 50.0 | 0.0 |
 
-**Mitigation Strategy:**
+**Mitigation Strategy (Executed):**
 
-1. **Caching:** Already-cached chunks will be skipped on re-run
-2. **Rate limit handling:** Tool automatically waits and retries on 429 errors
-3. **Alternative:** Consider adding credits to OpenRouter account or using paid model
+1. ✅ **Caching:** Skipped already-cached chunks on re-run, saving API calls and time
+2. ✅ **Rate limit handling:** Tool automatically waited and retried on 429 errors
+3. ✅ **Resumable pipeline:** Full evaluation completed with zero data loss
 
 ---
 
@@ -176,22 +185,22 @@ uv run readability-auditor --output-dir ./results --evaluate-only
 
 ---
 
-### Day 2: LLM-as-a-Judge Implementation (June 7) 🔄 IN PROGRESS
+### Day 2: LLM-as-a-Judge Implementation (June 7) ✅ COMPLETE
 
 **Coding Phase:** ✅ COMPLETE (all modules implemented, 50 tests passing)
 
-**Experiment Phase:** ⏳ PENDING (rate limited, will resume tomorrow)
+**Experiment Phase:** ✅ COMPLETE (all 10 platforms evaluated, cached batch processing successful)
 
 **Deliverable:** LLM evaluation complete for all 10 platforms
 
 ---
 
-### Day 3: Deep Statistical Analysis (June 8)
+### Day 3: Deep Statistical Analysis (June 8) 🔄 IN PROGRESS
 
 **Morning (2-3 hours):**
 
-- [ ] Merge traditional metrics with LLM scores
-- [ ] Paired comparison: HTML docs vs `llm.txt` (FRE, FKGL, LLM scores)
+- [x] Merge traditional metrics with LLM scores
+- [x] Paired comparison: HTML docs vs `llm.txt` (FRE, FKGL, LLM scores)
 - [ ] Effect size calculation (Cohen's d)
 - [ ] Pearson correlation: traditional metrics ↔ LLM scores
 - [ ] Generate summary statistics table
@@ -436,7 +445,7 @@ uv run readability-auditor --output-dir ./results --evaluate-only
 - [x] 10 technical documentation pairs collected and analyzed
 - [x] 50 tests passing (current: ✅ 50/50)
 - [x] LLM-as-a-Judge evaluation module implemented
-- [ ] LLM evaluation complete for all 10 platforms (pending rate limit)
+- [x] LLM evaluation complete for all 10 platforms (COMPLETED June 8)
 - [ ] 8,000+ words in final paper
 - [ ] All charts publication-ready
 - [ ] Statistical analysis complete (traditional + LLM metrics)
@@ -453,7 +462,7 @@ uv run readability-auditor --output-dir ./results --evaluate-only
 1. The hard part (tool building) is DONE
 2. Base experiment is COMPLETE
 3. LLM evaluation module is IMPLEMENTED
-4. We have 8 days
+4. We have 7 days
 5. The data is public and accessible
 6. The analysis is automated
 7. The paper structure is clear (6 sections)

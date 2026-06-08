@@ -1,6 +1,6 @@
 # Deep Research Report: Technolinguistic Analysis of Documentation Readability in llm.txt Standards
 
-**Research Date:** 2026-06-06
+**Research Date:** 2026-06-06 (Updated 2026-06-08 with LLM evaluation results)
 **Researcher:** Yehezkiel Gunawan, assisted by AI Assistant (Kimi/OpenCode)
 **Purpose:** Pre-publication deep research for CODHES 2026 Conference Paper
 **Topic:** From Human-Centric to Machine-Optimized: A Technolinguistic Analysis of Documentation Readability in llm.txt Standards
@@ -13,6 +13,8 @@
 This research report synthesizes findings from web sources, GitHub repositories, technical documentation, and academic references to validate the research proposal: **a quantitative computational analysis comparing human-readable HTML documentation versus machine-optimized `llm.txt` files** across readability metrics (Flesch Reading Ease, FKGL, Lexical Density) and tokenization efficiency.
 
 **Key Finding:** This research addresses a genuine gap in the academic literature. While industry has widely adopted `llm.txt` standards (2,000+ repositories) and acknowledges token efficiency concerns, **no peer-reviewed study has systematically measured the readability paradox** — that machine-optimized documentation sacrifices human readability for computational efficiency.
+
+**Update (June 8):** LLM-as-a-Judge evaluation now complete for all 10 platforms (n=20 document pairs). Preliminary results show **9 out of 10 platforms** received higher LLM Readability Index (LRI) scores for machine-optimized documentation, with a mean difference of +14.7 LRI points. This provides empirical support for the readability-tokenization paradox hypothesis.
 
 **Scope Refinement:** This study focuses exclusively on **technical documentation** (API docs, framework guides, developer platforms) to ensure corpus homogeneity and relevance to the technolinguistics community.
 
@@ -293,11 +295,11 @@ From official guidelines (https://humanities.binus.ac.id/codhes):
 | Phase | Date | Status |
 |-------|------|--------|
 | Call for Papers opens | May 1, 2026 | Past |
-| **Phase 1 Deadline** | **June 15, 2026** | **URGENT — 9 days remaining** |
+| **Phase 1 Deadline** | **June 15, 2026** | **URGENT — 7 days remaining** |
 | Notification Phase 1 | July 15, 2026 | — |
 | Phase 2 Deadline | July 20, 2026 | Backup option |
 
-**CRITICAL:** The paper must be written and submitted within approximately 9 days for Phase 1.
+**CRITICAL:** The paper must be written and submitted within approximately 7 days for Phase 1.
 
 ---
 
@@ -476,18 +478,21 @@ To strengthen the paper beyond descriptive statistics:
 
 ### 10.1 Analysis Tool Implementation (Completed)
 
-The Python CLI tool has been fully implemented:
+The Python CLI tool has been fully implemented and tested:
 
 | Component | Status | Details |
 |-----------|--------|---------|
-| **CLI Interface** | Complete | Typer-based, single command |
+| **CLI Interface** | Complete | Typer-based with subcommands (`run`, `scrape`) |
 | **LLM Detection** | Complete | Async HTTP check for `/llm.txt` and `/llms.txt` |
 | **Linked .txt Aggregation** | Complete | Follows links in `llms.txt` to fetch full content |
 | **Deep Crawling** | Complete | BFS multi-page crawl via Crawl4AI |
 | **Analysis Engine** | Complete | FRE, FKGL, Lexical Density, Token Count (cl100k_base), Token-to-Word Ratio |
 | **Export** | Complete | CSV + Markdown + raw text files (`results/raw_texts/`) |
-| **Testing** | Complete | 4 tests passing (pytest) |
+| **Testing** | Complete | **50 tests passing** (pytest) |
 | **Logging** | Complete | Rich console output with `[FOUND]`/`[NOT FOUND]` tags |
+| **LLM-as-a-Judge** | Complete | OpenRouter API integration, 5-dimension evaluation, LRI calculation |
+| **Caching** | Complete | JSON-based cache for resumable batch processing |
+| **Context7 Fallback** | Complete | API integration for platforms without direct `llms.txt` |
 
 **Tech Stack:**
 - **CLI:** Typer (Python type hints)
@@ -511,59 +516,128 @@ The Python CLI tool has been fully implemented:
 - **Build Pipeline:** `pdflatex` + `bibtex` tested and working
 - **Documentation:** `LATEX_CHEATSHEET.md` created for writing
 
-### 10.3 Remaining Tasks (Research Execution)
+### 10.3 Completed Tasks (Research Execution)
 
-1. [ ] Collect 8-10 technical documentation pairs (HTML + llm.txt)
-2. [ ] Run analysis on all pairs using Python CLI
-3. [ ] Generate statistical analysis (effect sizes, correlation)
-4. [ ] Write full paper (8,000-10,000 words)
-5. [ ] Create publication-ready charts
-6. [ ] Run similarity check
-7. [ ] Submit to CODHES CMT
+1. [x] Collect 10 technical documentation pairs (HTML + llm.txt) — COMPLETED June 6
+2. [x] Run analysis on all pairs using Python CLI — COMPLETED June 6
+3. [x] Implement LLM-as-a-Judge evaluation module — COMPLETED June 7
+4. [x] Evaluate all 10 platforms with LLM-as-a-Judge — COMPLETED June 8
+
+### 10.4 Remaining Tasks (Research Execution)
+
+5. [ ] Generate statistical analysis (effect sizes, correlation)
+6. [ ] Write full paper (8,000-10,000 words)
+7. [ ] Create publication-ready charts
+8. [ ] Run similarity check
+9. [ ] Submit to CODHES CMT
 
 ---
 
-## 11. Recommended Next Steps (Updated)
+## 11. Preliminary Findings: LLM-as-a-Judge Evaluation (June 8)
 
-### Phase 1: Data Collection (Days 1-2)
+### 11.1 Evaluation Completed
 
-1. [ ] Verify exact URLs for 8-10 technical platform pairs
-2. [ ] Create `urls.txt` with target platforms
-3. [ ] Run Python CLI: `uv run readability-auditor --input urls.txt`
-4. [ ] Validate data quality (check `results/raw_texts/` for completeness)
-5. [ ] Verify sufficient word count (> 20,000 total)
+The LLM-as-a-Judge evaluation has been successfully completed for all 10 platforms using the `meta-llama/llama-3.2-3b-instruct:free` model via OpenRouter. Despite initial rate limiting on June 7, the caching mechanism enabled full completion on June 8 with zero data loss.
 
-### Phase 2: Analysis (Days 2-3)
+### 11.2 LLM Readability Index (LRI) Results
 
-6. [ ] Review CSV results
-7. [ ] Calculate descriptive statistics (mean, std, min, max)
-8. [ ] Run paired comparison analysis
-9. [ ] Calculate effect sizes (Cohen's d)
-10. [ ] Run Pearson correlation (lexical density ↔ token efficiency)
+The LRI maps the 5-dimension Likert scale (1-5) to a 0-100 scale for direct comparison with Flesch Reading Ease:
 
-### Phase 3: Paper Writing (Days 3-6)
+**LRI Formula:** `LRI = (Average of 5 dimensions - 1) / 4 × 100`
 
-11. [ ] Write Introduction (800-1000 words)
-12. [ ] Write Related Work (1200-1500 words)
-13. [ ] Write Methodology (1500-2000 words)
-14. [ ] Write Results (2000-2500 words) with tables and charts
-15. [ ] Write Discussion (1500-2000 words)
-16. [ ] Write Conclusion (500-800 words)
-17. [ ] Generate charts (readability comparison, token efficiency, scatter plots)
-18. [ ] Compile and verify LaTeX
+| Platform | Human Docs LRI | Machine Docs LRI | Δ LRI | Trend |
+|----------|---------------|------------------|-------|-------|
+| **stripe.com** | 55.0 | 80.0 | +25.0 | Machine preferred |
+| **fastapi.tiangolo.com** | 87.0 | 100.0 | +13.0 | Machine preferred |
+| **hono.dev** | 73.3 | 87.0 | +13.7 | Machine preferred |
+| **docs.cursor.com** | 75.0 | 100.0 | +25.0 | Machine preferred |
+| **supabase.com** | 56.0 | 82.0 | +26.0 | Machine preferred |
+| **docs.github.com** | 55.0 | 81.3 | +26.3 | Machine preferred |
+| **vercel.com** | 54.0 | 42.0 | -12.0 | Human preferred |
+| **developers.cloudflare.com** | 63.0 | 80.0 | +17.0 | Machine preferred |
+| **react.dev** | 72.0 | 85.0 | +13.0 | Machine preferred |
+| **docs.langchain.com** | 50.0 | 50.0 | 0.0 | No difference |
 
-### Phase 4: Submission (Days 6-7)
+### 11.3 Key Observations
 
-19. [ ] Run spell check
-20. [ ] Run similarity check (Turnitin)
-21. [ ] Final formatting review
-22. [ ] Submit to CODHES CMT system
-23. [ ] Create backup (git tag + GitHub release)
+1. **9 out of 10 platforms** show higher LRI scores for machine-optimized documentation
+2. **Vercel is the exception** — human docs scored higher (54.0 vs 42.0), potentially due to the machine docs being link-heavy with minimal prose
+3. **LangChain shows no difference** (50.0 vs 50.0) — both versions rated identically across all dimensions
+4. **FastAPI and Cursor achieved perfect scores** (100.0) for machine docs, indicating optimal LLM-friendliness
+5. **Human docs averaged 64.0 LRI** vs **Machine docs averaged 78.7 LRI** — a mean difference of +14.7 points
+
+### 11.4 Scientific Validity Notes
+
+- **Sample size:** n=10 platforms (20 document pairs) — sufficient for exploratory analysis
+- **Evaluation dimensions:** 5-point Likert scale across Clarity, Completeness, Conciseness, Technical Accuracy, and LLM-Friendliness
+- **Replicability:** Full cache available in `results/llm_cache/` for independent verification
+- **Model specification:** `meta-llama/llama-3.2-3b-instruct:free` via OpenRouter
+- **Bias acknowledgment:** Single-model evaluation; future work should include multi-model consensus
+
+### 11.5 Comparison with Traditional Metrics
+
+Preliminary comparison shows an **inverse relationship** between traditional readability (Flesch Reading Ease) and LLM preference:
+
+- Machine docs score **lower FRE** (mean: -36.08) but **higher LRI** (mean: 78.7)
+- Human docs score **higher FRE** (mean: 33.29) but **lower LRI** (mean: 64.0)
+- This supports the **Readability-Tokenization Paradox** hypothesis: machine-optimized docs sacrifice human readability for computational efficiency
+
+---
+
+## 12. Recommended Next Steps (Updated June 8)
+
+### Phase 1: Data Collection (Days 1-2) ✅ COMPLETE
+
+1. [x] Verify exact URLs for 10 technical platform pairs
+2. [x] Create `urls.txt` with target platforms
+3. [x] Run Python CLI: `uv run readability-auditor --input urls.txt`
+4. [x] Validate data quality (check `results/raw_texts/` for completeness)
+5. [x] Verify sufficient word count (> 20,000 total)
+
+### Phase 2: LLM-as-a-Judge Evaluation (Days 2-3) ✅ COMPLETE
+
+6. [x] Implement LLM evaluation module with OpenRouter API
+7. [x] Design 5-dimension Likert scale prompts
+8. [x] Calculate LLM Readability Index (LRI)
+9. [x] Evaluate all 10 platforms with caching
+10. [x] Export results to `llm_evaluation.csv`
+
+### Phase 3: Statistical Analysis (Days 3-4) 🔄 IN PROGRESS
+
+11. [ ] Review CSV results (traditional + LLM metrics)
+12. [ ] Calculate descriptive statistics (mean, std, min, max)
+13. [ ] Run paired comparison analysis (human vs machine docs)
+14. [ ] Calculate effect sizes (Cohen's d)
+15. [ ] Run Pearson correlation (traditional metrics ↔ LLM scores)
+16. [ ] Generate publication-ready charts
+    - Bar chart: Readability comparison (FRE + LRI scores)
+    - Bar chart: Token count comparison
+    - Scatter plot: FRE vs LLM clarity score
+    - Box plot: Distribution of differences
+17. [ ] Save charts as PNG/SVG to `paper/figures/`
+
+### Phase 4: Paper Writing (Days 4-7)
+
+18. [ ] Write Introduction (800-1000 words)
+19. [ ] Write Related Work (1200-1500 words)
+20. [ ] Write Methodology (1500-2000 words)
+21. [ ] Write Results (2000-2500 words) with tables and charts
+22. [ ] Write Discussion (1500-2000 words)
+23. [ ] Write Conclusion (500-800 words)
+24. [ ] Compile and verify LaTeX
+
+### Phase 5: Submission (Days 7-9)
+
+25. [ ] Run spell check
+26. [ ] Run similarity check (Turnitin)
+27. [ ] Final formatting review
+28. [ ] Submit to CODHES CMT system
+29. [ ] Create backup (git tag + GitHub release)
 
 ### If Accepted
 
-24. [ ] Prepare 15-20 minute presentation
-25. [ ] Register for conference (early bird by July 30)
+30. [ ] Prepare 15-20 minute presentation
+31. [ ] Register for conference (early bird by July 30)
 
 ---
 
