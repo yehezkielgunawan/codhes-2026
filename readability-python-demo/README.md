@@ -46,12 +46,26 @@ https://langchain.com
 2. Run the audit:
 
 ```bash
-uv run readability-auditor --input urls.txt --output-dir ./results
+uv run readability-auditor run --input urls.txt --output-dir ./results
 ```
 
 3. Check the results:
    - `results/results.csv` — Raw data with all metrics
    - `results/report.md` — Formatted summary with comparison tables
+
+### Scrape Single URL
+
+To scrape human documentation from a single URL (useful for fixing missing data):
+
+```bash
+uv run readability-auditor scrape https://docs.cursor.com --max-pages 10
+```
+
+This will:
+- Crawl the documentation site (with JavaScript rendering for SPAs)
+- Clean the content (strip code blocks, navigation, images)
+- Calculate traditional metrics (FRE, FKGL, LD, T/W)
+- Save to `results/raw_texts/{domain}_human.md`
 
 ### LLM-as-a-Judge Evaluation
 
@@ -62,20 +76,22 @@ To evaluate documentation quality using an LLM:
 export OPENROUTER_API_KEY=sk-or-...
 
 # Run audit with LLM evaluation
-uv run readability-auditor --input urls.txt --output-dir ./results --evaluate-llm
+uv run readability-auditor run --input urls.txt --output-dir ./results --evaluate-llm
 
 # Or evaluate existing raw_texts (skip scraping)
-uv run readability-auditor --output-dir ./results --evaluate-only
+uv run readability-auditor run --output-dir ./results --evaluate-only
 ```
 
 Results include:
 - `results/llm_evaluation.csv` — LLM scores for each dimension
 - `results/llm_cache/` — Cached API responses (resumable)
 
-## CLI Options
+## CLI Commands
+
+### `run` — Full Audit Pipeline
 
 ```bash
-uv run readability-auditor --help
+uv run readability-auditor run [OPTIONS]
 
 Options:
   -i, --input PATH              Path to URLs file [default: urls.txt]
@@ -89,7 +105,31 @@ Options:
   --llm-model TEXT              OpenRouter model for LLM evaluation [default: meta-llama/llama-3.2-3b-instruct:free]
   --llm-api-key TEXT            OpenRouter API key (or set OPENROUTER_API_KEY env var)
   -v, --verbose                 Enable verbose logging
-  --help                        Show this message and exit
+```
+
+### `scrape` — Single URL Scraping
+
+```bash
+uv run readability-auditor scrape URL [OPTIONS]
+
+Arguments:
+  URL                           Single URL to scrape [required]
+
+Options:
+  -o, --output-dir PATH         Directory to save results [default: ./results]
+  -d, --max-depth INT           Max depth for crawling docs (1-5) [default: 2]
+  -p, --max-pages INT           Max pages to crawl per URL (1-50) [default: 10]
+  --evaluate-llm/--no-evaluate-llm  Run LLM-as-a-Judge evaluation [default: no-evaluate-llm]
+  --llm-model TEXT              OpenRouter model for LLM evaluation
+  --llm-api-key TEXT            OpenRouter API key (or set OPENROUTER_API_KEY env var)
+```
+
+**Use case:** Fix missing human docs for specific platforms without re-running the full pipeline.
+
+**Example:**
+```bash
+# Scrape Cursor docs only
+uv run readability-auditor scrape https://docs.cursor.com --max-pages 10
 ```
 
 ## Context7 API Integration
