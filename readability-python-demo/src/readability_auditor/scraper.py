@@ -34,6 +34,8 @@ async def scrape_human_documentation(
     config = CrawlerRunConfig(
         deep_crawl_strategy=strategy,
         cache_mode=CacheMode.BYPASS,
+        wait_for="js:() => document.readyState === 'complete'",
+        delay_before_return_html=2.0,
     )
 
     async with AsyncWebCrawler() as crawler:
@@ -63,10 +65,19 @@ async def scrape_human_documentation(
                             f"  [dim]Cleaned: {len(combined):,} → {len(cleaned):,} chars "
                             f"({len(cleaned)/len(combined)*100:.1f}% retained)[/dim]"
                         )
+                        
+                        # Check if cleaned content is substantial
+                        if len(cleaned.strip()) < 500:
+                            logger.console.print(
+                                f"  [yellow]Warning: Cleaned content too short ({len(cleaned)} chars), trying next URL[/yellow]"
+                            )
+                            continue
+                        
                         return cleaned
             except asyncio.TimeoutError:
                 continue
-            except Exception:
+            except Exception as e:
+                logger.console.print(f"  [red]Error scraping {doc_url}: {e}[/red]")
                 continue
 
     return None

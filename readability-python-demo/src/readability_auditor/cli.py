@@ -20,6 +20,138 @@ app = typer.Typer(help="Audit documentation readability")
 
 
 @app.command()
+def scrape(
+    url: str = typer.Argument(..., help="Single URL to scrape"),
+    output_dir: Path = typer.Option(
+        "./results",
+        "--output-dir",
+        "-o",
+        help="Directory to save results",
+    ),
+    max_depth: int = typer.Option(
+        2,
+        "--max-depth",
+        "-d",
+        help="Maximum depth for crawling documentation pages",
+        min=1,
+        max=5,
+    ),
+    max_pages: int = typer.Option(
+        10,
+        "--max-pages",
+        "-p",
+        help="Maximum number of pages to crawl per URL",
+        min=1,
+        max=50,
+    ),
+    evaluate_llm: bool = typer.Option(
+        False,
+        "--evaluate-llm/--no-evaluate-llm",
+        help="Run LLM-as-a-Judge evaluation on scraped content",
+    ),
+    llm_model: str = typer.Option(
+        "meta-llama/llama-3.2-3b-instruct:free",
+        "--llm-model",
+        help="OpenRouter model for LLM evaluation",
+    ),
+    llm_api_key: str = typer.Option(
+        "",
+        "--llm-api-key",
+        help="OpenRouter API key (or set OPENROUTER_API_KEY env var)",
+    ),
+) -> None:
+    """Scrape human documentation from a single URL."""
+    typer.echo(f"Scraping: {url}")
+    typer.echo(f"Config: max_depth={max_depth}, max_pages={max_pages}")
+    typer.echo()
+
+    result = asyncio.run(_scrape_single_url(
+        url,
+        max_depth,
+        max_pages,
+        evaluate_llm,
+        llm_model,
+        llm_api_key,
+        output_dir,
+    ))
+
+    # Export single result
+    raw_texts_dir = output_dir / "raw_texts"
+    raw_texts_dir.mkdir(parents=True, exist_ok=True)
+
+    if result.human_text:
+        from .text_loader import get_domain_from_url
+        domain = get_domain_from_url(url)
+        human_path = raw_texts_dir / f"{domain}_human.md"
+        human_path.write_text(result.human_text, encoding="utf-8")
+        typer.echo(f"\n✓ Saved human docs to: {human_path}")
+
+        if result.human_metrics:
+            logger.log_metrics(
+                "Human",
+                result.human_metrics.flesch_reading_ease,
+                result.human_metrics.flesch_kincaid_grade,
+                result.human_metrics.lexical_density,
+                result.human_metrics.token_to_word_ratio,
+            )
+
+        if result.human_llm_scores:
+            typer.echo(f"Human LRI: {result.human_llm_scores.overall_lri:.2f}")
+    else:
+        typer.echo("\n✗ Failed to scrape human documentation", err=True)
+
+
+async def _scrape_single_url(
+    url: str,
+    max_depth: int,
+    max_pages: int,
+    evaluate_llm: bool,
+    llm_model: str,
+    llm_api_key: str,
+    output_dir: Path,
+) -> AuditResult:
+    """Scrape a single URL."""
+    result = AuditResult(base_url=url, llm_status="NOT_FOUND")
+
+    # Scrape human documentation
+    human_text = await scrape_human_documentation(
+        url,
+        max_depth=max_depth,
+        max_pages=max_pages,
+    )
+
+    if human_text:
+        result.human_text = human_text
+        result.human_metrics = calculate_metrics(human_text)
+        typer.echo(f"✓ Scraped {len(human_text):,} characters")
+    else:
+        typer.echo("✗ No content scraped - pages may be empty or blocked", err=True)
+
+    # Run LLM evaluation if enabled
+    if evaluate_llm and human_text:
+        api_key = llm_api_key or os.getenv("OPENROUTER_API_KEY", "")
+        if not api_key:
+            typer.echo("Warning: OPENROUTER_API_KEY not set. LLM evaluation skipped.", err=True)
+        else:
+            evaluator = LLMEvaluator(
+                api_key=api_key,
+                model=llm_model,
+                cache_dir=output_dir / "llm_cache",
+            )
+
+            typer.echo("Running LLM evaluation...")
+            human_scores = await evaluator.evaluate_document(
+                human_text,
+                platform_name=url,
+                doc_type="human_docs",
+            )
+            if human_scores:
+                result.human_llm_scores = human_scores
+
+    return result
+
+
+@app.command()
 def run(
     input: Path = typer.Option(
         "urls.txt",
@@ -179,15 +311,25 @@ async def _audit_urls(
             )
 
     for url in urls:
-        result = await _audit_single_url(
-            url,
-            max_depth,
-            max_pages,
-            follow_links,
-            use_context7,
-            evaluator,
-        )
-        results.append(result)
+        try:
+            result = await _audit_single_url(
+                url,
+                max_depth,
+                max_pages,
+                follow_links,
+                use_context7,
+                evaluator,
+            )
+            results.append(result)
+        except Exception as e:
+            typer.echo(f"[ERROR] Failed to audit {url}: {e}", err=True)
+            # Create a failed result to maintain data integrity
+            failed_result = AuditResult(
+                base_url=url,
+                llm_status="ERROR",
+                error=str(e),
+            )
+            results.append(failed_result)
 
     return results
 
@@ -211,6 +353,68 @@ async def _audit_single_url(
 
     if not machine_text:
         return result
+
+    result.llm_status = "FOUND"
+    result.llm_file_type = file_type
+    result.machine_text = machine_text
+    result.machine_metrics = calculate_metrics(machine_text)
+
+    if result.machine_metrics:
+        logger.log_metrics(
+            "Machine",
+            result.machine_metrics.flesch_reading_ease,
+            result.machine_metrics.flesch_kincaid_grade,
+            result.machine_metrics.lexical_density,
+            result.machine_metrics.token_to_word_ratio,
+        )
+
+    # Scrape human documentation
+    human_text = await scrape_human_documentation(
+        base_url,
+        max_depth=max_depth,
+        max_pages=max_pages,
+    )
+
+    if human_text:
+        result.human_text = human_text
+        result.human_metrics = calculate_metrics(human_text)
+
+        if result.human_metrics:
+            logger.log_metrics(
+                "Human",
+                result.human_metrics.flesch_reading_ease,
+                result.human_metrics.flesch_kincaid_grade,
+                result.human_metrics.lexical_density,
+                result.human_metrics.token_to_word_ratio,
+            )
+
+    # Run LLM evaluation if enabled
+    if evaluator:
+        typer.echo(f"  Running LLM evaluation...")
+        
+        # Evaluate machine text
+        if result.machine_text:
+            machine_scores = await evaluator.evaluate_document(
+                result.machine_text,
+                platform_name=base_url,
+                doc_type="llm.txt",
+            )
+            if machine_scores:
+                result.machine_llm_scores = machine_scores
+                typer.echo(f"  Machine LRI: {machine_scores.overall_lri:.2f}")
+
+        # Evaluate human text
+        if result.human_text:
+            human_scores = await evaluator.evaluate_document(
+                result.human_text,
+                platform_name=base_url,
+                doc_type="human_docs",
+            )
+            if human_scores:
+                result.human_llm_scores = human_scores
+                typer.echo(f"  Human LRI: {human_scores.overall_lri:.2f}")
+
+    return result
 
 
 async def _evaluate_from_raw_texts(
