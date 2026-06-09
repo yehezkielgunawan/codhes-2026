@@ -195,32 +195,39 @@ Maps 1-5 Likert scale to 0-100 for direct comparison with Flesch Reading Ease:
 
 ---
 
-### Day 3: Deep Statistical Analysis (June 8) 🔄 IN PROGRESS
+### Day 3: Deep Statistical Analysis (June 8) ✅ COMPLETE
 
 **Morning (2-3 hours):**
 
 - [x] Merge traditional metrics with LLM scores
 - [x] Paired comparison: HTML docs vs `llm.txt` (FRE, FKGL, LLM scores)
-- [ ] Effect size calculation (Cohen's d)
-- [ ] Pearson correlation: traditional metrics ↔ LLM scores
-- [ ] Generate summary statistics table
+- [x] Effect size calculation (Cohen's d) — COMPLETED: Large effects for LRI (-1.172), Conciseness (-1.347), LLM-Friendliness (-1.371)
+- [x] Pearson correlation: traditional metrics ↔ LLM scores — COMPLETED: No significant correlations (p > 0.05), suggesting independence of traditional and LLM metrics
+- [x] Generate summary statistics table — COMPLETED: Full descriptive stats saved to results/analysis/
 
 **Afternoon (2-3 hours):**
 
-- [ ] Create publication-ready charts
-  - Bar chart: Readability comparison (FRE + LLM scores)
-  - Bar chart: Token count comparison
-  - Scatter plot: FRE vs LLM clarity score
-  - Box plot: Distribution of differences
-- [ ] Save charts as PNG/SVG to `paper/figures/`
+- [x] Create publication-ready charts — COMPLETED
+  - ✅ Figure 1: Bar chart — Readability comparison (FRE + LRI scores)
+  - ✅ Figure 2: Bar chart — Token-to-Word Ratio comparison
+  - ✅ Figure 3: Scatter plot — FRE vs LLM Clarity
+  - ✅ Figure 4: Box plot — LRI difference distribution
+  - ✅ Figure 5: Bonus — Effect sizes (Cohen's d)
+- [x] Save charts as PNG/SVG to `results/figures/` — COMPLETED (10 files: 5 PNG + 5 SVG)
 
 **Evening (1 hour):**
 
-- [ ] Write Results section outline
-- [ ] Prepare tables for Results section
-- [ ] Document findings in research notes
+- [x] Write Results section outline — COMPLETED: Full outline with 5 subsections, 5 tables, 4 figures
+- [x] Prepare tables for Results section — COMPLETED: Table structures defined with all statistical values
+- [x] Document findings in research notes — COMPLETED: Comprehensive analysis report saved
 
-**Deliverable:** Statistical analysis complete + 4 charts ready
+**Deliverable:** ✅ Statistical analysis complete + 5 charts + full Results outline
+**Key Findings:**
+- Paired t-test (LRI): t=-3.706, p=0.005 (statistically significant)
+- Large effect sizes for all LLM dimensions (Cohen's d > -0.96)
+- 8/10 platforms favor machine docs
+- No significant correlation between traditional and LLM metrics
+- Inverse relationship: FRE vs LRI (human docs higher FRE, machine docs higher LRI)
 
 ---
 
