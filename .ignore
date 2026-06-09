@@ -1,3 +1,5 @@
 !docs/
 !readability-python-demo/results
 !readability-python-demo/results/raw_texts
+!readability-python-demo/results/analysis
+!readability-python-demo/results/figures
