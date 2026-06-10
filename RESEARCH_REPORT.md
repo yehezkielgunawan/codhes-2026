@@ -547,16 +547,16 @@ The LRI maps the 5-dimension Likert scale (1-5) to a 0-100 scale for direct comp
 
 | Platform | Human Docs LRI | Machine Docs LRI | Δ LRI | Trend |
 |----------|---------------|------------------|-------|-------|
-| **stripe.com** | 55.0 | 80.0 | +25.0 | Machine preferred |
-| **fastapi.tiangolo.com** | 87.0 | 100.0 | +13.0 | Machine preferred |
-| **hono.dev** | 73.3 | 87.0 | +13.7 | Machine preferred |
-| **docs.cursor.com** | 75.0 | 100.0 | +25.0 | Machine preferred |
-| **supabase.com** | 56.0 | 82.0 | +26.0 | Machine preferred |
-| **docs.github.com** | 55.0 | 81.3 | +26.3 | Machine preferred |
-| **vercel.com** | 54.0 | 42.0 | -12.0 | Human preferred |
-| **developers.cloudflare.com** | 63.0 | 80.0 | +17.0 | Machine preferred |
-| **react.dev** | 72.0 | 85.0 | +13.0 | Machine preferred |
-| **docs.langchain.com** | 50.0 | 50.0 | 0.0 | No difference |
+| **Stripe** | 55.0 | 80.0 | +25.0 | Machine preferred |
+| **FastAPI** | 87.0 | 100.0 | +13.0 | Machine preferred |
+| **Hono** | 73.3 | 87.0 | +13.7 | Machine preferred |
+| **Cursor** | 75.0 | 100.0 | +25.0 | Machine preferred |
+| **Supabase** | 56.0 | 82.0 | +26.0 | Machine preferred |
+| **GitHub** | 55.0 | 81.3 | +26.3 | Machine preferred |
+| **Vercel** | 54.0 | 42.0 | -12.0 | Human preferred |
+| **Cloudflare** | 63.0 | 80.0 | +17.0 | Machine preferred |
+| **React** | 72.0 | 85.0 | +13.0 | Machine preferred |
+| **LangChain** | 50.0 | 50.0 | 0.0 | No difference |
 
 ### 11.3 Key Observations
 
@@ -584,7 +584,48 @@ Preliminary comparison shows an **inverse relationship** between traditional rea
 
 ---
 
-## 12. Recommended Next Steps (Updated June 8)
+## 12. Paper Completion (June 12)
+
+### 12.1 Full Paper Written
+
+The complete CODHES 2026 paper has been written in LaTeX format:
+
+- **Title:** From Human-Centric to Machine-Optimized: A Technolinguistic Analysis of Documentation Readability in llm.txt Standards
+- **Length:** 6 pages, 4,500+ words (excluding tables and references)
+- **Format:** IEEEtran, A4, 2-column
+- **Tables:** 6 tables (Platform Characteristics, Traditional Metrics, LLM Evaluation, Platform-by-Platform LRI, Correlation Analysis)
+- **Figures:** 4 charts (Readability Comparison, Token Comparison, FRE vs Clarity, LRI Distribution)
+- **References:** 15 IEEE-format citations
+
+### 12.2 Paper Structure
+
+1. **Abstract** (200 words)
+2. **Introduction** (800 words) - Background, RQ1-3, significance
+3. **Literature Review** (1,200 words) - llm.txt standard, readability metrics, tokenization, LLM-as-a-Judge
+4. **Methodology** (1,000 words) - Research design, corpus, data collection, metrics, AI declaration
+5. **Results & Discussion** (1,500 words) - Statistical analysis, paradox discussion, implications
+6. **Conclusion** (500 words) - Key findings, limitations, future work
+7. **Acknowledgments** - AI declaration, author contributions
+8. **References** (15 citations)
+
+### 12.3 Key Findings Reported
+
+**Research Question 1:** Machine docs show lower Flesch Reading Ease (M=-58.18 vs 33.39) but higher variance. Flesch-Kincaid Grade increases by +10.2 levels.
+
+**Research Question 2:** LLM scores significantly favor machine docs (p=0.005, Cohen's d=-1.172). Large effects across all dimensions (d > -0.96).
+
+**Research Question 3:** No significant correlation between traditional and LLM metrics (all p > 0.05), indicating they measure distinct constructs.
+
+### 12.4 LaTeX Compilation
+
+- **Status:** Compiles successfully with 0 errors
+- **Output:** 6 pages, 128KB PDF
+- **Build process:** pdflatex → bibtex → pdflatex → pdflatex
+- **Template:** CODHES 2026 IEEEtran-based template
+
+---
+
+## 13. Recommended Next Steps (Updated June 12)
 
 ### Phase 1: Data Collection (Days 1-2) ✅ COMPLETE
 
