@@ -227,7 +227,7 @@ LLMLingua (Jiang et al., 2023), published at EMNLP 2023, achieves up to 20x prom
 
 The use of LLMs as evaluators represents a methodological innovation in documentation assessment. Recent work has demonstrated that LLMs can provide consistent, reliable evaluations of text quality across multiple dimensions. This methodology leverages the inherent capability of LLMs to assess clarity, completeness, conciseness, and technical accuracy, providing a machine-centric perspective on documentation quality that complements traditional human-focused metrics.
 
-The LLM-as-a-Judge approach is particularly relevant for evaluating machine-optimized documentation, as it captures dimensions that traditional readability metrics may miss. While Flesch Reading Ease measures sentence length and syllable complexity, LLM evaluators can assess semantic coherence, information density, and LLM-specific optimization factors such as token efficiency and context window utilization.
+The LLM-as-a-Judge approach is particularly relevant for evaluating machine-optimized documentation, as it captures dimensions that traditional readability metrics may miss. While Flesch Reading Ease measures sentence length and syllable complexity, LLM evaluators can assess semantic coherence, information density, and LLM-specific optimization factors such as token efficiency and context window utilization. Recent studies by Zheng et al. \cite{Zheng2023} have demonstrated that strong LLM judges can achieve over 80\% agreement with human preferences, making LLM-as-a-Judge a scalable and explainable evaluation methodology. This approach has been successfully applied to code readability evaluation, as shown by Horikawa et al. \cite{Horikawa2026} and Simoes et al. \cite{Simoes2025}, who demonstrated that LLMs can effectively evaluate semantic quality aspects of technical documentation.
 
 \subsection{Research Gap}
 
@@ -272,7 +272,31 @@ The corpus comprises ten technical documentation platforms selected for their ad
 
 \subsection{Data Collection}
 
-Data collection was performed using a Python CLI tool (readability-python-demo) developed for this study \cite{Textstat2023}. The tool implements the following pipeline:
+Data collection was performed using a Python CLI tool (readability-python-demo) developed for this study \cite{Textstat2023}. The tool implements a five-step pipeline, as illustrated in Figure~\ref{fig:pipeline}.
+
+\begin{figure*}[htbp]
+    \centering
+    \fbox{\parbox{0.9\textwidth}{
+    \centering
+    \small
+    \textbf{Data Collection and Analysis Pipeline}\\[6pt]
+    \begin{tabular}{ccc}
+        \textbf{Input} & $\rightarrow$ & \textbf{Detection} \\
+        (urls.txt) & & (llm.txt check) \\[6pt]
+        & & $\downarrow$ \\[6pt]
+        \textbf{Export} & $\leftarrow$ & \textbf{Metrics} \\
+        (CSV/MD/Raw) & & (FRE/FKGL/LD) \\[6pt]
+        & & $\uparrow$ \\[6pt]
+        \textbf{LLM Eval} & $\rightarrow$ & \textbf{Clean} \\
+        (5 Dimensions) & & (Prose Extraction) \\[6pt]
+        & & $\uparrow$ \\[6pt]
+        \textbf{LRI Calc} & $\leftarrow$ & \textbf{Crawl} \\
+        (0-100 Scale) & & (Human Docs) \\
+    \end{tabular}
+    }}
+    \caption{Data Collection and Analysis Pipeline showing the flow from input URLs through detection, crawling, cleaning, metrics calculation, and LLM evaluation to final export.}
+    \label{fig:pipeline}
+\end{figure*}
 
 \textbf{Step 1: Detection.} The tool automatically detects llm.txt and llms.txt files at the root path of each platform using asynchronous HTTP requests.
 
@@ -340,7 +364,7 @@ To ensure validity, the analysis includes: (1) verification of data quality thro
 
 \subsection{AI Declaration}
 
-This study employed AI tools in the following capacities: (1) the LLM-as-a-Judge evaluation methodology uses a large language model (meta-llama/llama-3.2-3b-instruct) to assess documentation quality, (2) statistical analysis and visualization were performed using Python libraries with AI-assisted code generation, and (3) literature review synthesis was supported by AI-assisted information retrieval. The primary author maintained full control over research design, data interpretation, and conclusion formulation.
+This study employed AI tools in the following capacities: (1) the LLM-as-a-Judge evaluation methodology uses a large language model (meta-llama/llama-3.2-3b-instruct) to assess documentation quality, following established protocols for LLM evaluation \cite{Zheng2023}, (2) statistical analysis and visualization were performed using Python libraries with AI-assisted code generation, and (3) literature review synthesis was supported by AI-assisted information retrieval. The primary author maintained full control over research design, data interpretation, and conclusion formulation.
 
 % ============================================================
 % RESULT AND DISCUSSION

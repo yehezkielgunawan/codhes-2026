@@ -75,6 +75,27 @@ H.~Jiang, Q.~Wu, C.-Y. Lin, Y.~Yang, and L.~Qiu, ``{LLMLingua}: Compressing
   \emph{Proceedings of the 2023 Conference on Empirical Methods in Natural
   Language Processing (EMNLP 2023)}, 2023, pp. 18\,020--18\,036.
 
+\bibitem{Zheng2023}
+L.~Zheng, W.-L. Chiang, Y.~Sheng, S.~Zhuang, Z.~Wu, Y.~Zhuang, Z.~Lin, Z.~Li,
+  D.~Li, E.~P. Xing, H.~Zhang, J.~E. Gonzalez, and I.~Stoica, ``Judging
+  {LLM-as-a-Judge} with {MT-Bench} and {Chatbot Arena},'' in \emph{Proceedings
+  of the Neural Information Processing Systems (NeurIPS) 2023 Datasets and
+  Benchmarks Track}, 2023.
+
+\bibitem{Horikawa2026}
+\BIBentryALTinterwordspacing
+K.~Horikawa, K.~Horikawa, Y.~Kashiwa, H.~Uwano, and H.~Iida, ``Do {AI} agents
+  really improve code readability?'' in \emph{Proceedings of the 23rd
+  International Conference on Mining Software Repositories (MSR '26)}, 2026.
+  [Online]. Available: \url{https://arxiv.org/abs/2603.13723}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Simoes2025}
+I.~R. d.~S.~Simoes and E.~Venson, ``Measuring how changes in code readability
+  attributes affect code quality evaluation by large language models,'' in
+  \emph{Proceedings of the XXXIX Brazilian Symposium on Software Engineering},
+  2025.
+
 \bibitem{Textstat2023}
 \BIBentryALTinterwordspacing
 Textstat. (2023) textstat: Calculate statistical features from text. Python

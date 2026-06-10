@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  10 JUN 2026 18:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  10 JUN 2026 18:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -694,53 +694,53 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-Underfull \hbox (badness 10000) in paragraph at lines 293--294
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
 []\T1/ptm/b/n/10 (+20) Flesch Read-ing Ease (FRE): \T1/ptm/m/n/10 (+20) Cal-cu-
 lated as
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 293--294
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
 \OT1/cmr/m/n/10 206\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 835 \OMS/cmsy/m/n/10 ^^@ \
 OT1/cmr/m/n/10 1\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 015([]\OML/cmm/m/it/10 =[]\OT
 1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Underfull \hbox (badness 6364) in paragraph at lines 293--294
+Underfull \hbox (badness 6364) in paragraph at lines 317--318
 \OT1/cmr/m/n/10 84\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 6([]\OML/cmm/m/it/10 =[]\OT
 1/cmr/m/n/10 )$\T1/ptm/m/n/10 (+20) . Scores range from 0
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 295--296
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
 []\T1/ptm/b/n/10 (+20) Flesch-Kincaid Grade Level (FKGL):
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 295--296
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
 \T1/ptm/m/n/10 (+20) Cal-cu-lated as $\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/c
 mr/m/n/10 39([]\OML/cmm/m/it/10 =[]\OT1/cmr/m/n/10 ) +
  []
 
-[3] [4]
-Underfull \hbox (badness 3872) in paragraph at lines 479--480
+[3] [4] [5]
+Underfull \hbox (badness 3872) in paragraph at lines 503--504
 []\T1/ptm/b/n/10 (+20) RQ2: \T1/ptm/m/n/10 (+20) LLM-as-a-Judge scores sig-nif-
 i-cantly fa-vor
  []
 
-[5]
-Underfull \hbox (badness 2753) in paragraph at lines 509--510
+
+Underfull \hbox (badness 2753) in paragraph at lines 533--534
 []\T1/ptm/m/n/10 (+20) The data that sup-port the find-ings of this study
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 509--510
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
 \T1/ptm/m/n/10 (+20) are openly avail-able in the GitHub repos-i-tory at
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 509--510
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
 \T1/ptm/m/n/10 (+20) https://github.com/yehezkielgunawan/readability-python-
  []
 
@@ -756,13 +756,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-
-Package caption Warning: Unused \captionsetup[figure] on input line 105.
-See the caption package documentation for explanation.
-
-[6
-
-] (./codhes2026_paper.aux)
+[6] (./codhes2026_paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -771,26 +765,27 @@ Package rerunfilecheck Info: File `codhes2026_paper.out' has not changed.
 (rerunfilecheck)             Checksum: 320A19750B6634486E7F248AF47B22C9;5484.
  ) 
 Here is how much of TeX's memory you used:
- 15204 strings out of 467525
- 246643 string characters out of 5408440
- 710656 words of memory out of 5000000
- 43586 multiletter control sequences out of 15000+600000
- 751564 words of font info for 333 fonts, out of 8000000 for 9000
+ 15242 strings out of 467525
+ 247163 string characters out of 5408440
+ 708951 words of memory out of 5000000
+ 43606 multiletter control sequences out of 15000+600000
+ 753660 words of font info for 346 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,1391b,481s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1391b,481s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/s
 hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar
 /texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></o
-pt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmb
-8a.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/
-times/utmr8a.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/
-type1/urw/times/utmri8a.pfb>
-Output written on codhes2026_paper.pdf (6 pages, 128493 bytes).
+pt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/ty
+pe1/urw/times/utmb8a.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dis
+t/fonts/type1/urw/times/utmr8a.pfb></opt/homebrew/Cellar/texlive/20260301/share
+/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on codhes2026_paper.pdf (6 pages, 139865 bytes).
 PDF statistics:
- 262 PDF objects out of 1000 (max. 8388607)
- 237 compressed objects within 3 object streams
- 65 named destinations out of 1000 (max. 500000)
- 56089 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 278 PDF objects out of 1000 (max. 8388607)
+ 251 compressed objects within 3 object streams
+ 69 named destinations out of 1000 (max. 500000)
+ 56601 words of extra memory for PDF output out of 61914 (max. 10000000)
 
