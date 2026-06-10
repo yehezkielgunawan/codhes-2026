@@ -68,20 +68,51 @@
 \let\oldsubsubsection\subsubsection
 \let\oldparagraph\paragraph
 
-\renewcommand{\section}[1]{%
+\makeatletter
+\renewcommand{\section}{%
+    \@ifstar{\sectionStar}{\sectionNoStar}%
+}
+\newcommand{\sectionStar}[1]{%
+    \oldsection*{#1}%
+    \vspace{-4pt}%
+}
+\newcommand{\sectionNoStar}[1]{%
     \oldsection{#1}%
-    \vspace{-4pt} % fine-tune spacing after
+    \vspace{-4pt}%
 }
-\renewcommand{\subsection}[1]{%
+
+\renewcommand{\subsection}{%
+    \@ifstar{\subsectionStar}{\subsectionNoStar}%
+}
+\newcommand{\subsectionStar}[1]{%
+    \oldsubsection*{\textit{#1}}%
+    \vspace{-3pt}%
+}
+\newcommand{\subsectionNoStar}[1]{%
     \oldsubsection{\textit{#1}}%
-    \vspace{-3pt} % fine-tune spacing after
+    \vspace{-3pt}%
 }
-\renewcommand{\subsubsection}[1]{%
+
+\renewcommand{\subsubsection}{%
+    \@ifstar{\subsubsectionStar}{\subsubsectionNoStar}%
+}
+\newcommand{\subsubsectionStar}[1]{%
+    \oldsubsubsection*{\textit{#1}}%
+}
+\newcommand{\subsubsectionNoStar}[1]{%
     \oldsubsubsection{\textit{#1}}%
 }
-\renewcommand{\paragraph}[1]{%
+
+\renewcommand{\paragraph}{%
+    \@ifstar{\paragraphStar}{\paragraphNoStar}%
+}
+\newcommand{\paragraphStar}[1]{%
+    \oldparagraph*{\textit{#1}}%
+}
+\newcommand{\paragraphNoStar}[1]{%
     \oldparagraph{\textit{#1}}%
 }
+\makeatother
 
 % --- Body Text ---
 % DOCX: 10pt, justified, first-line indent 14.4pt, line spacing 11.4pt (auto)
@@ -132,10 +163,10 @@
 
 \author{%
     \IEEEauthorblockN{Yehezkiel Gunawan}
-    \IEEEauthorblockA{Department of Informatics\\
-    Universitas Islam Indonesia\\
-    Yogyakarta, Indonesia\\
-    yehezkiel.gunawan@uii.ac.id}
+    \IEEEauthorblockA{Department of Information System\\
+    Binus University\\
+    Jakarta, Indonesia\\
+    yehezkiel.gunawan@binus.ac.id}
 }
 
 % ============================================================
@@ -203,21 +234,21 @@ This research contributes to the emerging field of technolinguistics by providin
 
 The llm.txt standard, proposed by Jeremy Howard in September 2024, represents a paradigm shift in documentation design \cite{Howard2024}. The standard mandates a specific Markdown structure that provides concise, expert-level information in a single accessible location, explicitly designed for LLM consumption at inference time rather than training. The core rationale, as stated in the official proposal, is that ``Large language models increasingly rely on website information, but face a critical limitation: context windows are too small to handle most websites in their entirety. Converting complex HTML pages with navigation, ads, and JavaScript into LLM-friendly plain text is both difficult and imprecise.''
 
-The adoption of llm.txt has been substantial, with over 2,088 repositories on GitHub containing llm.txt files and major technology adopters including Vercel, Cloudflare, Postman, Cursor, Anthropic, and Hugging Face. The ecosystem has expanded beyond the core specification to include llms-full.txt (expanded versions), llms-ctx.txt (XML-structured context), and various auto-generation tools for VitePress, Docusaurus, and other documentation platforms.
+The adoption of llm.txt has been substantial, with over 2,088 repositories on GitHub containing llm.txt files and major technology adopters including Vercel, Cloudflare, Postman, Cursor, Anthropic, and Hugging Face \cite{AnswerDotAI2024}. The ecosystem has expanded beyond the core specification to include llms-full.txt (expanded versions), llms-ctx.txt (XML-structured context), and various auto-generation tools for VitePress, Docusaurus, and other documentation platforms \cite{llmstxtSite,llmstxtDirectory}.
 
 This standard explicitly frames the human-vs-machine optimization tension that our research quantifies. While websites serve both human readers and LLMs, the latter benefit from more concise, expert-level information gathered in a single, accessible location. The ``Optional'' section in the llm.txt format has semantic meaning, allowing content to be skipped for shorter context, demonstrating the explicit optimization for machine consumption efficiency.
 
 \subsection{Traditional Readability Metrics}
 
-The foundation of modern readability assessment lies in two seminal metrics: the Flesch Reading Ease (FRE) formula developed by Rudolf Flesch in 1948 and the Flesch-Kincaid Grade Level (FKGL) developed by J. Peter Kincaid et al. in 1975 \cite{Flesch1948,Kincaid1975}. The FRE formula calculates readability based on sentence length and syllable count per word, while FKGL translates these metrics into U.S. grade level equivalents.
+The foundation of modern readability assessment lies in two seminal metrics: the Flesch Reading Ease (FRE) formula developed by Rudolf Flesch in 1948 \cite{Flesch1948} and the Flesch-Kincaid Grade Level (FKGL) developed by J. Peter Kincaid et al. in 1975 \cite{Kincaid1975}. The FRE formula calculates readability based on sentence length and syllable count per word, while FKGL translates these metrics into U.S. grade level equivalents.
 
-The academic credibility of these metrics is well-established. Flesch's original work was published in the Journal of Applied Psychology, and FKGL became a United States Military Standard in 1978. These metrics have been widely adopted by the U.S. Department of Defense, Microsoft Word, Grammarly, and IBM Lotus Symphony. However, as noted by Redish (2000) and McClure (1987), these formulas have significant limitations when applied to technical documentation: they were developed for school books, not technical content; they neglect between-reader differences and effects of content, layout, and retrieval aids; and they assume English text with limited applicability to non-English contexts \cite{Redish2000,McClure1987}.
+The academic credibility of these metrics is well-established. Flesch's original work was published in the Journal of Applied Psychology, and FKGL became a United States Military Standard in 1978. These metrics have been widely adopted by the U.S. Department of Defense, Microsoft Word, Grammarly, and IBM Lotus Symphony. However, as noted by Redish (2000) \cite{Redish2000} and McClure (1987) \cite{McClure1987}, these formulas have significant limitations when applied to technical documentation: they were developed for school books, not technical content; they neglect between-reader differences and effects of content, layout, and retrieval aids; and they assume English text with limited applicability to non-English contexts.
 
-For technical documentation, industry standards recommend FRE scores of 60-70 for general documentation and grade levels of 8-10 for general developer audiences. However, technical documentation naturally scores lower due to complex subject matter, and the formulas struggle with polysyllabic technical terms. This limitation is particularly relevant when evaluating machine-optimized documentation, which may intentionally use concise, dense language that traditional metrics interpret as less readable.
+For technical documentation, industry standards recommend FRE scores of 60-70 for general documentation and grade levels of 8-10 for general developer audiences \cite{Kincaid1988}. However, technical documentation naturally scores lower due to complex subject matter, and the formulas struggle with polysyllabic technical terms. This limitation is particularly relevant when evaluating machine-optimized documentation, which may intentionally use concise, dense language that traditional metrics interpret as less readable.
 
 \subsection{Tokenization and Computational Efficiency}
 
-Byte Pair Encoding (BPE), introduced to NLP by Sennrich, Haddow, and Birch in 2016, has become the standard tokenization method for modern LLMs \cite{Sennrich2016}. BPE is reversible, lossless, and compresses text, typically resulting in tokens that represent approximately 4 bytes each \cite{OpenAI2023}. The key characteristic is variable-length encoding: common words require one token, while rare or complex words require multiple tokens.
+Byte Pair Encoding (BPE), introduced to NLP by Sennrich, Haddow, and Birch in 2016, has become the standard tokenization method for modern LLMs \cite{Sennrich2016}. BPE is reversible, lossless, and compresses text, typically resulting in tokens that represent approximately 4 bytes each \cite{OpenAI2023}. The key characteristic is variable-length encoding: common words require one token, while rare or complex words require multiple tokens. The choice of subword merge operations significantly affects downstream performance \cite{Ding2019}, and recent work has analyzed how tokenization choices affect model behavior \cite{Ankner2024}.
 
 The token economy has significant implications for documentation design. Research has demonstrated that token count directly correlates with API cost and latency, and that well-structured, token-efficient prompts outperform verbose prompts by 10-15\% while costing 5-10x less. The ``Lost in the Middle'' phenomenon (Liu et al., 2023) provides empirical evidence that LLMs struggle to use information in the middle of long contexts, directly motivating the need for concise, front-loaded documentation formats like llm.txt \cite{Liu2023}.
 
@@ -227,7 +258,7 @@ LLMLingua (Jiang et al., 2023), published at EMNLP 2023, achieves up to 20x prom
 
 The use of LLMs as evaluators represents a methodological innovation in documentation assessment. Recent work has demonstrated that LLMs can provide consistent, reliable evaluations of text quality across multiple dimensions. This methodology leverages the inherent capability of LLMs to assess clarity, completeness, conciseness, and technical accuracy, providing a machine-centric perspective on documentation quality that complements traditional human-focused metrics.
 
-The LLM-as-a-Judge approach is particularly relevant for evaluating machine-optimized documentation, as it captures dimensions that traditional readability metrics may miss. While Flesch Reading Ease measures sentence length and syllable complexity, LLM evaluators can assess semantic coherence, information density, and LLM-specific optimization factors such as token efficiency and context window utilization. Recent studies by Zheng et al. \cite{Zheng2023} have demonstrated that strong LLM judges can achieve over 80\% agreement with human preferences, making LLM-as-a-Judge a scalable and explainable evaluation methodology. This approach has been successfully applied to code readability evaluation, as shown by Horikawa et al. \cite{Horikawa2026} and Simoes et al. \cite{Simoes2025}, who demonstrated that LLMs can effectively evaluate semantic quality aspects of technical documentation.
+The LLM-as-a-Judge approach is particularly relevant for evaluating machine-optimized documentation, as it captures dimensions that traditional readability metrics may miss. While Flesch Reading Ease measures sentence length and syllable complexity, LLM evaluators can assess semantic coherence, information density, and LLM-specific optimization factors such as token efficiency and context window utilization. Recent studies by Zheng et al. \cite{Zheng2023} have demonstrated that strong LLM judges can achieve over 80\% agreement with human preferences, making LLM-as-a-Judge a scalable and explainable evaluation methodology. This approach has been successfully applied to code readability evaluation, as shown by Horikawa et al. \cite{Horikawa2026} and Simoes et al. \cite{Simoes2025}, who demonstrated that LLMs can effectively evaluate semantic quality aspects of technical documentation. Additionally, Diggs et al. \cite{Diggs2024} explored LLM-generated documentation for legacy code systems, highlighting both opportunities and limitations in automated documentation generation.
 
 \subsection{Research Gap}
 
@@ -302,7 +333,7 @@ Data collection was performed using a Python CLI tool (readability-python-demo) 
 
 \textbf{Step 2: Deep Crawling.} For human-readable documentation, the tool performs BFS multi-page crawling using Crawl4AI, with configurable depth and page limits. The scraper extracts semantic content by analyzing DOM structure, paragraph density, and link distribution.
 
-\textbf{Step 3: Text Cleaning.} Human-readable HTML documentation undergoes prose extraction to ensure fair comparison. The cleaning pipeline removes code blocks, navigation elements, inline code, images, and advertisements while preserving paragraph text and link anchor text.
+\textbf{Step 3: Text Cleaning.} Human-readable HTML documentation undergoes prose extraction using Mozilla Readability \cite{MozillaReadability} to ensure fair comparison. The cleaning pipeline removes code blocks, navigation elements, inline code, images, and advertisements while preserving paragraph text and link anchor text.
 
 \textbf{Step 4: Linked Content Aggregation.} For machine-optimized documentation, the tool follows links in llm.txt files to fetch complete content, including llms-full.txt where available.
 
@@ -324,7 +355,7 @@ The study employs three traditional readability metrics implemented using the Py
 
 \subsubsection{LLM-as-a-Judge Evaluation}
 
-The LLM evaluation employs a five-dimension Likert scale assessment via the OpenRouter API, using the meta-llama/llama-3.2-3b-instruct model. The evaluation dimensions are:
+The LLM evaluation employs a five-dimension Likert scale assessment via the OpenRouter API \cite{OpenRouter2024}, using the meta-llama/llama-3.2-3b-instruct model. The evaluation dimensions are:
 
 \begin{enumerate}
     \item \textbf{Clarity} (1-5): Is the documentation clear and unambiguous?
@@ -480,7 +511,7 @@ The findings provide empirical evidence for what we term the ``readability-token
 
 This paradox has significant implications for documentation strategy. Technical writers and documentation platform developers must balance the competing demands of human readability and machine optimization. The current trend toward llm.txt adoption suggests that the industry prioritizes machine optimization, potentially at the expense of human readability.
 
-\subsection{Discussion}
+\subsection{Implications and Interpretation}
 
 The results suggest that the documentation landscape is undergoing a fundamental shift from human-centric to machine-optimized design. While traditional readability metrics remain valuable for assessing human comprehension, they are insufficient for evaluating documentation designed for dual human-machine consumption.
 
@@ -499,9 +530,9 @@ The key findings are:
 
 \begin{enumerate}
     \item \textbf{RQ1:} Machine-optimized documentation exhibits significantly different traditional readability metrics, with Flesch Reading Ease showing mixed results due to outlier sensitivity, but Flesch-Kincaid Grade Level consistently indicating higher reading difficulty (+10.2 grade levels).
-    
+
     \item \textbf{RQ2:} LLM-as-a-Judge scores significantly favor machine-optimized documentation (p=0.005), with large effect sizes across all evaluation dimensions (Cohen's d ranging from -0.964 to -1.371).
-    
+
     \item \textbf{RQ3:} Traditional readability metrics are insufficient for evaluating LLM-optimized documentation, as evidenced by the lack of significant correlation between traditional metrics and LLM scores (all p > 0.05).
 \end{enumerate}
 
@@ -509,7 +540,7 @@ These findings contribute to the emerging field of technolinguistics by quantify
 
 \subsection{Limitations}
 
-This study has several limitations that should be acknowledged. The small sample size (n=10 platforms) limits generalizability; larger-scale studies are needed to confirm these findings. The English-only corpus restricts applicability to non-English documentation. The single LLM evaluator (meta-llama/llama-3.2-3b-instruct) may introduce model-specific bias; multi-model consensus evaluation would strengthen validity. Finally, the purposive sampling strategy limits representativeness across all technical documentation genres.
+This study has several limitations that should be acknowledged. The small sample size (n=10 platforms) limits generalizability; larger-scale studies are needed to confirm these findings. The English-only corpus restricts applicability to non-English documentation. The single LLM evaluator (meta-llama/llama-3.2-3b-instruct) may introduce model-specific bias; multi-model consensus evaluation would strengthen validity, as demonstrated by Chen et al. \cite{Chen2025} in scientific programming contexts. Finally, the purposive sampling strategy limits representativeness across all technical documentation genres.
 
 \subsection{Future Work}
 
@@ -520,10 +551,9 @@ Future research should expand the corpus to 50+ platforms, include non-English d
 % ============================================================
 \section*{Acknowledgment}
 
-The author acknowledges the use of AI tools for statistical analysis, visualization, and literature review synthesis. The LLM-as-a-Judge evaluation was conducted using the meta-llama/llama-3.2-3b-instruct model via the OpenRouter API. The author maintains full responsibility for research design, data interpretation, and conclusion formulation.
+The author acknowledges the use of AI tools for statistical analysis, visualization, and literature review synthesis. The LLM-as-a-Judge evaluation was conducted using the meta-llama/llama-3.2-3b-instruct model via the OpenRouter API. This research was submitted to CODHES 2026 \cite{CODHES2026}. The author maintains full responsibility for research design, data interpretation, and conclusion formulation.
 
-\vspace{6pt}
-\noindent\textbf{Author Contributions:} Conceptualization, Yehezkiel Gunawan; methodology, Yehezkiel Gunawan; software, Yehezkiel Gunawan; validation, Yehezkiel Gunawan; formal analysis, Yehezkiel Gunawan; data collection, Yehezkiel Gunawan; writing, Yehezkiel Gunawan. All work was conducted by the primary author.
+
 
 % ============================================================
 % DATA AVAILABILITY STATEMENT

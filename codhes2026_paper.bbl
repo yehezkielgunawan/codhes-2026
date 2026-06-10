@@ -28,6 +28,23 @@ J.~Howard. (2024, September 3) The /llms.txt file: A proposal to standardise on
   at inference time. [Online]. Available: \url{https://llmstxt.org/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{AnswerDotAI2024}
+\BIBentryALTinterwordspacing
+AnswerDotAI. (2024) llms-txt. GitHub. [Online]. Available:
+  \url{https://github.com/AnswerDotAI/llms-txt}
+\BIBentrySTDinterwordspacing
+
+\bibitem{llmstxtSite}
+\BIBentryALTinterwordspacing
+(2024) llmstxt.site. [Online]. Available: \url{https://llmstxt.site/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{llmstxtDirectory}
+\BIBentryALTinterwordspacing
+(2024) directory.llmstxt.cloud. [Online]. Available:
+  \url{https://directory.llmstxt.cloud/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Flesch1948}
 R.~Flesch, ``A new readability yardstick,'' \emph{Journal of Applied
   Psychology}, vol.~32, no.~3, pp. 221--233, 1948.
@@ -51,6 +68,11 @@ G.~McClure, ``Readability formulas: Useful or useless? (an interview with {J.
   Peter Kincaid}),'' \emph{IEEE Transactions on Professional Communication},
   vol.~30, no.~1, pp. 12--15, 1987.
 
+\bibitem{Kincaid1988}
+J.~P. Kincaid, R.~Braby, and J.~Mears, ``Electronic authoring and delivery of
+  technical information,'' \emph{Journal of Instructional Development},
+  vol.~11, no.~2, pp. 8--13, 1988.
+
 \bibitem{Sennrich2016}
 R.~Sennrich, B.~Haddow, and A.~Birch, ``Neural machine translation of rare
   words with subword units,'' in \emph{Proceedings of the 54th Annual Meeting
@@ -62,6 +84,19 @@ R.~Sennrich, B.~Haddow, and A.~Birch, ``Neural machine translation of rare
 OpenAI. (2023) tiktoken: A fast {BPE} tokeniser for use with {OpenAI's} models.
   GitHub. [Online]. Available: \url{https://github.com/openai/tiktoken}
 \BIBentrySTDinterwordspacing
+
+\bibitem{Ding2019}
+\BIBentryALTinterwordspacing
+S.~Ding, A.~Renduchintala, and K.~Duh, ``A call for prudent choice of subword
+  merge operations in neural machine translation,'' in \emph{Proceedings of MT
+  Summit 2019}, 2019. [Online]. Available:
+  \url{https://aclanthology.org/W19-6608/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Ankner2024}
+Z.~Ankner, A.~Bertsch, G.~Neubig, and M.~R. Gormley, ``The ``:''
+  tokenization,'' in \emph{Findings of the Association for Computational
+  Linguistics: ACL 2024}, 2024.
 
 \bibitem{Liu2023}
 N.~F. Liu, K.~Lin, J.~Hewitt, A.~Paranjape, M.~Bevilacqua, F.~Petroni, and
@@ -96,10 +131,50 @@ I.~R. d.~S.~Simoes and E.~Venson, ``Measuring how changes in code readability
   \emph{Proceedings of the XXXIX Brazilian Symposium on Software Engineering},
   2025.
 
+\bibitem{Diggs2024}
+\BIBentryALTinterwordspacing
+C.~Diggs, M.~Doyle, A.~Madan, S.~Scott, E.~Escamilla, J.~Zimmer, N.~Nekoo,
+  P.~Ursino, M.~Bartholf, Z.~Robin, A.~Patel, C.~Glasz, W.~Macke, P.~Kirk,
+  J.~Phillips, A.~Sridharan, D.~Wendt, S.~Rosen, N.~Naik, J.~F. Brunelle, and
+  S.~Thaker, ``Leveraging {LLMs} for legacy code modernization: Challenges and
+  opportunities for {LLM-Generated} documentation,'' in \emph{Proceedings of
+  the LLM4Code Workshop at ICSE 2025}, 2024. [Online]. Available:
+  \url{https://arxiv.org/abs/2411.14971}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Textstat2023}
 \BIBentryALTinterwordspacing
 Textstat. (2023) textstat: Calculate statistical features from text. Python
   package. [Online]. Available: \url{https://github.com/shivam5992/textstat}
+\BIBentrySTDinterwordspacing
+
+\bibitem{MozillaReadability}
+\BIBentryALTinterwordspacing
+Mozilla. (2024) Readability: A standalone version of the readability library
+  used for {Firefox} reader view. Mozilla. [Online]. Available:
+  \url{https://github.com/mozilla/readability}
+\BIBentrySTDinterwordspacing
+
+\bibitem{OpenRouter2024}
+\BIBentryALTinterwordspacing
+(2024) Openrouter: A unified interface for {LLMs}. [Online]. Available:
+  \url{https://openrouter.ai/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Chen2025}
+\BIBentryALTinterwordspacing
+A.~Chen, C.~Wong, B.~Sharif, and A.~Peruma, ``Exploring code comprehension in
+  scientific programming: Preliminary insights from research scientists,'' in
+  \emph{Proceedings of the 33rd IEEE/ACM International Conference on Program
+  Comprehension (ICPC 2025)}, 2025. [Online]. Available:
+  \url{https://arxiv.org/abs/2501.10037}
+\BIBentrySTDinterwordspacing
+
+\bibitem{CODHES2026}
+\BIBentryALTinterwordspacing
+(2026) {CODHES} 2026: International conference on digital humanities and social
+  sciences. Binus University. [Online]. Available:
+  \url{https://humanities.binus.ac.id/codhes/}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}
