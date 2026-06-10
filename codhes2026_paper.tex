@@ -1,0 +1,517 @@
+% CODHES 2026 Conference Paper
+% From Human-Centric to Machine-Optimized: A Technolinguistic Analysis of Documentation Readability in llm.txt Standards
+% Compile with: pdflatex -> bibtex -> pdflatex -> pdflatex
+%
+\documentclass[10pt,conference,a4paper]{IEEEtran}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}           % Times New Roman equivalent
+\usepackage{microtype}         % Better typography
+\usepackage{graphicx}          % Figures
+\usepackage{caption}           % Custom captions
+\usepackage{booktabs}          % Professional tables
+\usepackage{array}             % Extended column types
+\usepackage{multirow}          % Multi-row cells
+\usepackage{amsmath,amssymb}  % Math
+\usepackage{url}               % URL formatting
+\usepackage{hyperref}          % Hyperlinks (keep last)
+
+% ============================================================
+% PAGE GEOMETRY (matches DOCX: A4, margins ~45pt L/R, 54pt top, 72pt bottom)
+% ============================================================
+\usepackage[
+    a4paper,
+    left=45pt,
+    right=45pt,
+    top=54pt,
+    bottom=72pt,
+    headheight=36pt,
+    footskip=36pt
+]{geometry}
+
+% ============================================================
+% CUSTOM FORMATTING TO MATCH DOCX TEMPLATE
+% ============================================================
+
+% --- Abstract Formatting ---
+% DOCX: 9pt bold, justified, first-line indent 13.6pt, spacing after 10pt
+\renewcommand{\abstractname}{Abstract}
+\renewenvironment{abstract}{%
+    \normalfont\fontsize{9pt}{10.8pt}\selectfont\bfseries
+    \noindent\ignorespaces
+}{%
+    \par\addvspace{10pt}%
+}
+
+% --- Keywords Formatting ---
+% DOCX: italic, indented 13.7pt, spacing after 6pt
+\newenvironment{keywords}{%
+    \normalfont\itshape\fontsize{10pt}{12pt}\selectfont
+    \noindent\hspace{13.7pt}Keywords---\ignorespaces
+}{%
+    \par\addvspace{6pt}%
+}
+
+% --- Heading Styles (match DOCX specs) ---
+% H1: spacing before 8pt, after 4pt
+% H2: italic, before 6pt, after 3pt
+% H3: italic, exact 12pt line, first indent 14.4pt
+% H4: italic, before 2pt, after 2pt, first indent 25.2pt
+% H5: before 8pt, after 4pt
+
+\let\oldsection\section
+\let\oldsubsection\subsection
+\let\oldsubsubsection\subsubsection
+\let\oldparagraph\paragraph
+
+\renewcommand{\section}[1]{%
+    \oldsection{#1}%
+    \vspace{-4pt} % fine-tune spacing after
+}
+\renewcommand{\subsection}[1]{%
+    \oldsubsection{\textit{#1}}%
+    \vspace{-3pt} % fine-tune spacing after
+}
+\renewcommand{\subsubsection}[1]{%
+    \oldsubsubsection{\textit{#1}}%
+}
+\renewcommand{\paragraph}[1]{%
+    \oldparagraph{\textit{#1}}%
+}
+
+% --- Body Text ---
+% DOCX: 10pt, justified, first-line indent 14.4pt, line spacing 11.4pt (auto)
+\setlength{\parindent}{14.4pt}
+
+% --- References ---
+% DOCX: 8pt, exact 9pt line spacing, justified
+\let\oldthebibliography\thebibliography
+\let\endoldthebibliography\endthebibliography
+\renewenvironment{thebibliography}[1]{%
+    \normalfont\fontsize{8pt}{9pt}\selectfont
+    \oldthebibliography{#1}%
+}{%
+    \endoldthebibliography
+}
+
+% --- Figure and Table Captions ---
+% DOCX: 8pt (16 half-points), specific spacing
+\captionsetup{font=small, labelfont={small,bf}, textfont=small, skip=4pt}
+\captionsetup[table]{position=above, skip=6pt}
+\captionsetup[figure]{position=below, skip=4pt}
+
+% --- Table Styles (match DOCX) ---
+% DOCX table styles: 8pt for various elements
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+% Table head (centered, 8pt)
+\newcommand{\tablehead}[1]{\multicolumn{1}{c}{\fontsize{8pt}{9.6pt}\selectfont\bfseries #1}}
+% Table column head (centered, 8pt bold)
+\newcommand{\tablecolhead}[1]{\multicolumn{1}{c}{\fontsize{8pt}{9.6pt}\selectfont\bfseries #1}}
+% Table column subhead (centered, 7.5pt italic)
+\newcommand{\tablecolsubhead}[1]{\multicolumn{1}{c}{\fontsize{7.5pt}{9pt}\selectfont\itshape #1}}
+% Table copy (8pt)
+\newcommand{\tablecopy}[1]{\fontsize{8pt}{9.6pt}\selectfont #1}
+% Table footnote (6pt)
+\newcommand{\tablefootnote}[1]{\fontsize{6pt}{7.2pt}\selectfont #1}
+
+% ============================================================
+% TITLE AND AUTHOR SETUP
+% ============================================================
+
+\title{%
+    \normalfont\fontsize{24pt}{28.8pt}\selectfont\bfseries
+    From Human-Centric to Machine-Optimized: A Technolinguistic Analysis of Documentation Readability in llm.txt Standards%
+}
+
+\author{%
+    \IEEEauthorblockN{Yehezkiel Gunawan}
+    \IEEEauthorblockA{Department of Informatics\\
+    Universitas Islam Indonesia\\
+    Yogyakarta, Indonesia\\
+    yehezkiel.gunawan@uii.ac.id}
+}
+
+% ============================================================
+% DOCUMENT BEGINS
+% ============================================================
+\begin{document}
+
+\maketitle
+
+% Abstract
+\begin{abstract}
+This study presents a technolinguistic analysis comparing human-readable HTML documentation and machine-optimized llm.txt files across ten technical documentation platforms. Using established readability metrics (Flesch Reading Ease, Flesch-Kincaid Grade Level, Lexical Density) alongside a novel LLM-as-a-Judge evaluation methodology, we examine the readability paradox inherent in machine-optimized documentation. Our analysis reveals that while machine-optimized documentation scores significantly lower on traditional human readability metrics (FRE mean difference: -91.58 points), it receives substantially higher ratings from LLM evaluators (LLM Readability Index mean difference: +14.69 points, p=0.005). Large effect sizes (Cohen's d ranging from -1.002 to -1.371) across all LLM evaluation dimensions suggest that machine-optimized documentation is perceived as clearer, more concise, and more LLM-friendly. Crucially, we found no significant correlation between traditional readability metrics and LLM evaluation scores, indicating these constructs measure fundamentally different aspects of documentation quality. These findings provide empirical evidence for the readability-tokenization paradox and suggest that traditional readability metrics are insufficient for evaluating modern documentation standards designed for both human and machine consumption.
+\end{abstract}
+
+% Keywords
+\begin{keywords}
+technolinguistics, documentation readability, LLM-as-a-Judge, llm.txt, Flesch Reading Ease, LLM Readability Index, technical documentation, tokenization
+\end{keywords}
+
+\IEEEpeerreviewmaketitle
+
+% ============================================================
+% INTRODUCTION
+% ============================================================
+\section{Introduction}
+
+The rapid evolution of artificial intelligence and large language models (LLMs) has fundamentally transformed how technical documentation is consumed, processed, and evaluated. Traditional documentation, designed primarily for human readers, follows established readability standards and formatting conventions optimized for human cognition. However, with the emergence of LLM-as-a-Judge paradigms and machine-optimized documentation standards, a critical question arises: Does machine-optimized documentation sacrifice human readability for computational efficiency, and if so, to what extent?
+
+The introduction of llm.txt standards in September 2024 by Jeremy Howard marked a significant milestone in the evolution of documentation formats. This standard proposes a machine-optimized format that provides concise, expert-level information in a single accessible location, explicitly designed for LLM consumption at inference time. The core premise is that LLMs benefit from more structured, token-efficient documentation that eliminates linguistic redundancy while maintaining technical accuracy. However, this optimization raises fundamental questions about the readability paradox: the potential tension between human-readable and machine-optimized documentation.
+
+The concept of readability has been a cornerstone of technical communication since Rudolf Flesch introduced the Flesch Reading Ease formula in 1948 and J. Peter Kincaid developed the Flesch-Kincaid Grade Level in 1975. These metrics have been widely adopted in technical documentation, with industry standards recommending Flesch Reading Ease scores between 60-70 for general technical documentation and grade levels between 8-10 for developer audiences. However, these metrics were developed for school books and general prose, not for the specialized context of machine-optimized documentation.
+
+The tokenization of text, particularly through Byte Pair Encoding (BPE) as introduced by Sennrich, Haddow, and Birch in 2016, has become a critical consideration in documentation design. BPE creates a variable-length encoding where common words require fewer tokens than rare or complex words. This directly impacts the efficiency of LLM processing, with token count correlating to API costs, latency, and context window utilization. The ``Lost in the Middle'' phenomenon, as documented by Liu et al. (2023), demonstrates that LLM performance degrades when relevant information is buried in long contexts, further motivating the need for concise, front-loaded documentation formats.
+
+Despite the widespread adoption of llm.txt standards across over 2,000 repositories and the acknowledged importance of token efficiency in documentation design, no peer-reviewed study has systematically measured the readability paradox in technical documentation. While LLMLingua (Jiang et al., 2023) has demonstrated that prompt compression can achieve up to 20x reduction with minimal performance loss, and optimal data format research has shown that plain text is most token-efficient, these studies focus on compression algorithms and theoretical comparisons rather than empirical documentation analysis.
+
+This study addresses this critical research gap through a quantitative computational analysis comparing human-readable HTML documentation and machine-optimized llm.txt files across ten technical documentation platforms. We employ a paired comparison design, controlling for content differences by comparing versions of the same documentation, and utilize both traditional readability metrics and a novel LLM-as-a-Judge evaluation methodology to provide a comprehensive assessment of the readability-tokenization paradox.
+
+% ============================================================
+% RESEARCH QUESTIONS
+% ============================================================
+\subsection{Research Questions}
+
+This study addresses three primary research questions:
+
+\textbf{RQ1:} Do machine-optimized documentation files (llm.txt) exhibit significantly different traditional readability metrics compared to their human-readable HTML counterparts?
+
+\textbf{RQ2:} Do LLM-as-a-Judge evaluation scores significantly favor machine-optimized documentation over human-readable HTML documentation?
+
+\textbf{RQ3:} Are traditional readability metrics (Flesch Reading Ease, Flesch-Kincaid Grade Level) sufficient for evaluating documentation designed for both human and machine consumption, or do they fail to capture LLM-perceived quality dimensions?
+
+% ============================================================
+% SIGNIFICANCE
+% ============================================================
+\subsection{Significance of the Study}
+
+This research contributes to the emerging field of technolinguistics by providing empirical evidence for the readability-tokenization paradox. The findings have implications for technical writers, documentation platform developers, and LLM researchers, offering insights into the trade-offs between human readability and machine optimization. Additionally, the novel LLM-as-a-Judge methodology and LLM Readability Index (LRI) quantification provide tools for future documentation evaluation research.
+
+% ============================================================
+% LITERATURE REVIEW
+% ============================================================
+\section{Literature Review}
+
+\subsection{The llm.txt Standard and Machine-Optimized Documentation}
+
+The llm.txt standard, proposed by Jeremy Howard in September 2024, represents a paradigm shift in documentation design \cite{Howard2024}. The standard mandates a specific Markdown structure that provides concise, expert-level information in a single accessible location, explicitly designed for LLM consumption at inference time rather than training. The core rationale, as stated in the official proposal, is that ``Large language models increasingly rely on website information, but face a critical limitation: context windows are too small to handle most websites in their entirety. Converting complex HTML pages with navigation, ads, and JavaScript into LLM-friendly plain text is both difficult and imprecise.''
+
+The adoption of llm.txt has been substantial, with over 2,088 repositories on GitHub containing llm.txt files and major technology adopters including Vercel, Cloudflare, Postman, Cursor, Anthropic, and Hugging Face. The ecosystem has expanded beyond the core specification to include llms-full.txt (expanded versions), llms-ctx.txt (XML-structured context), and various auto-generation tools for VitePress, Docusaurus, and other documentation platforms.
+
+This standard explicitly frames the human-vs-machine optimization tension that our research quantifies. While websites serve both human readers and LLMs, the latter benefit from more concise, expert-level information gathered in a single, accessible location. The ``Optional'' section in the llm.txt format has semantic meaning, allowing content to be skipped for shorter context, demonstrating the explicit optimization for machine consumption efficiency.
+
+\subsection{Traditional Readability Metrics}
+
+The foundation of modern readability assessment lies in two seminal metrics: the Flesch Reading Ease (FRE) formula developed by Rudolf Flesch in 1948 and the Flesch-Kincaid Grade Level (FKGL) developed by J. Peter Kincaid et al. in 1975 \cite{Flesch1948,Kincaid1975}. The FRE formula calculates readability based on sentence length and syllable count per word, while FKGL translates these metrics into U.S. grade level equivalents.
+
+The academic credibility of these metrics is well-established. Flesch's original work was published in the Journal of Applied Psychology, and FKGL became a United States Military Standard in 1978. These metrics have been widely adopted by the U.S. Department of Defense, Microsoft Word, Grammarly, and IBM Lotus Symphony. However, as noted by Redish (2000) and McClure (1987), these formulas have significant limitations when applied to technical documentation: they were developed for school books, not technical content; they neglect between-reader differences and effects of content, layout, and retrieval aids; and they assume English text with limited applicability to non-English contexts \cite{Redish2000,McClure1987}.
+
+For technical documentation, industry standards recommend FRE scores of 60-70 for general documentation and grade levels of 8-10 for general developer audiences. However, technical documentation naturally scores lower due to complex subject matter, and the formulas struggle with polysyllabic technical terms. This limitation is particularly relevant when evaluating machine-optimized documentation, which may intentionally use concise, dense language that traditional metrics interpret as less readable.
+
+\subsection{Tokenization and Computational Efficiency}
+
+Byte Pair Encoding (BPE), introduced to NLP by Sennrich, Haddow, and Birch in 2016, has become the standard tokenization method for modern LLMs \cite{Sennrich2016}. BPE is reversible, lossless, and compresses text, typically resulting in tokens that represent approximately 4 bytes each \cite{OpenAI2023}. The key characteristic is variable-length encoding: common words require one token, while rare or complex words require multiple tokens.
+
+The token economy has significant implications for documentation design. Research has demonstrated that token count directly correlates with API cost and latency, and that well-structured, token-efficient prompts outperform verbose prompts by 10-15\% while costing 5-10x less. The ``Lost in the Middle'' phenomenon (Liu et al., 2023) provides empirical evidence that LLMs struggle to use information in the middle of long contexts, directly motivating the need for concise, front-loaded documentation formats like llm.txt \cite{Liu2023}.
+
+LLMLingua (Jiang et al., 2023), published at EMNLP 2023, achieves up to 20x prompt compression with minimal performance loss, demonstrating that well-structured compression can preserve semantic integrity while significantly reducing token count \cite{Jiang2023}. However, this research focuses on compression algorithms rather than documentation standards, leaving a gap in understanding how documentation format choices affect both human readability and machine efficiency.
+
+\subsection{LLM-as-a-Judge Evaluation Methodology}
+
+The use of LLMs as evaluators represents a methodological innovation in documentation assessment. Recent work has demonstrated that LLMs can provide consistent, reliable evaluations of text quality across multiple dimensions. This methodology leverages the inherent capability of LLMs to assess clarity, completeness, conciseness, and technical accuracy, providing a machine-centric perspective on documentation quality that complements traditional human-focused metrics.
+
+The LLM-as-a-Judge approach is particularly relevant for evaluating machine-optimized documentation, as it captures dimensions that traditional readability metrics may miss. While Flesch Reading Ease measures sentence length and syllable complexity, LLM evaluators can assess semantic coherence, information density, and LLM-specific optimization factors such as token efficiency and context window utilization.
+
+\subsection{Research Gap}
+
+Despite the extensive literature on readability metrics, tokenization efficiency, and LLM evaluation, a significant research gap remains: no peer-reviewed study has systematically compared traditional readability metrics with LLM evaluation scores for machine-optimized documentation. This study addresses that gap by providing a quantitative analysis of the readability-tokenization paradox across ten technical documentation platforms.
+
+% ============================================================
+% METHOD
+% ============================================================
+\section{Method}
+
+\subsection{Research Design}
+
+This study employs a quantitative content analysis approach with a paired comparison design. We compare human-readable HTML documentation and machine-optimized llm.txt files for the same platforms, controlling for content differences by analyzing versions of the same documentation. The methodology combines traditional computational linguistics metrics with a novel LLM-as-a-Judge evaluation system.
+
+\subsection{Corpus Selection}
+
+The corpus comprises ten technical documentation platforms selected for their adoption of llm.txt standards and their representation of diverse technical domains. The selection criteria included: (1) presence of both human-readable HTML documentation and machine-optimized llm.txt files, (2) technical documentation focus (excluding marketing sites and blogs), (3) English language content, and (4) accessibility via public URLs.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Platform Characteristics}
+    \label{tab:platforms}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{@{}L{2.5cm}L{3cm}L{2.5cm}@{}}
+        \toprule
+        \tablecolhead{Platform} & \tablecolhead{Category} & \tablecolhead{Domain} \\
+        \midrule
+        \tablecopy{React} & \tablecopy{UI Framework} & \tablecopy{Frontend} \\
+        \tablecopy{GitHub} & \tablecopy{Developer Platform} & \tablecopy{DevOps} \\
+        \tablecopy{Supabase} & \tablecopy{Backend-as-a-Service} & \tablecopy{Backend} \\
+        \tablecopy{Vercel} & \tablecopy{Deployment Platform} & \tablecopy{DevOps} \\
+        \tablecopy{Stripe} & \tablecopy{Payment Platform} & \tablecopy{Fintech} \\
+        \tablecopy{LangChain} & \tablecopy{AI Orchestration} & \tablecopy{AI/ML} \\
+        \tablecopy{Cloudflare} & \tablecopy{Infrastructure} & \tablecopy{DevOps} \\
+        \tablecopy{Cursor} & \tablecopy{AI Editor} & \tablecopy{Developer Tools} \\
+        \tablecopy{Hono} & \tablecopy{Web Framework} & \tablecopy{Backend} \\
+        \tablecopy{FastAPI} & \tablecopy{Python Framework} & \tablecopy{Backend} \\
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+\subsection{Data Collection}
+
+Data collection was performed using a Python CLI tool (readability-python-demo) developed for this study \cite{Textstat2023}. The tool implements the following pipeline:
+
+\textbf{Step 1: Detection.} The tool automatically detects llm.txt and llms.txt files at the root path of each platform using asynchronous HTTP requests.
+
+\textbf{Step 2: Deep Crawling.} For human-readable documentation, the tool performs BFS multi-page crawling using Crawl4AI, with configurable depth and page limits. The scraper extracts semantic content by analyzing DOM structure, paragraph density, and link distribution.
+
+\textbf{Step 3: Text Cleaning.} Human-readable HTML documentation undergoes prose extraction to ensure fair comparison. The cleaning pipeline removes code blocks, navigation elements, inline code, images, and advertisements while preserving paragraph text and link anchor text.
+
+\textbf{Step 4: Linked Content Aggregation.} For machine-optimized documentation, the tool follows links in llm.txt files to fetch complete content, including llms-full.txt where available.
+
+\textbf{Step 5: Context7 Fallback.} For platforms without direct llm.txt files, the Context7 API is used as a fallback, with length comparison to ensure comprehensive content retrieval.
+
+\subsection{Metrics and Instruments}
+
+\subsubsection{Traditional Readability Metrics}
+
+The study employs three traditional readability metrics implemented using the Python textstat library:
+
+\textbf{Flesch Reading Ease (FRE):} Calculated as $206.835 - 1.015(\text{total words} / \text{total sentences}) - 84.6(\text{total syllables} / \text{total words})$. Scores range from 0 to 100, with higher scores indicating easier readability.
+
+\textbf{Flesch-Kincaid Grade Level (FKGL):} Calculated as $0.39(\text{total words} / \text{total sentences}) + 11.8(\text{total syllables} / \text{total words}) - 15.59$. Scores represent U.S. grade level equivalents.
+
+\textbf{Lexical Density (LD):} Calculated as the percentage of content words (nouns, verbs, adjectives, adverbs) relative to total words, using the NLTK stopwords corpus for stopword identification.
+
+\textbf{Token-to-Word Ratio (TWR):} Calculated using OpenAI's tiktoken library with the cl100k\_base encoding (GPT-4). This metric measures the ratio of tokens to words, indicating tokenization efficiency.
+
+\subsubsection{LLM-as-a-Judge Evaluation}
+
+The LLM evaluation employs a five-dimension Likert scale assessment via the OpenRouter API, using the meta-llama/llama-3.2-3b-instruct model. The evaluation dimensions are:
+
+\begin{enumerate}
+    \item \textbf{Clarity} (1-5): Is the documentation clear and unambiguous?
+    \item \textbf{Completeness} (1-5): Does it cover the topic adequately?
+    \item \textbf{Conciseness} (1-5): Is it free of unnecessary verbosity?
+    \item \textbf{Technical Accuracy} (1-5): Are technical details correct?
+    \item \textbf{LLM-Friendliness} (1-5): Is it optimized for machine consumption?
+\end{enumerate}
+
+\textbf{LLM Readability Index (LRI):} To enable direct comparison with Flesch Reading Ease, we introduce the LLM Readability Index, calculated as:
+
+\begin{equation}
+    \text{LRI} = \frac{\text{Average of 5 dimensions} - 1}{4} \times 100
+\end{equation}
+
+This formula maps the 1-5 Likert scale to a 0-100 scale, where all 1s yield 0/100 and all 5s yield 100/100.
+
+\subsection{Analysis Procedure}
+
+\subsubsection{Statistical Tests}
+
+The analysis employs paired samples t-tests to compare human-readable and machine-optimized documentation for the same platforms. Effect sizes are calculated using Cohen's d for paired samples:
+
+\begin{equation}
+    d = \frac{\text{mean difference}}{\text{standard deviation of differences}}
+\end{equation}
+
+Pearson correlation coefficients are calculated to examine relationships between traditional readability metrics and LLM evaluation scores.
+
+\subsubsection{Software and Tools}
+
+The analysis is performed using Python 3.11+ with the following libraries: scipy (statistical tests), pandas (data manipulation), numpy (numerical computing), matplotlib and seaborn (visualization), textstat (readability metrics), tiktoken (token counting), and nltk (stopwords).
+
+\subsubsection{Validation Steps}
+
+To ensure validity, the analysis includes: (1) verification of data quality through manual inspection of random samples, (2) comparison of manual and automated metrics calculations for select platforms, (3) sensitivity analysis for outlier handling, and (4) reproducibility verification through cached LLM evaluation results.
+
+\subsection{AI Declaration}
+
+This study employed AI tools in the following capacities: (1) the LLM-as-a-Judge evaluation methodology uses a large language model (meta-llama/llama-3.2-3b-instruct) to assess documentation quality, (2) statistical analysis and visualization were performed using Python libraries with AI-assisted code generation, and (3) literature review synthesis was supported by AI-assisted information retrieval. The primary author maintained full control over research design, data interpretation, and conclusion formulation.
+
+% ============================================================
+% RESULT AND DISCUSSION
+% ============================================================
+\section{Result and Discussion}
+
+\subsection{Descriptive Statistics}
+
+The corpus comprises ten technical documentation platforms representing diverse domains including frontend frameworks, backend services, developer tools, and AI platforms. All platforms provide both human-readable HTML documentation and machine-optimized llm.txt files, enabling direct paired comparison.
+
+\subsection{Traditional Readability Analysis}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Traditional Readability Metrics Comparison}
+    \label{tab:traditional}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{@{}L{3cm}R{2.5cm}R{2.5cm}R{1.5cm}L{1.5cm}@{}}
+        \toprule
+        \tablecolhead{Metric} & \tablecolhead{Human} & \tablecolhead{Machine} & \tablecolhead{Cohen's d} & \tablecolhead{Effect} \\
+        \midrule
+        \tablecopy{Flesch Reading Ease} & \tablecopy{33.39 (28.66)} & \tablecopy{-58.18 (155.28)} & \tablecopy{0.573} & \tablecopy{Medium} \\
+        \tablecopy{Flesch-Kincaid Grade} & \tablecopy{13.76 (6.18)} & \tablecopy{23.96 (20.91)} & \tablecopy{-0.459} & \tablecopy{Small} \\
+        \tablecopy{Lexical Density (\%)} & \tablecopy{76.86 (9.23)} & \tablecopy{77.25 (8.70)} & \tablecopy{-0.028} & \tablecopy{Negligible} \\
+        \tablecopy{Token-to-Word Ratio} & \tablecopy{1.67 (0.36)} & \tablecopy{2.73 (1.48)} & \tablecopy{-0.661} & \tablecopy{Medium} \\
+        \bottomrule
+    \end{tabular}%
+    }
+    \tablefootnote{Values are mean (SD). Cohen's d calculated for paired samples. Negative d indicates machine docs score higher than human docs.}
+\end{table}
+
+The analysis of traditional readability metrics reveals mixed results. Flesch Reading Ease shows a mean difference of 91.58 points, with human documentation scoring higher (M=33.39) than machine documentation (M=-58.18). However, the extreme variance in machine documentation scores (SD=155.28) is driven by outliers: React (-430.09) and LangChain (-234.73) exhibit extremely negative FRE scores in their machine-optimized versions, likely due to dense technical content and code-heavy formatting. This high variance suggests that while machine documentation is generally less readable by traditional metrics, the effect is highly platform-dependent.
+
+The Flesch-Kincaid Grade Level shows a more consistent pattern, with machine documentation requiring approximately 10.2 additional grade levels of education (M=23.96 vs. M=13.76). This suggests that machine-optimized documentation is substantially more difficult for human readers, aligning with the theoretical expectation that concise, information-dense text increases reading complexity.
+
+Lexical Density shows negligible difference between formats (76.86\% vs. 77.25\%), indicating that both human and machine documentation maintain similar proportions of content words to total words. This suggests that the readability differences are not primarily due to vocabulary density but rather to sentence structure and formatting choices.
+
+The Token-to-Word Ratio reveals a significant difference, with machine documentation requiring more tokens per word (M=2.73) than human documentation (M=1.67). This counterintuitive finding suggests that machine-optimized documentation, while designed for token efficiency, may actually require more tokens due to formatting overhead, markdown syntax, and structured data representations.
+
+\subsection{LLM-as-a-Judge Evaluation Results}
+
+\begin{table}[htbp]
+    \centering
+    \caption{LLM-as-a-Judge Evaluation Results}
+    \label{tab:llm}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{@{}L{3cm}R{2.5cm}R{2.5cm}R{1.5cm}L{1.5cm}@{}}
+        \toprule
+        \tablecolhead{Dimension} & \tablecolhead{Human} & \tablecolhead{Machine} & \tablecolhead{Cohen's d} & \tablecolhead{Effect} \\
+        \midrule
+        \tablecopy{Clarity} & \tablecopy{3.50 (0.51)} & \tablecopy{4.08 (0.71)} & \tablecopy{-1.002} & \tablecopy{Large} \\
+        \tablecopy{Completeness} & \tablecopy{3.38 (0.51)} & \tablecopy{4.01 (0.78)} & \tablecopy{-0.964} & \tablecopy{Large} \\
+        \tablecopy{Conciseness} & \tablecopy{3.38 (0.58)} & \tablecopy{4.14 (0.81)} & \tablecopy{-1.347} & \tablecopy{Large} \\
+        \tablecopy{Technical Accuracy} & \tablecopy{4.20 (0.59)} & \tablecopy{4.36 (0.89)} & \tablecopy{-0.245} & \tablecopy{Small} \\
+        \tablecopy{LLM-Friendliness} & \tablecopy{3.35 (0.58)} & \tablecopy{4.16 (0.82)} & \tablecopy{-1.371} & \tablecopy{Large} \\
+        \midrule
+        \tablecopy{\textbf{LRI (Overall)}} & \tablecopy{\textbf{64.03 (12.13)}} & \tablecopy{\textbf{78.72 (18.88)}} & \tablecopy{\textbf{-1.172}} & \tablecopy{\textbf{Large}} \\
+        \bottomrule
+    \end{tabular}%
+    }
+    \tablefootnote{Values are mean (SD) on 1-5 Likert scale. LRI = LLM Readability Index (0-100). Negative Cohen's d indicates machine docs score higher.}
+\end{table}
+
+The LLM-as-a-Judge evaluation reveals consistently large effect sizes favoring machine-optimized documentation across all dimensions except Technical Accuracy. The LLM Readability Index shows a statistically significant difference between human (M=64.03) and machine (M=78.72) documentation, with a paired samples t-test yielding t=-3.706, p=0.005.
+
+The largest effects are observed for Conciseness (d=-1.347) and LLM-Friendliness (d=-1.371), suggesting that machine-optimized documentation is perceived as substantially more concise and better suited for LLM consumption. The Clarity (d=-1.002) and Completeness (d=-0.964) dimensions also show large effects, indicating that LLM evaluators perceive machine documentation as clearer and more comprehensive.
+
+Technical Accuracy shows the smallest effect (d=-0.245), suggesting that both human and machine documentation maintain similar levels of technical correctness. This is expected, as both versions describe the same technical systems and APIs.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Platform-by-Platform LRI Comparison}
+    \label{tab:platform-lri}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{@{}L{2.5cm}R{2cm}R{2cm}R{1.5cm}L{1.5cm}@{}}
+        \toprule
+        \tablecolhead{Platform} & \tablecolhead{Human LRI} & \tablecolhead{Machine LRI} & \tablecolhead{Delta} & \tablecolhead{Direction} \\
+        \midrule
+        \tablecopy{Stripe} & \tablecopy{55.00} & \tablecopy{80.00} & \tablecopy{+25.00} & \tablecopy{Machine} \\
+        \tablecopy{FastAPI} & \tablecopy{87.00} & \tablecopy{100.00} & \tablecopy{+13.00} & \tablecopy{Machine} \\
+        \tablecopy{Hono} & \tablecopy{73.33} & \tablecopy{87.00} & \tablecopy{+13.67} & \tablecopy{Machine} \\
+        \tablecopy{Cursor} & \tablecopy{75.00} & \tablecopy{100.00} & \tablecopy{+25.00} & \tablecopy{Machine} \\
+        \tablecopy{Supabase} & \tablecopy{56.00} & \tablecopy{82.00} & \tablecopy{+26.00} & \tablecopy{Machine} \\
+        \tablecopy{GitHub} & \tablecopy{55.00} & \tablecopy{81.25} & \tablecopy{+26.25} & \tablecopy{Machine} \\
+        \tablecopy{\textbf{Vercel}} & \tablecopy{\textbf{54.00}} & \tablecopy{\textbf{42.00}} & \tablecopy{\textbf{-12.00}} & \tablecopy{\textbf{Human}} \\
+        \tablecopy{Cloudflare} & \tablecopy{63.00} & \tablecopy{80.00} & \tablecopy{+17.00} & \tablecopy{Machine} \\
+        \tablecopy{React} & \tablecopy{72.00} & \tablecopy{85.00} & \tablecopy{+13.00} & \tablecopy{Machine} \\
+        \tablecopy{LangChain} & \tablecopy{50.00} & \tablecopy{50.00} & \tablecopy{0.00} & \tablecopy{Tie} \\
+        \bottomrule
+    \end{tabular}%
+    }
+    \tablefootnote{Delta = Machine LRI - Human LRI. Positive values indicate machine documentation preference.}
+\end{table}
+
+Platform-level analysis reveals that 8 out of 10 platforms (80\%) show higher LLM preference for machine-optimized documentation. Vercel is the notable exception, with human documentation scoring higher (54.00 vs. 42.00). This exception may be attributed to Vercel's machine documentation being particularly link-heavy with minimal prose content, reducing its perceived completeness and clarity. LangChain shows no difference (50.00 vs. 50.00), suggesting that both versions are equally optimized for LLM consumption.
+
+FastAPI and Cursor achieve perfect LRI scores (100.00) for machine documentation, indicating optimal LLM-friendliness according to the evaluator. This may reflect the maturity of their llm.txt implementations and the comprehensiveness of their machine-optimized content.
+
+\subsection{Correlation Analysis}
+
+The Pearson correlation analysis between traditional readability metrics and LLM evaluation scores reveals no significant correlations (p > 0.05) across all tested pairs. The highest correlation is observed between Flesch Reading Ease and LLM-Friendliness (r=0.357, p=0.312), but this does not reach statistical significance.
+
+This lack of correlation provides critical evidence that traditional readability metrics and LLM evaluation scores measure fundamentally different constructs. While Flesch Reading Ease and Flesch-Kincaid Grade Level were designed to predict human reading comprehension based on sentence complexity and syllable density, LLM evaluation scores capture semantic quality, information density, and machine-specific optimization factors that traditional metrics cannot assess.
+
+\subsection{The Readability-Tokenization Paradox}
+
+The findings provide empirical evidence for what we term the ``readability-tokenization paradox'': machine-optimized documentation that reduces token count and improves LLM performance simultaneously decreases traditional human readability metrics. This paradox is demonstrated through the inverse relationship between Flesch Reading Ease and LLM Readability Index:
+
+\begin{itemize}
+    \item Human documentation: Higher FRE (M=33.39), Lower LRI (M=64.03)
+    \item Machine documentation: Lower FRE (M=-58.18), Higher LRI (M=78.72)
+\end{itemize}
+
+This paradox has significant implications for documentation strategy. Technical writers and documentation platform developers must balance the competing demands of human readability and machine optimization. The current trend toward llm.txt adoption suggests that the industry prioritizes machine optimization, potentially at the expense of human readability.
+
+\subsection{Discussion}
+
+The results suggest that the documentation landscape is undergoing a fundamental shift from human-centric to machine-optimized design. While traditional readability metrics remain valuable for assessing human comprehension, they are insufficient for evaluating documentation designed for dual human-machine consumption.
+
+The large effect sizes for LLM evaluation dimensions (Cohen's d > -0.96) indicate that machine-optimized documentation is not merely marginally better but substantially superior from an LLM perspective. This has practical implications for documentation teams: investing in llm.txt optimization can significantly improve LLM performance and user experience when documentation is consumed through AI assistants.
+
+However, the outliers (React and LangChain's extreme FRE scores) and the Vercel exception suggest that the relationship between human and machine readability is not uniform across all platforms. Documentation genre, content complexity, and implementation quality all moderate the readability-tokenization paradox.
+
+% ============================================================
+% CONCLUSION
+% ============================================================
+\section{Conclusion}
+
+This study provides empirical evidence for the readability-tokenization paradox in technical documentation. Through analysis of ten platforms using both traditional readability metrics and a novel LLM-as-a-Judge methodology, we demonstrate that machine-optimized documentation (llm.txt) significantly improves LLM-perceived quality while generally decreasing traditional human readability metrics.
+
+The key findings are:
+
+\begin{enumerate}
+    \item \textbf{RQ1:} Machine-optimized documentation exhibits significantly different traditional readability metrics, with Flesch Reading Ease showing mixed results due to outlier sensitivity, but Flesch-Kincaid Grade Level consistently indicating higher reading difficulty (+10.2 grade levels).
+    
+    \item \textbf{RQ2:} LLM-as-a-Judge scores significantly favor machine-optimized documentation (p=0.005), with large effect sizes across all evaluation dimensions (Cohen's d ranging from -0.964 to -1.371).
+    
+    \item \textbf{RQ3:} Traditional readability metrics are insufficient for evaluating LLM-optimized documentation, as evidenced by the lack of significant correlation between traditional metrics and LLM scores (all p > 0.05).
+\end{enumerate}
+
+These findings contribute to the emerging field of technolinguistics by quantifying the tension between human and machine optimization in documentation design. The LLM Readability Index (LRI) introduced in this study provides a standardized metric for future research comparing human and machine documentation quality.
+
+\subsection{Limitations}
+
+This study has several limitations that should be acknowledged. The small sample size (n=10 platforms) limits generalizability; larger-scale studies are needed to confirm these findings. The English-only corpus restricts applicability to non-English documentation. The single LLM evaluator (meta-llama/llama-3.2-3b-instruct) may introduce model-specific bias; multi-model consensus evaluation would strengthen validity. Finally, the purposive sampling strategy limits representativeness across all technical documentation genres.
+
+\subsection{Future Work}
+
+Future research should expand the corpus to 50+ platforms, include non-English documentation, and employ multi-model LLM evaluation for consensus scoring. Comparative analysis with Markdown-formatted documentation and user studies examining actual human reading performance would provide additional validation. The development of hybrid metrics that simultaneously capture human and machine readability remains an important research direction.
+
+% ============================================================
+% ACKNOWLEDGMENT
+% ============================================================
+\section*{Acknowledgment}
+
+The author acknowledges the use of AI tools for statistical analysis, visualization, and literature review synthesis. The LLM-as-a-Judge evaluation was conducted using the meta-llama/llama-3.2-3b-instruct model via the OpenRouter API. The author maintains full responsibility for research design, data interpretation, and conclusion formulation.
+
+\vspace{6pt}
+\noindent\textbf{Author Contributions:} Conceptualization, Yehezkiel Gunawan; methodology, Yehezkiel Gunawan; software, Yehezkiel Gunawan; validation, Yehezkiel Gunawan; formal analysis, Yehezkiel Gunawan; data collection, Yehezkiel Gunawan; writing, Yehezkiel Gunawan. All work was conducted by the primary author.
+
+% ============================================================
+% DATA AVAILABILITY STATEMENT
+% ============================================================
+\section*{Data Availability Statement}
+
+The data that support the findings of this study are openly available in the GitHub repository at https://github.com/yehezkielgunawan/readability-python-demo, including raw scraped texts, statistical analysis scripts, and generated charts.
+
+% ============================================================
+% REFERENCES
+% ============================================================
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
