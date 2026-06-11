@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  10 JUN 2026 18:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  11 JUN 2026 19:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -545,33 +545,33 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 ) (./codhes2026_paper.aux)
 \openout1 = `codhes2026_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
 
 -- Lines per column: 59 (approximate, difference = 11.04684pt).
-LaTeX Info: Redefining \microtypecontext on input line 175.
-Package microtype Info: Applying patch `item' on input line 175.
-Package microtype Info: Applying patch `toc' on input line 175.
-Package microtype Info: Applying patch `eqnum' on input line 175.
-Package microtype Info: Applying patch `footnote' on input line 175.
-Package microtype Info: Applying patch `verbatim' on input line 175.
-LaTeX Info: Redefining \microtypesetup on input line 175.
+LaTeX Info: Redefining \microtypecontext on input line 177.
+Package microtype Info: Applying patch `item' on input line 177.
+Package microtype Info: Applying patch `toc' on input line 177.
+Package microtype Info: Applying patch `eqnum' on input line 177.
+Package microtype Info: Applying patch `footnote' on input line 177.
+Package microtype Info: Applying patch `verbatim' on input line 177.
+LaTeX Info: Redefining \microtypesetup on input line 177.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -616,7 +616,7 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 175.
+Package hyperref Info: Link coloring OFF on input line 177.
  (./codhes2026_paper.out) (./codhes2026_paper.out)
 \@outlinefile=\write3
 \openout3 = `codhes2026_paper.out'.
@@ -661,18 +661,35 @@ ap/pdftex.map}{/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/enc
 /dvips/base/8r.enc}
 
 
-]
-Underfull \hbox (badness 1688) in paragraph at lines 245--246
+] [2]
+Underfull \hbox (badness 1688) in paragraph at lines 265--266
 []\T1/ptm/m/n/10 (+20) The aca-demic cred-i-bil-ity of these met-rics is well-
  []
 
-[2]
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--272
+\T1/ptm/m/n/10 (+20) optimized doc-u-men-ta-tion is par-tic-u-larly ques-tion-a
+ble.
+ []
+
+
+Underfull \hbox (badness 1990) in paragraph at lines 271--272
+\T1/ptm/m/n/10 (+20) Machine-optimized text of-ten uses con-cise, im-per-a-tive
+
+ []
+
+
+Underfull \hbox (badness 1755) in paragraph at lines 271--272
+\T1/ptm/m/n/10 (+20) well. This mis-match be-tween what tra-di-tional met-rics
+ []
+
+[3]
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/microtype/mt-
 cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 301
+LaTeX Font Info:    Trying to load font information for U+msa on input line 329
 .
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/amsfonts/umsa
@@ -683,7 +700,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 301
+LaTeX Font Info:    Trying to load font information for U+msb on input line 329
 .
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/amsfonts/umsb
@@ -694,57 +711,88 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-Underfull \hbox (badness 10000) in paragraph at lines 348--349
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 33
+4.
+
+(/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/psnfss/t1pcr.
+fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `pcr' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [4] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 378--379
+[]\T1/ptm/m/n/10 (+20) (1) \T1/ptm/b/n/10 (+20) Re-sponse Caching\T1/ptm/m/n/10
+ (+20) : All LLM
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 378--379
+\T1/ptm/m/n/10 (+20) eval-u-a-tion re-sponses are cached to
+ []
+
+
+Overfull \hbox (16.24606pt too wide) in paragraph at lines 378--379
+\T1/pcr/m/n/10 results/llm_cache/domain_doc_type_chunk.json
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 386--387
+[]\T1/ptm/m/n/10 (+20) The eval-u-a-tion model,
+ []
+
+
+Underfull \vbox (badness 1675) has occurred while \output is active []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 428--429
 []\T1/ptm/b/n/10 (+20) Flesch Read-ing Ease (FRE): \T1/ptm/m/n/10 (+20) Cal-cu-
 lated as
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 348--349
+Underfull \hbox (badness 10000) in paragraph at lines 428--429
 \OT1/cmr/m/n/10 206\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 835 \OMS/cmsy/m/n/10 ^^@ \
 OT1/cmr/m/n/10 1\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 015([]\OML/cmm/m/it/10 =[]\OT
 1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Underfull \hbox (badness 6364) in paragraph at lines 348--349
+Underfull \hbox (badness 6364) in paragraph at lines 428--429
 \OT1/cmr/m/n/10 84\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 6([]\OML/cmm/m/it/10 =[]\OT
 1/cmr/m/n/10 )$\T1/ptm/m/n/10 (+20) . Scores range from 0
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 350--351
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
 []\T1/ptm/b/n/10 (+20) Flesch-Kincaid Grade Level (FKGL):
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 350--351
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
 \T1/ptm/m/n/10 (+20) Cal-cu-lated as $\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/c
 mr/m/n/10 39([]\OML/cmm/m/it/10 =[]\OT1/cmr/m/n/10 ) +
  []
 
-[3] [4] [5]
-Underfull \hbox (badness 3872) in paragraph at lines 534--535
+[6] [7] [8] [9] [10]
+Underfull \hbox (badness 3872) in paragraph at lines 668--669
 []\T1/ptm/b/n/10 (+20) RQ2: \T1/ptm/m/n/10 (+20) LLM-as-a-Judge scores sig-nif-
 i-cantly fa-vor
  []
 
-
-Underfull \hbox (badness 2753) in paragraph at lines 563--564
+[11] [12]
+Underfull \hbox (badness 2753) in paragraph at lines 719--720
 []\T1/ptm/m/n/10 (+20) The data that sup-port the find-ings of this study
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 563--564
+Underfull \hbox (badness 10000) in paragraph at lines 719--720
 \T1/ptm/m/n/10 (+20) are openly avail-able in the GitHub repos-i-tory at
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 563--564
-\T1/ptm/m/n/10 (+20) https://github.com/yehezkielgunawan/readability-python-
- []
-
-(./codhes2026_paper.bbl [6])
+(./codhes2026_paper.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -756,24 +804,22 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7
-
-] (./codhes2026_paper.aux)
+[13] (./codhes2026_paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `codhes2026_paper.out' has not changed.
-(rerunfilecheck)             Checksum: 7BF755259EAD2AC372C7A902C6313D45;5449.
+(rerunfilecheck)             Checksum: 8A747CA8BB103B855DDCB0319489415C;7684.
  ) 
 Here is how much of TeX's memory you used:
- 15295 strings out of 467525
- 247804 string characters out of 5408440
- 710418 words of memory out of 5000000
- 43623 multiletter control sequences out of 15000+600000
- 754890 words of font info for 362 fonts, out of 8000000 for 9000
+ 15404 strings out of 467525
+ 249174 string characters out of 5408440
+ 711420 words of memory out of 5000000
+ 43665 multiletter control sequences out of 15000+600000
+ 757751 words of font info for 396 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,1391b,617s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1548b,465s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/s
@@ -781,13 +827,14 @@ hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar
 /texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></o
 pt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmsy9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/ty
-pe1/urw/times/utmb8a.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dis
-t/fonts/type1/urw/times/utmr8a.pfb></opt/homebrew/Cellar/texlive/20260301/share
-/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on codhes2026_paper.pdf (7 pages, 143695 bytes).
+pe1/urw/courier/ucrr8a.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-d
+ist/fonts/type1/urw/times/utmb8a.pfb></opt/homebrew/Cellar/texlive/20260301/sha
+re/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></opt/homebrew/Cellar/texlive/20
+260301/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on codhes2026_paper.pdf (13 pages, 199144 bytes).
 PDF statistics:
- 312 PDF objects out of 1000 (max. 8388607)
- 284 compressed objects within 3 object streams
- 81 named destinations out of 1000 (max. 500000)
- 56577 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 379 PDF objects out of 1000 (max. 8388607)
+ 342 compressed objects within 4 object streams
+ 95 named destinations out of 1000 (max. 500000)
+ 57153 words of extra memory for PDF output out of 61914 (max. 10000000)
 
