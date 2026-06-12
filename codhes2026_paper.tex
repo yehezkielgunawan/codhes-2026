@@ -21,13 +21,13 @@
 \usepackage{hyperref}          % Hyperlinks (keep last)
 
 % ============================================================
-% PAGE GEOMETRY (matches DOCX: A4, margins ~45pt L/R, 54pt top, 72pt bottom)
+% PAGE GEOMETRY (matches DOCX: A4, margins ~45pt L/R, 27pt top, 72pt bottom)
 % ============================================================
 \usepackage[
     a4paper,
     left=45pt,
     right=45pt,
-    top=54pt,
+    top=27pt,
     bottom=72pt,
     headheight=36pt,
     footskip=36pt
@@ -56,6 +56,7 @@
     \par\addvspace{6pt}%
 }
 
+\makeatletter
 % --- Heading Styles (match DOCX specs) ---
 % H1: spacing before 8pt, after 4pt
 % H2: italic, before 6pt, after 3pt
@@ -63,55 +64,14 @@
 % H4: italic, before 2pt, after 2pt, first indent 25.2pt
 % H5: before 8pt, after 4pt
 
-\let\oldsection\section
-\let\oldsubsection\subsection
-\let\oldsubsubsection\subsubsection
-\let\oldparagraph\paragraph
-
-\makeatletter
-\renewcommand{\section}{%
-    \@ifstar{\sectionStar}{\sectionNoStar}%
-}
-\newcommand{\sectionStar}[1]{%
-    \oldsection*{#1}%
-    \vspace{-4pt}%
-}
-\newcommand{\sectionNoStar}[1]{%
-    \oldsection{#1}%
-    \vspace{-4pt}%
-}
-
-\renewcommand{\subsection}{%
-    \@ifstar{\subsectionStar}{\subsectionNoStar}%
-}
-\newcommand{\subsectionStar}[1]{%
-    \oldsubsection*{\textit{#1}}%
-    \vspace{-3pt}%
-}
-\newcommand{\subsectionNoStar}[1]{%
-    \oldsubsection{\textit{#1}}%
-    \vspace{-3pt}%
-}
-
-\renewcommand{\subsubsection}{%
-    \@ifstar{\subsubsectionStar}{\subsubsectionNoStar}%
-}
-\newcommand{\subsubsectionStar}[1]{%
-    \oldsubsubsection*{\textit{#1}}%
-}
-\newcommand{\subsubsectionNoStar}[1]{%
-    \oldsubsubsection{\textit{#1}}%
-}
-
-\renewcommand{\paragraph}{%
-    \@ifstar{\paragraphStar}{\paragraphNoStar}%
-}
-\newcommand{\paragraphStar}[1]{%
-    \oldparagraph*{\textit{#1}}%
-}
-\newcommand{\paragraphNoStar}[1]{%
-    \oldparagraph{\textit{#1}}%
-}
+\def\section{\@startsection{section}{1}{\z@}{8pt}{4pt}{\normalfont\normalsize\centering\scshape}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{6pt}{3pt}{\normalfont\normalsize\itshape}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\parindent}{4pt}{2pt}{\normalfont\normalsize\itshape\fontsize{10pt}{12pt}\selectfont}}
+\def\paragraph{\@startsection{paragraph}{4}{25.2pt}{2pt}{2pt}{\normalfont\normalsize\itshape}}
+\newcounter{subparagraph}[paragraph]
+\renewcommand{\thesubparagraph}{\theparagraph.\arabic{subparagraph}}
+\renewcommand{\subparagraphmark}[1]{}
+\def\subparagraph{\@startsection{subparagraph}{5}{\parindent}{8pt}{4pt}{\normalfont\normalsize\centering\scshape}}
 \makeatother
 
 % --- Body Text ---
@@ -123,7 +83,7 @@
 \let\oldthebibliography\thebibliography
 \let\endoldthebibliography\endthebibliography
 \renewenvironment{thebibliography}[1]{%
-    \normalfont\fontsize{8pt}{9pt}\selectfont
+    \normalfont\fontsize{8pt}{9pt}\selectfont\linespread{1.0}\selectfont
     \oldthebibliography{#1}%
 }{%
     \endoldthebibliography
@@ -131,26 +91,33 @@
 
 % --- Figure and Table Captions ---
 % DOCX: 8pt (16 half-points), specific spacing
-\captionsetup{font=small, labelfont={small,bf}, textfont=small, skip=4pt}
+% Table caption (tablehead style): 8pt small caps, centered, before 12pt after 6pt
+% Figure caption (figurecaption style): 8pt italic, justified, before 4pt after 10pt
+\captionsetup{font=footnotesize, labelfont={footnotesize,sc}, textfont=footnotesize, justification=centering, skip=6pt}
 \captionsetup[table]{position=above, skip=6pt}
 \captionsetup[figure]{position=below, skip=4pt}
 
 % --- Table Styles (match DOCX) ---
 % DOCX table styles: 8pt for various elements
+% Template uses thin grid borders (0.25pt) all around
+\setlength{\arrayrulewidth}{0.25pt}
+
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{J}[1]{>{\arraybackslash}p{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
 
-% Table head (centered, 8pt)
-\newcommand{\tablehead}[1]{\multicolumn{1}{c}{\fontsize{8pt}{9.6pt}\selectfont\bfseries #1}}
-% Table column head (centered, 8pt bold)
-\newcommand{\tablecolhead}[1]{\multicolumn{1}{c}{\fontsize{8pt}{9.6pt}\selectfont\bfseries #1}}
+% Table head (centered, 8pt, small caps)
+\newcommand{\tablehead}[1]{\multicolumn{1}{c}{\fontsize{8pt}{9.6pt}\selectfont\scshape #1}}
+% Table column head (centered, 8pt bold, full cell bordered vertically and horizontally)
+\newcommand{\tablecolhead}[1]{%
+  \multicolumn{1}{|c|}{\fontsize{8pt}{9.6pt}\selectfont\bfseries #1}%
+}
 % Table column subhead (centered, 7.5pt italic)
 \newcommand{\tablecolsubhead}[1]{\multicolumn{1}{c}{\fontsize{7.5pt}{9pt}\selectfont\itshape #1}}
-% Table copy (8pt)
+% Table copy (8pt, justified)
 \newcommand{\tablecopy}[1]{\fontsize{8pt}{9.6pt}\selectfont #1}
-% Table footnote (6pt)
-\newcommand{\tablefootnote}[1]{\fontsize{6pt}{7.2pt}\selectfont #1}
+% Table footnote (6pt, right-aligned)
+\newcommand{\tablefootnote}[1]{\vspace{3pt}\par\hfill\fontsize{6pt}{7.2pt}\selectfont #1\par\vspace{1.5pt}}
 
 % ============================================================
 % TITLE AND AUTHOR SETUP
@@ -189,6 +156,8 @@ technolinguistics, documentation readability, LLM-as-a-Judge, llm.txt, Flesch Re
 \end{keywords}
 
 \IEEEpeerreviewmaketitle
+
+\linespread{0.95}\selectfont
 
 % ============================================================
 % INTRODUCTION
@@ -303,28 +272,34 @@ This study uses a quantitative content analysis approach with a paired compariso
 
 The corpus includes ten software engineering documentation platforms selected for their adoption of llm.txt standards and their representation of diverse technical domains within software engineering. The selection criteria were: (1) presence of both human-readable HTML documentation and machine-optimized llm.txt files, (2) technical documentation focus (excluding marketing sites and blogs), (3) English language content, and (4) accessibility via public URLs.
 
-\begin{table}[htbp]
-    \centering
+\begin{table}[t]
     \caption{Platform Characteristics}
     \label{tab:platforms}
-    \resizebox{\columnwidth}{!}{%
-    \begin{tabular}{@{}L{2.5cm}L{3cm}L{2.5cm}@{}}
-        \toprule
+    \begin{tabular}{|J{2.5cm}|J{3cm}|J{2cm}|}
+        \hline
         \tablecolhead{Platform} & \tablecolhead{Category} & \tablecolhead{Domain} \\
-        \midrule
+        \hline
         \tablecopy{React} & \tablecopy{UI Framework} & \tablecopy{Frontend} \\
+        \hline
         \tablecopy{GitHub} & \tablecopy{Developer Platform} & \tablecopy{DevOps} \\
+        \hline
         \tablecopy{Supabase} & \tablecopy{Backend-as-a-Service} & \tablecopy{Backend} \\
+        \hline
         \tablecopy{Vercel} & \tablecopy{Deployment Platform} & \tablecopy{DevOps} \\
+        \hline
         \tablecopy{Stripe} & \tablecopy{Payment Platform} & \tablecopy{Fintech} \\
+        \hline
         \tablecopy{LangChain} & \tablecopy{AI Orchestration} & \tablecopy{AI/ML} \\
+        \hline
         \tablecopy{Cloudflare} & \tablecopy{Infrastructure} & \tablecopy{DevOps} \\
+        \hline
         \tablecopy{Cursor} & \tablecopy{AI Editor} & \tablecopy{Developer Tools} \\
+        \hline
         \tablecopy{Hono} & \tablecopy{Web Framework} & \tablecopy{Backend} \\
+        \hline
         \tablecopy{FastAPI} & \tablecopy{Python Framework} & \tablecopy{Backend} \\
-        \bottomrule
-    \end{tabular}%
-    }
+        \hline
+    \end{tabular}
 \end{table}
 
 \subsection{Data Collection}
@@ -502,24 +477,25 @@ The corpus comprises ten technical documentation platforms representing diverse 
 
 \subsection{Traditional Readability Analysis}
 
-\begin{table}[htbp]
-    \centering
+\begin{table*}[t]
     \caption{Traditional Readability Metrics Comparison}
     \label{tab:traditional}
-    \resizebox{\columnwidth}{!}{%
-    \begin{tabular}{@{}L{3cm}R{2.5cm}R{2.5cm}R{1.5cm}L{1.5cm}@{}}
-        \toprule
+    \centering
+    \begin{tabular}{|J{3.5cm}|R{2.5cm}|R{2.5cm}|R{1.8cm}|J{1.8cm}|}
+        \hline
         \tablecolhead{Metric} & \tablecolhead{Human} & \tablecolhead{Machine} & \tablecolhead{Cohen's d} & \tablecolhead{Effect} \\
-        \midrule
+        \hline
         \tablecopy{Flesch Reading Ease} & \tablecopy{33.39 (28.66)} & \tablecopy{-58.18 (155.28)} & \tablecopy{0.573} & \tablecopy{Medium} \\
+        \hline
         \tablecopy{Flesch-Kincaid Grade} & \tablecopy{13.76 (6.18)} & \tablecopy{23.96 (20.91)} & \tablecopy{-0.459} & \tablecopy{Small} \\
+        \hline
         \tablecopy{Lexical Density (\%)} & \tablecopy{76.86 (9.23)} & \tablecopy{77.25 (8.70)} & \tablecopy{-0.028} & \tablecopy{Negligible} \\
+        \hline
         \tablecopy{Token-to-Word Ratio} & \tablecopy{1.67 (0.36)} & \tablecopy{2.73 (1.48)} & \tablecopy{-0.661} & \tablecopy{Medium} \\
-        \bottomrule
-    \end{tabular}%
-    }
+        \hline
+    \end{tabular}
     \tablefootnote{Values are mean (SD). Cohen's d calculated for paired samples. Negative d indicates machine docs score higher than human docs.}
-\end{table}
+\end{table*}
 
 The analysis of traditional readability metrics shows mixed results. Flesch Reading Ease shows a mean difference of 91.58 points, with human documentation scoring higher (M=33.39) than machine documentation (M=-58.18). However, the extreme variance in machine documentation scores (SD=155.28) is driven by outliers: React (-430.09) and LangChain (-234.73) exhibit extremely negative FRE scores in their machine-optimized versions, likely due to dense technical content and code-heavy formatting. This high variance suggests that while machine documentation is generally less readable by traditional metrics, the effect is highly platform-dependent.
 
@@ -531,27 +507,29 @@ The Token-to-Word Ratio reveals a marked difference, with machine documentation 
 
 \subsection{LLM-as-a-Judge Evaluation Results}
 
-\begin{table}[htbp]
-    \centering
+\begin{table*}[t]
     \caption{LLM-as-a-Judge Evaluation Results}
     \label{tab:llm}
-    \resizebox{\columnwidth}{!}{%
-    \begin{tabular}{@{}L{3cm}R{2.5cm}R{2.5cm}R{1.5cm}L{1.5cm}@{}}
-        \toprule
+    \centering
+    \begin{tabular}{|J{3.5cm}|R{2.5cm}|R{2.5cm}|R{1.8cm}|J{1.8cm}|}
+        \hline
         \tablecolhead{Dimension} & \tablecolhead{Human} & \tablecolhead{Machine} & \tablecolhead{Cohen's d} & \tablecolhead{Effect} \\
-        \midrule
+        \hline
         \tablecopy{Clarity} & \tablecopy{3.50 (0.51)} & \tablecopy{4.08 (0.71)} & \tablecopy{-1.002} & \tablecopy{Large} \\
+        \hline
         \tablecopy{Completeness} & \tablecopy{3.38 (0.51)} & \tablecopy{4.01 (0.78)} & \tablecopy{-0.964} & \tablecopy{Large} \\
+        \hline
         \tablecopy{Conciseness} & \tablecopy{3.38 (0.58)} & \tablecopy{4.14 (0.81)} & \tablecopy{-1.347} & \tablecopy{Large} \\
+        \hline
         \tablecopy{Technical Accuracy} & \tablecopy{4.20 (0.59)} & \tablecopy{4.36 (0.89)} & \tablecopy{-0.245} & \tablecopy{Small} \\
+        \hline
         \tablecopy{LLM-Friendliness} & \tablecopy{3.35 (0.58)} & \tablecopy{4.16 (0.82)} & \tablecopy{-1.371} & \tablecopy{Large} \\
-        \midrule
+        \hline
         \tablecopy{\textbf{LRI (Overall)}} & \tablecopy{\textbf{64.03 (12.13)}} & \tablecopy{\textbf{78.72 (18.88)}} & \tablecopy{\textbf{-1.172}} & \tablecopy{\textbf{Large}} \\
-        \bottomrule
-    \end{tabular}%
-    }
+        \hline
+    \end{tabular}
     \tablefootnote{Values are mean (SD) on 1-5 Likert scale. LRI = LLM Readability Index (0-100). Negative Cohen's d indicates machine docs score higher.}
-\end{table}
+\end{table*}
 
 The LLM-as-a-Judge evaluation shows consistently large effect sizes favoring machine-optimized documentation across all dimensions except Technical Accuracy. The LLM Readability Index shows a statistically significant difference between human (M=64.03) and machine (M=78.72) documentation, with a paired samples t-test yielding t=-3.706, p=0.005. The effect size for this comparison is Cohen's d=-1.172, indicating a large practical significance. The 95\% confidence interval for the mean difference in LRI scores is [4.89, 24.49], which does not include zero, further confirming the statistical significance of the finding.
 
@@ -561,30 +539,37 @@ The largest effects are observed for Conciseness (d=-1.347) and LLM-Friendliness
 
 Technical Accuracy shows the smallest effect (d=-0.245), suggesting that both human and machine documentation maintain similar levels of technical correctness. This is expected, as both versions describe the same technical systems and APIs.
 
-\begin{table}[htbp]
-    \centering
+\begin{table*}[t]
     \caption{Platform-by-Platform LRI Comparison}
     \label{tab:platform-lri}
-    \resizebox{\columnwidth}{!}{%
-    \begin{tabular}{@{}L{2.5cm}R{2cm}R{2cm}R{1.5cm}L{1.5cm}@{}}
-        \toprule
+    \centering
+    \begin{tabular}{|J{2.5cm}|R{2.5cm}|R{2.5cm}|R{1.8cm}|J{1.8cm}|}
+        \hline
         \tablecolhead{Platform} & \tablecolhead{Human LRI} & \tablecolhead{Machine LRI} & \tablecolhead{Delta} & \tablecolhead{Direction} \\
-        \midrule
+        \hline
         \tablecopy{Stripe} & \tablecopy{55.00} & \tablecopy{80.00} & \tablecopy{+25.00} & \tablecopy{Machine} \\
+        \hline
         \tablecopy{FastAPI} & \tablecopy{87.00} & \tablecopy{100.00} & \tablecopy{+13.00} & \tablecopy{Machine} \\
+        \hline
         \tablecopy{Hono} & \tablecopy{73.33} & \tablecopy{87.00} & \tablecopy{+13.67} & \tablecopy{Machine} \\
+        \hline
         \tablecopy{Cursor} & \tablecopy{75.00} & \tablecopy{100.00} & \tablecopy{+25.00} & \tablecopy{Machine} \\
+        \hline
         \tablecopy{Supabase} & \tablecopy{56.00} & \tablecopy{82.00} & \tablecopy{+26.00} & \tablecopy{Machine} \\
+        \hline
         \tablecopy{GitHub} & \tablecopy{55.00} & \tablecopy{81.25} & \tablecopy{+26.25} & \tablecopy{Machine} \\
+        \hline
         \tablecopy{\textbf{Vercel}} & \tablecopy{\textbf{54.00}} & \tablecopy{\textbf{42.00}} & \tablecopy{\textbf{-12.00}} & \tablecopy{\textbf{Human}} \\
+        \hline
         \tablecopy{Cloudflare} & \tablecopy{63.00} & \tablecopy{80.00} & \tablecopy{+17.00} & \tablecopy{Machine} \\
+        \hline
         \tablecopy{React} & \tablecopy{72.00} & \tablecopy{85.00} & \tablecopy{+13.00} & \tablecopy{Machine} \\
+        \hline
         \tablecopy{LangChain} & \tablecopy{50.00} & \tablecopy{50.00} & \tablecopy{0.00} & \tablecopy{Tie} \\
-        \bottomrule
-    \end{tabular}%
-    }
+        \hline
+    \end{tabular}
     \tablefootnote{Delta = Machine LRI - Human LRI. Positive values indicate machine documentation preference.}
-\end{table}
+\end{table*}
 
 Platform-level analysis reveals that 8 out of 10 platforms (80\%) show higher LLM preference for machine-optimized documentation. Vercel is the notable exception, with human documentation scoring higher (54.00 vs. 42.00). This exception may be attributed to Vercel's machine documentation being particularly link-heavy with minimal prose content, reducing its perceived completeness and clarity. LangChain shows no difference (50.00 vs. 50.00), suggesting that both versions are equally optimized for LLM consumption.
 
@@ -703,22 +688,27 @@ Specifically, the following research directions are recommended: (1) Cross-platf
 % ============================================================
 % ACKNOWLEDGMENT
 % ============================================================
-\section*{Acknowledgment}
+\subparagraph*{Acknowledgment}
 
-The author acknowledges the use of AI tools for statistical analysis, visualization, and literature review synthesis. The LLM-as-a-Judge evaluation was conducted using the nvidia/nemotron-nano-12b-v2-vl model via the OpenRouter API. This research was submitted to CODHES 2026 \cite{CODHES2026}. The author maintains full responsibility for research design, data interpretation, and conclusion formulation.
+The author acknowledges the use of AI tools for statistical analysis, visualization, and literature review synthesis. The LLM-as-a-Judge evaluation was conducted using the nvidia/nemotron-nano-12b-v2-vl model via the OpenRouter API. The author maintains full responsibility for research design, data interpretation, and conclusion formulation.
 
+\subparagraph*{Author Contributions}
 
+Conceptualization, Yehezkiel Gunawan; methodology, Yehezkiel Gunawan; software, Yehezkiel Gunawan; validation, Yehezkiel Gunawan; formal analysis, Yehezkiel Gunawan; data collection, Yehezkiel Gunawan; writing, Yehezkiel Gunawan. The author has read and agreed to the published version of the manuscript.
 
 % ============================================================
 % DATA AVAILABILITY STATEMENT
 % ============================================================
-\section*{Data Availability Statement}
+\subparagraph*{Data Availability Statement}
 
-The data that support the findings of this study are openly available in the GitHub repository at https://github.com/yehezkielgunawan/codhes-2026, including raw scraped texts, statistical analysis scripts, and generated charts.
+The data that support the findings of this study are openly available in the GitHub repository at https://github.com/yehezkielgunawan/codhes-2026.
 
 % ============================================================
 % REFERENCES
 % ============================================================
+\makeatletter
+\def\bibsection{\subparagraph*{\refname}}
+\makeatother
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 
