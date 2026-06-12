@@ -101,7 +101,7 @@ uv run pytest tests/ -v
 
 **Implementation Details:**
 
-**Model:** `meta-llama/llama-3.2-3b-instruct:free` via OpenRouter
+**Model:** `nvidia/nemotron-nano-12b-v2-vl:free` via OpenRouter
 - Free tier available
 - General-purpose LLM suitable for documentation evaluation
 - Reliable JSON output format
@@ -413,7 +413,7 @@ Maps 1-5 Likert scale to 0-100 for direct comparison with Flesch Reading Ease:
 ## Tools Ready
 
 - **Analysis:** `readability-python-demo` CLI (Python + uv)
-- **LLM Evaluation:** OpenRouter API (`meta-llama/llama-3.2-3b-instruct:free`)
+- **LLM Evaluation:** OpenRouter API (`nvidia/nemotron-nano-12b-v2-vl:free`)
 - **Writing:** LaTeX template (`codhes2026_template.tex`)
 - **Charts:** Python matplotlib or seaborn
 - **Stats:** Python scipy (t-test, correlation)

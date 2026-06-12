@@ -102,7 +102,7 @@ Options:
   --use-context7/--no-context7  Use Context7 API as fallback [default: use-context7]
   --evaluate-llm/--no-evaluate-llm  Run LLM-as-a-Judge evaluation [default: no-evaluate-llm]
   --evaluate-only               Run LLM evaluation on existing raw_texts (skip scraping)
-  --llm-model TEXT              OpenRouter model for LLM evaluation [default: meta-llama/llama-3.2-3b-instruct:free]
+  --llm-model TEXT              OpenRouter model for LLM evaluation [default: nvidia/nemotron-nano-12b-v2-vl:free]
   --llm-api-key TEXT            OpenRouter API key (or set OPENROUTER_API_KEY env var)
   -v, --verbose                 Enable verbose logging
 ```
@@ -155,7 +155,7 @@ The tool uses [OpenRouter](https://openrouter.ai) for LLM-as-a-Judge evaluation:
 OPENROUTER_API_KEY=sk-or-...
 ```
 
-**Default model:** `meta-llama/llama-3.2-3b-instruct:free` (free tier)
+**Default model:** `nvidia/nemotron-nano-12b-v2-vl:free` (free tier)
 
 **Evaluation dimensions (1-5 Likert scale):**
 1. **Clarity** — Is the documentation clear and unambiguous?

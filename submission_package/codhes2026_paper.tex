@@ -383,7 +383,7 @@ The LLM-as-a-Judge evaluation component employs a robust asynchronous architectu
 
 (4) \textbf{Prompt Engineering}: The evaluation uses structured prompts with JSON output format requirements, ensuring consistent and parseable responses. The prompt template includes: (a) the documentation text to evaluate, (b) the five evaluation dimensions with detailed rubrics, (c) instructions for scoring on the 1-5 Likert scale, (d) JSON schema for the response format.
 
-The evaluation model, \texttt{meta-llama/llama-3.2-3b-instruct}, was selected for its balance of performance and accessibility. The model is available on OpenRouter's free tier, making the methodology reproducible for other researchers without financial barriers. The 3B parameter size is sufficient for documentation evaluation tasks while being computationally efficient.
+The evaluation model, \texttt{nvidia/nemotron-nano-12b-v2-vl}, was selected for its balance of performance and accessibility. The model is available on OpenRouter's free tier, making the methodology reproducible for other researchers without financial barriers. The 12B parameter size is sufficient for documentation evaluation tasks while being computationally efficient.
 
 \begin{figure*}[htbp]
     \centering
@@ -435,7 +435,7 @@ The study employs three traditional readability metrics implemented using the Py
 
 \subsubsection{LLM-as-a-Judge Evaluation}
 
-The LLM evaluation employs a five-dimension Likert scale assessment via the OpenRouter API \cite{OpenRouter2024}, using the meta-llama/llama-3.2-3b-instruct model. The evaluation dimensions are:
+The LLM evaluation employs a five-dimension Likert scale assessment via the OpenRouter API \cite{OpenRouter2024}, using the nvidia/nemotron-nano-12b-v2-vl model. The evaluation dimensions are:
 
 \begin{enumerate}
     \item \textbf{Clarity} (1-5): Is the documentation clear and unambiguous?
@@ -491,7 +491,7 @@ To ensure validity, the analysis includes multiple verification mechanisms:
 
 \subsection{AI Declaration}
 
-This study employed AI tools in the following capacities: (1) the LLM-as-a-Judge evaluation methodology uses a large language model (meta-llama/llama-3.2-3b-instruct) to assess documentation quality, following established protocols for LLM evaluation \cite{Zheng2023}, (2) statistical analysis and visualization were performed using Python libraries with AI-assisted code generation, and (3) literature review synthesis was supported by AI-assisted information retrieval. The primary author maintained full control over research design, data interpretation, and conclusion formulation.
+This study employed AI tools in the following capacities: (1) the LLM-as-a-Judge evaluation methodology uses a large language model (nvidia/nemotron-nano-12b-v2-vl) to assess documentation quality, following established protocols for LLM evaluation \cite{Zheng2023}, (2) statistical analysis and visualization were performed using Python libraries with AI-assisted code generation, and (3) literature review synthesis was supported by AI-assisted information retrieval. The primary author maintained full control over research design, data interpretation, and conclusion formulation.
 
 % ============================================================
 % RESULT AND DISCUSSION
@@ -680,7 +680,7 @@ The theoretical implications of the readability-tokenization paradox extend beyo
 
 \subsection{Limitations}
 
-This study has several limitations that should be acknowledged. The small sample size (n=10 platforms) limits generalizability; larger-scale studies are needed to confirm these findings. The English-only corpus restricts applicability to non-English documentation. The single LLM evaluator (meta-llama/llama-3.2-3b-instruct) may introduce model-specific bias; multi-model consensus evaluation would strengthen validity, as demonstrated by Chen et al. \cite{Chen2025} in scientific programming contexts. Finally, the purposive sampling strategy limits representativeness across all technical documentation genres.
+This study has several limitations that should be acknowledged. The small sample size (n=10 platforms) limits generalizability; larger-scale studies are needed to confirm these findings. The English-only corpus restricts applicability to non-English documentation. The single LLM evaluator (nvidia/nemotron-nano-12b-v2-vl) may introduce model-specific bias; multi-model consensus evaluation would strengthen validity, as demonstrated by Chen et al. \cite{Chen2025} in scientific programming contexts. Finally, the purposive sampling strategy limits representativeness across all technical documentation genres.
 
 \subsection{Future Work}
 
@@ -693,7 +693,7 @@ Specifically, the following research directions are recommended: (1) Cross-platf
 % ============================================================
 \section*{Acknowledgment}
 
-The author acknowledges the use of AI tools for statistical analysis, visualization, and literature review synthesis. The LLM-as-a-Judge evaluation was conducted using the meta-llama/llama-3.2-3b-instruct model via the OpenRouter API. This research was submitted to CODHES 2026 \cite{CODHES2026}. The author maintains full responsibility for research design, data interpretation, and conclusion formulation.
+The author acknowledges the use of AI tools for statistical analysis, visualization, and literature review synthesis. The LLM-as-a-Judge evaluation was conducted using the nvidia/nemotron-nano-12b-v2-vl model via the OpenRouter API. This research was submitted to CODHES 2026 \cite{CODHES2026}. The author maintains full responsibility for research design, data interpretation, and conclusion formulation.
 
 
 

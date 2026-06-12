@@ -381,7 +381,7 @@ The LLM-as-a-Judge evaluation component uses a robust asynchronous architecture 
 
 (4) \textbf{Prompt Engineering}: The evaluation uses structured prompts with JSON output format requirements, ensuring consistent and parseable responses. The prompt template includes: (a) the documentation text to evaluate, (b) the five evaluation dimensions with detailed rubrics, (c) instructions for scoring on the 1-5 Likert scale, (d) JSON schema for the response format.
 
-The evaluation model, \texttt{meta-llama/llama-3.2-3b-instruct}, was selected for its balance of performance and accessibility. The model is available on OpenRouter's free tier, making the methodology reproducible for other researchers without financial barriers. The 3B parameter size is sufficient for documentation evaluation tasks while being computationally efficient.
+The evaluation model, \texttt{nvidia/nemotron-nano-12b-v2-vl}, was selected for its balance of performance and accessibility. The model is available on OpenRouter's free tier, making the methodology reproducible for other researchers without financial barriers. The 12B parameter size is sufficient for documentation evaluation tasks while being computationally efficient.
 
 \begin{figure*}[htbp]
     \centering
@@ -433,7 +433,7 @@ The study uses three traditional readability metrics implemented with the Python
 
 \subsubsection{LLM-as-a-Judge Evaluation}
 
-The LLM evaluation uses a five-dimension Likert scale assessment via the OpenRouter API \cite{OpenRouter2024}, using the meta-llama/llama-3.2-3b-instruct model. The evaluation dimensions are:
+The LLM evaluation uses a five-dimension Likert scale assessment via the OpenRouter API \cite{OpenRouter2024}, using the nvidia/nemotron-nano-12b-v2-vl model. The evaluation dimensions are:
 
 \begin{enumerate}
     \item \textbf{Clarity} (1-5): Is the documentation clear and unambiguous?
@@ -489,7 +489,7 @@ To ensure validity, the analysis includes multiple verification mechanisms:
 
 \subsection{AI Declaration}
 
-This study employed AI tools in the following capacities: (1) the LLM-as-a-Judge evaluation methodology uses a large language model (meta-llama/llama-3.2-3b-instruct) to assess documentation quality, following established protocols for LLM evaluation \cite{Zheng2023}, (2) statistical analysis and visualization were performed using Python libraries with AI-assisted code generation, and (3) literature review synthesis was supported by AI-assisted information retrieval. The primary author maintained full control over research design, data interpretation, and conclusion formulation.
+This study employed AI tools in the following capacities: (1) the LLM-as-a-Judge evaluation methodology uses a large language model (nvidia/nemotron-nano-12b-v2-vl) to assess documentation quality, following established protocols for LLM evaluation \cite{Zheng2023}, (2) statistical analysis and visualization were performed using Python libraries with AI-assisted code generation, and (3) literature review synthesis was supported by AI-assisted information retrieval. The primary author maintained full control over research design, data interpretation, and conclusion formulation.
 
 % ============================================================
 % RESULT AND DISCUSSION
@@ -684,7 +684,7 @@ This study has several methodological limitations that should be acknowledged to
 
 \textbf{Content Heterogeneity and Implementation Quality.} The ten platforms in the corpus exhibit substantial heterogeneity in how they implement \texttt{llm.txt} standards. At one extreme, FastAPI and Cursor provide complete, prose-rich machine-optimized documentation that closely parallels the depth of their human-readable counterparts. At the other extreme, Vercel's machine-optimized file is a 147,577-line link directory with minimal explanatory text, and the LLM evaluator assigned it a lower LRI score ($42.00$) than the human-readable version ($54.00$). This suggests that the ``machine-optimized'' label is not a uniform quality category but rather a spectrum of implementation maturity. The large variance in machine documentation quality (LRI range: $42.00$ to $100.00$; FRE range: $-430.09$ to $33.13$) indicates that the comparison between ``human'' and ``machine'' documentation is, in practice, a comparison between relatively standardized human HTML and highly variable machine implementations. Future research should control for implementation quality by stratifying platforms based on documentation maturity or by experimentally manipulating documentation format while holding content constant.
 
-\textbf{Single-Model LLM Evaluation and Measurement Uncertainty.} The LLM-as-a-Judge methodology employs a single evaluator (meta-llama/llama-3.2-3b-instruct, 3B parameters) operating at temperature 0.0 for deterministic outputs. While this model was selected for accessibility and reproducibility, its 3B parameter scale may limit its capacity to distinguish subtle differences in documentation quality, particularly for highly technical or structurally unconventional content. The LangChain result---where both human and machine documentation received identical scores ($50.00$) across all five evaluation dimensions---suggests that the evaluator may have defaulted to neutral ratings when confronted with unfamiliar or structurally complex API documentation. The near-ceiling scores for FastAPI and Cursor ($100.00$) similarly raise questions about score compression at the upper bound. Multi-model evaluation using larger models (e.g., Llama 3.1 70B, GPT-4) would test whether these patterns are robust across model scales, as recommended by Chen et al. \cite{Chen2025} in their analysis of LLM judges for scientific programming.
+\textbf{Single-Model LLM Evaluation and Measurement Uncertainty.} The LLM-as-a-Judge methodology employs a single evaluator (nvidia/nemotron-nano-12b-v2-vl, 12B parameters) operating at temperature 0.0 for deterministic outputs. While this model was selected for accessibility and reproducibility, its 12B parameter scale may limit its capacity to distinguish subtle differences in documentation quality, particularly for highly technical or structurally unconventional content. The LangChain result---where both human and machine documentation received identical scores ($50.00$) across all five evaluation dimensions---suggests that the evaluator may have defaulted to neutral ratings when confronted with unfamiliar or structurally complex API documentation. The near-ceiling scores for FastAPI and Cursor ($100.00$) similarly raise questions about score compression at the upper bound. Multi-model evaluation using larger models (e.g., Llama 3.1 70B, GPT-4) would test whether these patterns are robust across model scales, as recommended by Chen et al. \cite{Chen2025} in their analysis of LLM judges for scientific programming.
 
 \textbf{Temporal Validity and Documentation Drift.} Documentation is a dynamic artifact; platforms update their content continuously. The data collection for this study occurred during a single temporal window (early 2025), and the \texttt{llm.txt} standard itself was only formalized in September 2024. Platforms such as Vercel and Cloudflare may still be iterating on their machine-optimized documentation implementations, meaning the results reflect a snapshot of an evolving ecosystem rather than a stable equilibrium. The GitHub machine documentation, for instance, improved from $-6.62$ FRE to $81.25$ LRI, suggesting a relatively mature implementation, while Vercel's negative LRI delta suggests an immature one. Longitudinal replication would be necessary to disentangle platform-specific effects from genuine format-level effects.
 
@@ -705,7 +705,7 @@ Specifically, the following research directions are recommended: (1) Cross-platf
 % ============================================================
 \section*{Acknowledgment}
 
-The author acknowledges the use of AI tools for statistical analysis, visualization, and literature review synthesis. The LLM-as-a-Judge evaluation was conducted using the meta-llama/llama-3.2-3b-instruct model via the OpenRouter API. This research was submitted to CODHES 2026 \cite{CODHES2026}. The author maintains full responsibility for research design, data interpretation, and conclusion formulation.
+The author acknowledges the use of AI tools for statistical analysis, visualization, and literature review synthesis. The LLM-as-a-Judge evaluation was conducted using the nvidia/nemotron-nano-12b-v2-vl model via the OpenRouter API. This research was submitted to CODHES 2026 \cite{CODHES2026}. The author maintains full responsibility for research design, data interpretation, and conclusion formulation.
 
 
 

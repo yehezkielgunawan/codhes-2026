@@ -72,7 +72,7 @@ The tool uses [OpenRouter](https://openrouter.ai) for LLM-as-a-Judge evaluation.
 OPENROUTER_API_KEY=sk-or-...
 ```
 
-**Default Model:** `meta-llama/llama-3.2-3b-instruct:free` (free tier)
+**Default Model:** `nvidia/nemotron-nano-12b-v2-vl:free` (free tier)
 
 **Evaluation Dimensions (1-5 Likert scale):**
 1. Clarity — Is the documentation clear and unambiguous?
