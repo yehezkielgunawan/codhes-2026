@@ -23,7 +23,7 @@ build/
 htmlcov/
 
 # Output
-results/
+results/llm_cache/
 raw_texts/
 *.csv
 !README.md
