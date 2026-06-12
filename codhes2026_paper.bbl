@@ -85,6 +85,11 @@ OpenAI. (2023) tiktoken: A fast {BPE} tokeniser for use with {OpenAI's} models.
   GitHub. [Online]. Available: \url{https://github.com/openai/tiktoken}
 \BIBentrySTDinterwordspacing
 
+\bibitem{Ankner2024}
+Z.~Ankner, A.~Bertsch, G.~Neubig, and M.~R. Gormley, ``The ``:''
+  tokenization,'' in \emph{Findings of the Association for Computational
+  Linguistics: ACL 2024}, 2024.
+
 \bibitem{Ding2019}
 \BIBentryALTinterwordspacing
 S.~Ding, A.~Renduchintala, and K.~Duh, ``A call for prudent choice of subword
@@ -92,11 +97,6 @@ S.~Ding, A.~Renduchintala, and K.~Duh, ``A call for prudent choice of subword
   Summit 2019}, 2019. [Online]. Available:
   \url{https://aclanthology.org/W19-6608/}
 \BIBentrySTDinterwordspacing
-
-\bibitem{Ankner2024}
-Z.~Ankner, A.~Bertsch, G.~Neubig, and M.~R. Gormley, ``The ``:''
-  tokenization,'' in \emph{Findings of the Association for Computational
-  Linguistics: ACL 2024}, 2024.
 
 \bibitem{Liu2023}
 N.~F. Liu, K.~Lin, J.~Hewitt, A.~Paranjape, M.~Bevilacqua, F.~Petroni, and
