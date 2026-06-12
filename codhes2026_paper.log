@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  12 JUN 2026 10:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  12 JUN 2026 11:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -727,6 +727,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 384--385
  []
 
 
+Underfull \hbox (badness 3260) in paragraph at lines 384--385
+\T1/pcr/m/n/10 nvidia/nemotron-nano-12b-v2-vl\T1/ptm/m/n/10 (+20) , was se-lect
+ed
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 426--427
 []\T1/ptm/b/n/10 (+20) Flesch Read-ing Ease (FRE): \T1/ptm/m/n/10 (+20) Cal-cu-
 lated as
@@ -789,11 +795,11 @@ Package rerunfilecheck Info: File `codhes2026_paper.out' has not changed.
 (rerunfilecheck)             Checksum: 8A747CA8BB103B855DDCB0319489415C;7684.
  ) 
 Here is how much of TeX's memory you used:
- 15380 strings out of 467525
- 248967 string characters out of 5408440
+ 15377 strings out of 467525
+ 248943 string characters out of 5408440
  709421 words of memory out of 5000000
  43665 multiletter control sequences out of 15000+600000
- 756735 words of font info for 380 fonts, out of 8000000 for 9000
+ 756608 words of font info for 378 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,79p,1546b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/am
@@ -807,7 +813,7 @@ pe1/urw/courier/ucrr8a.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-d
 ist/fonts/type1/urw/times/utmb8a.pfb></opt/homebrew/Cellar/texlive/20260301/sha
 re/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></opt/homebrew/Cellar/texlive/20
 260301/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on codhes2026_paper.pdf (13 pages, 197013 bytes).
+Output written on codhes2026_paper.pdf (13 pages, 196863 bytes).
 PDF statistics:
  379 PDF objects out of 1000 (max. 8388607)
  342 compressed objects within 4 object streams
