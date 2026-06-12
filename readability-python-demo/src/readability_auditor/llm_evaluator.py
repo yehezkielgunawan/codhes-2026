@@ -104,7 +104,7 @@ class LLMEvaluator:
 
         Args:
             api_key: OpenRouter API key
-            model: Model identifier (e.g., "nvidia/nemotron-3.5-content-safety:free")
+            model: Model identifier (e.g., "nvidia/nemotron-nano-12b-v2-vl:free")
             max_tokens: Maximum tokens per chunk
             max_chunks: Maximum number of chunks to evaluate per document
             cache_dir: Directory for caching API responses
