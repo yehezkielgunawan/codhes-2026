@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex codhes2026_paper"] 1781242919.04376 "codhes2026_paper.aux" "codhes2026_paper.bbl" "codhes2026_paper" 1781245698.44321 0
+["bibtex codhes2026_paper"] 1781267262.72676 "codhes2026_paper.aux" "codhes2026_paper.bbl" "codhes2026_paper" 1781267453.24362 0
   "./references.bib" 1781090386.60044 7687 292b4ffb895351221df63b62d5690fdd ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1772380719 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "codhes2026_paper.aux" 1781245698.30329 8616 9c6f80b14fdb86a0a405f9e577cdecab "pdflatex"
+  "codhes2026_paper.aux" 1781267453.09451 12853 2138bb6b6d4b5e8189d18c6e37e4d6ec "pdflatex"
   (generated)
   "codhes2026_paper.bbl"
   "codhes2026_paper.blg"
   (rewritten before read)
-["pdflatex"] 1781245697.78181 "codhes2026_paper.tex" "codhes2026_paper.pdf" "codhes2026_paper" 1781245698.44332 0
+["pdflatex"] 1781267451.53125 "codhes2026_paper.tex" "codhes2026_paper.pdf" "codhes2026_paper" 1781267453.24375 0
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1772380719 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/map/fontname/texfonts.map" 1772380719 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1772380719 5541360 f183aac233c4cd1e5ef882fcbe8e7096 ""
@@ -45,8 +45,10 @@
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm" 1772380719 1116 25a7bf822c58caf309a702ef79f4afbb ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1772380719 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1772380719 35752 024fb6c41858982481f6968b5fc26508 ""
+  "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1772380719 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1772380719 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1772380719 32716 08e384dc442464e7285e891af9f45947 ""
+  "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1772380719 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb" 1772380719 32442 c975af247b6702f7ca0c299af3616b80 ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb" 1772380719 45758 19968a0990191524e34e1994d4a31cb6 ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb" 1772380719 44729 811d6c62865936705a31c797a1d5dada ""
@@ -123,10 +125,15 @@
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/url/url.sty" 1772380719 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/web2c/texmf.cnf" 1772380719 43633 14bbc273cebd985e64ab1a698333eaf9 ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1772380719 3636956 5168b884cb430e6a6336cfea08fa659a ""
-  "codhes2026_paper.aux" 1781245698.30329 8616 9c6f80b14fdb86a0a405f9e577cdecab "pdflatex"
-  "codhes2026_paper.bbl" 1781242919.09299 7153 f0740d03b0d4e2e7a3f66a4eafa15ec2 "bibtex codhes2026_paper"
-  "codhes2026_paper.out" 1781245698.30408 7684 28b91b4e360e1483b18b618542a5fc70 "pdflatex"
-  "codhes2026_paper.tex" 1781245696.16264 85196 603f1961c2521c13365bba1a960d21b0 ""
+  "codhes2026_paper.aux" 1781267453.09451 12853 2138bb6b6d4b5e8189d18c6e37e4d6ec "pdflatex"
+  "codhes2026_paper.bbl" 1781267262.79785 7153 f0740d03b0d4e2e7a3f66a4eafa15ec2 "bibtex codhes2026_paper"
+  "codhes2026_paper.out" 1781267453.09533 7685 d445cdbeb1714dee94dc713d379bc24a "pdflatex"
+  "codhes2026_paper.tex" 1781267449.7002 91606 5900094d2bf1f061017c2838b366f9e1 ""
+  "readability-python-demo/results/figures/figure1_readability_comparison.png" 1781007417.9251 222507 0b11b22b12eeb4eb37762e68499d3f97 ""
+  "readability-python-demo/results/figures/figure2_token_comparison.png" 1781007418.08427 146413 84125a6947ee1e4f2679c236d1b22f97 ""
+  "readability-python-demo/results/figures/figure3_fre_vs_clarity.png" 1781007418.24549 180807 18eecba5da34f930c50d4defd26ce8e8 ""
+  "readability-python-demo/results/figures/figure4_lri_difference_boxplot.png" 1781007418.38864 128080 894531944314aea27d5371eef28516eb ""
+  "readability-python-demo/results/figures/figure5_effect_sizes.png" 1781007418.52932 195411 643d8075cf0824e7ad14c9c26dcdcc9e ""
   (generated)
   "codhes2026_paper.aux"
   "codhes2026_paper.log"

@@ -477,6 +477,15 @@ The corpus comprises ten technical documentation platforms representing diverse 
 
 \subsection{Traditional Readability Analysis}
 
+Figure~\ref{fig:readability} presents a side-by-side comparison of Flesch Reading Ease and LLM Readability Index scores across all ten platforms. The visual contrast is striking: while human documentation (pink bars) consistently scores higher on FRE, machine documentation (gold bars) achieves substantially higher LRI scores. The extreme outliers in React and LangChain (FRE values below $-200$) are immediately visible in the left panel, highlighting the platform-dependent nature of traditional readability metrics.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{readability-python-demo/results/figures/figure1_readability_comparison.png}
+    \caption{Platform-level comparison of (a) Flesch Reading Ease and (b) LLM Readability Index scores. Human documentation (pink) scores higher on traditional readability, while machine documentation (gold) achieves higher LLM readability scores. The two outliers (React and LangChain) in the FRE panel illustrate the extreme variance in machine documentation scores.}
+    \label{fig:readability}
+\end{figure*}
+
 \begin{table*}[t]
     \caption{Traditional Readability Metrics Comparison}
     \label{tab:traditional}
@@ -504,6 +513,15 @@ The Flesch-Kincaid Grade Level shows a more consistent pattern, with machine doc
 Lexical Density shows negligible difference between formats (76.86\% vs. 77.25\%), indicating that both human and machine documentation maintain similar proportions of content words to total words. This suggests that the readability differences are not primarily due to vocabulary density but rather to sentence structure and formatting choices.
 
 The Token-to-Word Ratio reveals a marked difference, with machine documentation requiring more tokens per word (M=2.73) than human documentation (M=1.67). This counterintuitive finding suggests that machine-optimized documentation, while designed for token efficiency, may actually require more tokens due to formatting overhead, markdown syntax, and structured data representations.
+
+Figure~\ref{fig:token} visualizes this platform-by-platform token ratio comparison. The pattern is not uniform: React and LangChain show dramatically elevated token ratios (both exceeding 5.0), which reflects their heavily structured, link-dense, and code-heavy machine documentation. FastAPI is the notable exception on the human side, where verbose HTML formatting inflates the token ratio. The figure clarifies that while most platforms follow the general trend, individual implementation characteristics strongly influence tokenization efficiency.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{readability-python-demo/results/figures/figure2_token_comparison.png}
+    \caption{Token-to-Word Ratio comparison across platforms. Human documentation (pink) generally requires fewer tokens per word than machine documentation (gold), except for FastAPI, whose verbose HTML inflates the ratio. React and LangChain show extreme machine-to-word ratios due to their link-dense content.}
+    \label{fig:token}
+\end{figure}
 
 \subsection{LLM-as-a-Judge Evaluation Results}
 
@@ -538,6 +556,15 @@ The paired t-test results for individual LLM evaluation dimensions confirm the p
 The largest effects are observed for Conciseness (d=-1.347) and LLM-Friendliness (d=-1.371), suggesting that machine-optimized documentation is perceived as substantially more concise and better suited for LLM consumption. The Clarity (d=-1.002) and Completeness (d=-0.964) dimensions also show large effects, indicating that LLM evaluators perceive machine documentation as clearer and more complete.
 
 Technical Accuracy shows the smallest effect (d=-0.245), suggesting that both human and machine documentation maintain similar levels of technical correctness. This is expected, as both versions describe the same technical systems and APIs.
+
+Figure~\ref{fig:effect} provides a visual summary of all Cohen's d effect sizes computed in this study, with the traditional-effect direction (positive) shown in blue and the machine-favoring direction (negative) in red. The vertical reference lines at $d=0.2$, $0.5$, and $0.8$ mark the conventional thresholds for small, medium, and large effects, respectively. The figure makes it visually apparent that the LLM evaluation dimensions (LLM-Friendliness, Conciseness, LRI, Clarity, and Completeness) all fall well into the large-effect zone, while Technical Accuracy is the only dimension that barely clears the small-effect threshold. The lone positive effect, Flesch Reading Ease, is the only metric where human documentation scores higher. This pattern reinforces the central finding: machine-optimized documentation is substantially superior from an LLM perspective, but generally inferior from a traditional human readability perspective.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{readability-python-demo/results/figures/figure5_effect_sizes.png}
+    \caption{Cohen's d effect sizes for all metrics and evaluation dimensions. Negative values (red) indicate machine documentation scores higher; positive values (blue) indicate human documentation scores higher. Vertical dashed lines denote conventional small, medium, and large effect thresholds. All LLM evaluation dimensions show large effects favoring machine documentation, while only Flesch Reading Ease shows a medium effect favoring human documentation.}
+    \label{fig:effect}
+\end{figure*}
 
 \begin{table*}[t]
     \caption{Platform-by-Platform LRI Comparison}
@@ -583,9 +610,27 @@ The Hono platform shows an improvement from 73.33 to 87.00 (+13.67), indicating 
 
 The LangChain platform presents a unique case where both human and machine documentation achieve identical LRI scores of 50.00. This parity suggests that LangChain's human documentation is already well-optimized for LLM consumption, possibly due to its AI-native audience and the documentation team's awareness of LLM consumption patterns. The equal scores also indicate that the machine-optimized version does not provide additional value beyond the human-readable version, raising questions about the necessity of maintaining separate machine-optimized documentation when human documentation already achieves high LLM-friendliness. This case suggests that the readability-tokenization paradox may be less pronounced for platforms that naturally serve AI-literate audiences, and that the decision to implement llm.txt should be guided by the existing quality of human documentation rather than applied uniformly across all platforms.
 
+Figure~\ref{fig:lri-box} displays the distribution of LRI differences (Machine $-$ Human) across the ten platforms. The boxplot reveals the central tendency and spread of these improvements. The median improvement is approximately 17 points, with the interquartile range spanning 13 to 25 points. The whiskers capture the bulk of the distribution, while the individual points show the outliers: Vercel (at $-12$, the only platform where human documentation scores higher) and the cluster of platforms at the top (GitHub, Supabase, Stripe, and Cursor, all exceeding 25 points). The visual summary confirms that the positive trend toward machine documentation is robust, though the Vercel exception and the wide spread indicate substantial platform-dependent variance.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{readability-python-demo/results/figures/figure4_lri_difference_boxplot.png}
+    \caption{Boxplot distribution of LRI differences (Machine $-$ Human) across the ten platforms. The median improvement is approximately 17 points. The Vercel outlier ($-12$) is the only platform favoring human documentation. Individual points are labeled by platform name.}
+    \label{fig:lri-box}
+\end{figure}
+
 \subsection{Correlation Analysis}
 
 The Pearson correlation analysis between traditional readability metrics and LLM evaluation scores reveals no significant correlations (p > 0.05) across all tested pairs. The highest correlation is observed between Flesch Reading Ease and LLM-Friendliness (r=0.357, p=0.312), but this does not reach statistical significance.
+
+Figure~\ref{fig:fre-clarity} plots this relationship visually, with each platform represented by two points (human in pink, machine in gold). The scatter plot reveals a striking pattern: the human documentation points cluster in the upper right (higher FRE, moderate Clarity), while the machine documentation points spread across the lower and middle ranges. The visual separation is obvious: machine documentation with extremely low FRE (React, LangChain, Cloudflare) can still achieve high LLM Clarity scores (all at or above 3.0). This plot directly illustrates the readability-tokenization paradox: the axes that measure human readability (x-axis) and LLM-perceived quality (y-axis) are largely orthogonal, confirming that documentation optimized for machines does not necessarily need to be human-readable.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{readability-python-demo/results/figures/figure3_fre_vs_clarity.png}
+    \caption{Scatter plot of Flesch Reading Ease versus LLM Clarity scores for human (pink) and machine (gold) documentation. The visual separation demonstrates the orthogonality of human readability and LLM-perceived quality: machine documentation with extremely low FRE (React, LangChain) still achieves high LLM Clarity scores.}
+    \label{fig:fre-clarity}
+\end{figure}
 
 This lack of correlation provides critical evidence that traditional readability metrics and LLM evaluation scores measure fundamentally different constructs. While Flesch Reading Ease and Flesch-Kincaid Grade Level were designed to predict human reading comprehension based on sentence complexity and syllable density, LLM evaluation scores capture semantic quality, information density, and machine-specific optimization factors that traditional metrics cannot assess.
 
@@ -701,7 +746,7 @@ Conceptualization, Yehezkiel Gunawan; methodology, Yehezkiel Gunawan; software, 
 % ============================================================
 \subparagraph*{Data Availability Statement}
 
-The data that support the findings of this study are openly available in the GitHub repository at https://github.com/yehezkielgunawan/codhes-2026.
+The data that support the findings of this study are openly available in the GitHub repository at \href{https://github.com/yehezkielgunawan/codhes-2026/tree/main/readability-python-demo}{https://github.com/yehezkielgunawan/codhes-2026/tree/main/readability-python-demo}.
 
 % ============================================================
 % REFERENCES

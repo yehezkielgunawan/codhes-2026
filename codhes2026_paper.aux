@@ -63,21 +63,30 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Descriptive Statistics}{7}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Traditional Readability Analysis}{7}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}LLM-as-a-Judge Evaluation Results}{7}{subsection.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Traditional Readability Metrics Comparison}}{8}{table.caption.3}\protected@file@percent }
-\newlabel{tab:traditional}{{II}{8}{Traditional Readability Metrics Comparison}{table.caption.3}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces LLM-as-a-Judge Evaluation Results}}{8}{table.caption.4}\protected@file@percent }
-\newlabel{tab:llm}{{III}{8}{LLM-as-a-Judge Evaluation Results}{table.caption.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Platform-by-Platform LRI Comparison}}{8}{table.caption.5}\protected@file@percent }
-\newlabel{tab:platform-lri}{{IV}{8}{Platform-by-Platform LRI Comparison}{table.caption.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Correlation Analysis}{8}{subsection.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}The Readability-Tokenization Paradox}{8}{subsection.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-F}}Implications and Interpretation}{9}{subsection.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-G}}Practical Implications for Documentation Teams}{9}{subsection.4.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-H}}Theoretical Implications for Technolinguistics}{10}{subsection.4.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusion}{10}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Limitations}{10}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Platform-level comparison of (a) Flesch Reading Ease and (b) LLM Readability Index scores. Human documentation (pink) scores higher on traditional readability, while machine documentation (gold) achieves higher LLM readability scores. The two outliers (React and LangChain) in the FRE panel illustrate the extreme variance in machine documentation scores.}}{8}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:readability}{{2}{8}{Platform-level comparison of (a) Flesch Reading Ease and (b) LLM Readability Index scores. Human documentation (pink) scores higher on traditional readability, while machine documentation (gold) achieves higher LLM readability scores. The two outliers (React and LangChain) in the FRE panel illustrate the extreme variance in machine documentation scores}{figure.caption.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Traditional Readability Metrics Comparison}}{8}{table.caption.4}\protected@file@percent }
+\newlabel{tab:traditional}{{II}{8}{Traditional Readability Metrics Comparison}{table.caption.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces LLM-as-a-Judge Evaluation Results}}{8}{table.caption.6}\protected@file@percent }
+\newlabel{tab:llm}{{III}{8}{LLM-as-a-Judge Evaluation Results}{table.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Token-to-Word Ratio comparison across platforms. Human documentation (pink) generally requires fewer tokens per word than machine documentation (gold), except for FastAPI, whose verbose HTML inflates the ratio. React and LangChain show extreme machine-to-word ratios due to their link-dense content.}}{8}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:token}{{3}{8}{Token-to-Word Ratio comparison across platforms. Human documentation (pink) generally requires fewer tokens per word than machine documentation (gold), except for FastAPI, whose verbose HTML inflates the ratio. React and LangChain show extreme machine-to-word ratios due to their link-dense content}{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Cohen's d effect sizes for all metrics and evaluation dimensions. Negative values (red) indicate machine documentation scores higher; positive values (blue) indicate human documentation scores higher. Vertical dashed lines denote conventional small, medium, and large effect thresholds. All LLM evaluation dimensions show large effects favoring machine documentation, while only Flesch Reading Ease shows a medium effect favoring human documentation.}}{9}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:effect}{{4}{9}{Cohen's d effect sizes for all metrics and evaluation dimensions. Negative values (red) indicate machine documentation scores higher; positive values (blue) indicate human documentation scores higher. Vertical dashed lines denote conventional small, medium, and large effect thresholds. All LLM evaluation dimensions show large effects favoring machine documentation, while only Flesch Reading Ease shows a medium effect favoring human documentation}{figure.caption.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Platform-by-Platform LRI Comparison}}{9}{table.caption.8}\protected@file@percent }
+\newlabel{tab:platform-lri}{{IV}{9}{Platform-by-Platform LRI Comparison}{table.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Boxplot distribution of LRI differences (Machine $-$ Human) across the ten platforms. The median improvement is approximately 17 points. The Vercel outlier ($-12$) is the only platform favoring human documentation. Individual points are labeled by platform name.}}{10}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:lri-box}{{5}{10}{Boxplot distribution of LRI differences (Machine $-$ Human) across the ten platforms. The median improvement is approximately 17 points. The Vercel outlier ($-12$) is the only platform favoring human documentation. Individual points are labeled by platform name}{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Correlation Analysis}{10}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}The Readability-Tokenization Paradox}{10}{subsection.4.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Scatter plot of Flesch Reading Ease versus LLM Clarity scores for human (pink) and machine (gold) documentation. The visual separation demonstrates the orthogonality of human readability and LLM-perceived quality: machine documentation with extremely low FRE (React, LangChain) still achieves high LLM Clarity scores.}}{10}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:fre-clarity}{{6}{10}{Scatter plot of Flesch Reading Ease versus LLM Clarity scores for human (pink) and machine (gold) documentation. The visual separation demonstrates the orthogonality of human readability and LLM-perceived quality: machine documentation with extremely low FRE (React, LangChain) still achieves high LLM Clarity scores}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-F}}Implications and Interpretation}{10}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-G}}Practical Implications for Documentation Teams}{11}{subsection.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-H}}Theoretical Implications for Technolinguistics}{11}{subsection.4.8}\protected@file@percent }
 \citation{Chen2025}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Future Work}{11}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusion}{12}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Limitations}{12}{subsection.5.1}\protected@file@percent }
 \bibstyle{IEEEtran}
 \bibdata{references}
 \bibcite{Howard2024}{1}
@@ -86,6 +95,8 @@
 \bibcite{llmstxtDirectory}{4}
 \bibcite{Flesch1948}{5}
 \bibcite{Kincaid1975}{6}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Future Work}{13}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{13}{section*.14}\protected@file@percent }
 \bibcite{Redish2000}{7}
 \bibcite{McClure1987}{8}
 \bibcite{Kincaid1988}{9}
@@ -103,5 +114,4 @@
 \bibcite{MozillaReadability}{21}
 \bibcite{OpenRouter2024}{22}
 \bibcite{Chen2025}{23}
-\@writefile{toc}{\contentsline {section}{References}{12}{section*.9}\protected@file@percent }
-\gdef \@abspage@last{12}
+\gdef \@abspage@last{14}
