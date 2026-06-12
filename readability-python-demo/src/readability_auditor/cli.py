@@ -50,7 +50,7 @@ def scrape(
         help="Run LLM-as-a-Judge evaluation on scraped content",
     ),
     llm_model: str = typer.Option(
-        "meta-llama/llama-3.2-3b-instruct:free",
+        "nvidia/nemotron-nano-12b-v2-vl:free",
         "--llm-model",
         help="OpenRouter model for LLM evaluation",
     ),

@@ -537,7 +537,7 @@ The Python CLI tool has been fully implemented and tested:
 
 ### 11.1 Evaluation Completed
 
-The LLM-as-a-Judge evaluation has been successfully completed for all 10 platforms using the `meta-llama/llama-3.2-3b-instruct:free` model via OpenRouter. Despite initial rate limiting on June 7, the caching mechanism enabled full completion on June 8 with zero data loss.
+The LLM-as-a-Judge evaluation has been successfully completed for all 10 platforms using the `nvidia/nemotron-nano-12b-v2-vl:free` model via OpenRouter. Despite initial rate limiting on June 7, the caching mechanism enabled full completion on June 8 with zero data loss.
 
 ### 11.2 LLM Readability Index (LRI) Results
 
@@ -571,7 +571,7 @@ The LRI maps the 5-dimension Likert scale (1-5) to a 0-100 scale for direct comp
 - **Sample size:** n=10 platforms (20 document pairs) — sufficient for exploratory analysis
 - **Evaluation dimensions:** 5-point Likert scale across Clarity, Completeness, Conciseness, Technical Accuracy, and LLM-Friendliness
 - **Replicability:** Full cache available in `results/llm_cache/` for independent verification
-- **Model specification:** `meta-llama/llama-3.2-3b-instruct:free` via OpenRouter
+- **Model specification:** `nvidia/nemotron-nano-12b-v2-vl:free` via OpenRouter
 - **Bias acknowledgment:** Single-model evaluation; future work should include multi-model consensus
 
 ### 11.5 Comparison with Traditional Metrics
