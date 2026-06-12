@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  12 JUN 2026 10:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  12 JUN 2026 10:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -661,23 +661,13 @@ ap/pdftex.map}{/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/enc
 /dvips/base/8r.enc}
 
 
-]
-Underfull \hbox (badness 3343) in paragraph at lines 212--213
-[]\T1/ptm/m/n/10 (+20) Frontend frame-works (Re-act), back-end frame-works
- []
-
-
-Underfull \hbox (badness 3229) in paragraph at lines 233--234
-\T1/ptm/m/n/10 (+20) machine-optimized doc-u-men-ta-tion over human-readable
- []
-
-[2] [3]
+] [2] [3]
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/microtype/mt-
 cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 329
+LaTeX Font Info:    Trying to load font information for U+msa on input line 327
 .
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/amsfonts/umsa
@@ -688,7 +678,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 329
+LaTeX Font Info:    Trying to load font information for U+msb on input line 327
 .
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/amsfonts/umsb
@@ -700,7 +690,7 @@ msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 33
-4.
+2.
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/psnfss/t1pcr.
 fd
@@ -710,78 +700,73 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `pcr' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [4]
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
+
+Underfull \hbox (badness 1694) in paragraph at lines 332--333
+[]\T1/ptm/m/n/10 (+20) I col-lected data us-ing a cus-tom Python CLI tool
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 376--377
 []\T1/ptm/m/n/10 (+20) (1) \T1/ptm/b/n/10 (+20) Re-sponse Caching\T1/ptm/m/n/10
  (+20) : All LLM
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
+Underfull \hbox (badness 10000) in paragraph at lines 376--377
 \T1/ptm/m/n/10 (+20) eval-u-a-tion re-sponses are cached to
  []
 
 
-Overfull \hbox (16.24606pt too wide) in paragraph at lines 378--379
+Overfull \hbox (16.24606pt too wide) in paragraph at lines 376--377
 \T1/pcr/m/n/10 results/llm_cache/domain_doc_type_chunk.json
  []
 
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 386--387
+
+Underfull \hbox (badness 10000) in paragraph at lines 384--385
 []\T1/ptm/m/n/10 (+20) The eval-u-a-tion model,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 428--429
+Underfull \hbox (badness 10000) in paragraph at lines 426--427
 []\T1/ptm/b/n/10 (+20) Flesch Read-ing Ease (FRE): \T1/ptm/m/n/10 (+20) Cal-cu-
 lated as
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 428--429
+Underfull \hbox (badness 10000) in paragraph at lines 426--427
 \OT1/cmr/m/n/10 206\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 835 \OMS/cmsy/m/n/10 ^^@ \
 OT1/cmr/m/n/10 1\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 015([]\OML/cmm/m/it/10 =[]\OT
 1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Underfull \hbox (badness 6364) in paragraph at lines 428--429
+Underfull \hbox (badness 6364) in paragraph at lines 426--427
 \OT1/cmr/m/n/10 84\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 6([]\OML/cmm/m/it/10 =[]\OT
 1/cmr/m/n/10 )$\T1/ptm/m/n/10 (+20) . Scores range from 0
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--431
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 428--429
 []\T1/ptm/b/n/10 (+20) Flesch-Kincaid Grade Level (FKGL):
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 430--431
+Underfull \hbox (badness 10000) in paragraph at lines 428--429
 \T1/ptm/m/n/10 (+20) Cal-cu-lated as $\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/c
 mr/m/n/10 39([]\OML/cmm/m/it/10 =[]\OT1/cmr/m/n/10 ) +
  []
 
-[6]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7]
-[8] [9] [10]
-Underfull \hbox (badness 3872) in paragraph at lines 668--669
-[]\T1/ptm/b/n/10 (+20) RQ2: \T1/ptm/m/n/10 (+20) LLM-as-a-Judge scores sig-nif-
-i-cantly fa-vor
- []
-
-[11] [12]
-Underfull \hbox (badness 2753) in paragraph at lines 719--720
+[6] [7] [8] [9] [10] [11]
+Underfull \hbox (badness 2753) in paragraph at lines 717--718
 []\T1/ptm/m/n/10 (+20) The data that sup-port the find-ings of this study
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 719--720
+Underfull \hbox (badness 10000) in paragraph at lines 717--718
 \T1/ptm/m/n/10 (+20) are openly avail-able in the GitHub repos-i-tory at
  []
 
-(./codhes2026_paper.bbl)
+(./codhes2026_paper.bbl [12])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -793,7 +778,9 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[13] (./codhes2026_paper.aux)
+[13
+
+] (./codhes2026_paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -802,13 +789,13 @@ Package rerunfilecheck Info: File `codhes2026_paper.out' has not changed.
 (rerunfilecheck)             Checksum: 8A747CA8BB103B855DDCB0319489415C;7684.
  ) 
 Here is how much of TeX's memory you used:
- 15389 strings out of 467525
- 249036 string characters out of 5408440
- 714421 words of memory out of 5000000
+ 15380 strings out of 467525
+ 248967 string characters out of 5408440
+ 709421 words of memory out of 5000000
  43665 multiletter control sequences out of 15000+600000
- 757116 words of font info for 386 fonts, out of 8000000 for 9000
+ 756735 words of font info for 380 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,1548b,465s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1546b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/s
@@ -820,7 +807,7 @@ pe1/urw/courier/ucrr8a.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-d
 ist/fonts/type1/urw/times/utmb8a.pfb></opt/homebrew/Cellar/texlive/20260301/sha
 re/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></opt/homebrew/Cellar/texlive/20
 260301/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on codhes2026_paper.pdf (13 pages, 199109 bytes).
+Output written on codhes2026_paper.pdf (13 pages, 197013 bytes).
 PDF statistics:
  379 PDF objects out of 1000 (max. 8388607)
  342 compressed objects within 4 object streams
