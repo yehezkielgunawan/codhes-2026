@@ -180,7 +180,7 @@
 
 % Abstract
 \begin{abstract}
-This study presents a technolinguistic analysis comparing human-readable HTML documentation and machine-optimized llm.txt files across ten technical documentation platforms. Using established readability metrics (Flesch Reading Ease, Flesch-Kincaid Grade Level, Lexical Density) alongside a novel LLM-as-a-Judge evaluation methodology, we examine the readability paradox inherent in machine-optimized documentation. Our analysis reveals that while machine-optimized documentation scores significantly lower on traditional human readability metrics (FRE mean difference: -91.58 points), it receives substantially higher ratings from LLM evaluators (LLM Readability Index mean difference: +14.69 points, p=0.005). Large effect sizes (Cohen's d ranging from -1.002 to -1.371) across all LLM evaluation dimensions suggest that machine-optimized documentation is perceived as clearer, more concise, and more LLM-friendly. Crucially, we found no significant correlation between traditional readability metrics and LLM evaluation scores, indicating these constructs measure fundamentally different aspects of documentation quality. These findings provide empirical evidence for the readability-tokenization paradox and suggest that traditional readability metrics are insufficient for evaluating modern documentation standards designed for both human and machine consumption.
+This study presents a technolinguistic analysis comparing human-readable HTML documentation and machine-optimized llm.txt files across ten technical documentation platforms. Using established readability metrics (Flesch Reading Ease, Flesch-Kincaid Grade Level, Lexical Density) alongside a novel LLM-as-a-Judge evaluation methodology, the readability paradox inherent in machine-optimized documentation is examined. The analysis reveals that while machine-optimized documentation scores significantly lower on traditional human readability metrics (FRE mean difference: -91.58 points), it receives substantially higher ratings from LLM evaluators (LLM Readability Index mean difference: +14.69 points, p=0.005). Large effect sizes (Cohen's d ranging from -1.002 to -1.371) across all LLM evaluation dimensions suggest that machine-optimized documentation is perceived as clearer, more concise, and more LLM-friendly. Crucially, no significant correlation was found between traditional readability metrics and LLM evaluation scores, indicating these constructs measure fundamentally different aspects of documentation quality. These findings provide empirical evidence for the readability-tokenization paradox and suggest that traditional readability metrics are insufficient for evaluating modern documentation standards designed for both human and machine consumption.
 \end{abstract}
 
 % Keywords
@@ -205,9 +205,9 @@ The tokenization of text, particularly through Byte Pair Encoding (BPE) as intro
 
 Despite the widespread adoption of llm.txt standards across over 2,000 repositories and the acknowledged importance of token efficiency in documentation design, no peer-reviewed study has systematically measured the readability paradox in technical documentation. While LLMLingua (Jiang et al., 2023) has demonstrated that prompt compression can achieve up to 20x reduction with minimal performance loss, and optimal data format research has shown that plain text is most token-efficient, these studies focus on compression algorithms and theoretical comparisons rather than empirical documentation analysis.
 
-This study addresses this critical research gap through a quantitative computational analysis comparing human-readable HTML documentation and machine-optimized llm.txt files across ten technical documentation platforms. We employ a paired comparison design, controlling for content differences by comparing versions of the same documentation, and utilize both traditional readability metrics and a novel LLM-as-a-Judge evaluation methodology to provide a comprehensive assessment of the readability-tokenization paradox.
+This study addresses this critical research gap through a quantitative computational analysis comparing human-readable HTML documentation and machine-optimized llm.txt files across ten technical documentation platforms. A paired comparison design is employed, controlling for content differences by comparing versions of the same documentation, and both traditional readability metrics and a novel LLM-as-a-Judge evaluation methodology are utilized to provide a comprehensive assessment of the readability-tokenization paradox.
 
-The study's methodology is designed to ensure methodological rigor and reproducibility. We developed a custom Python CLI tool (readability-python-demo) that automates the entire data collection pipeline, from URL detection and web crawling to metrics calculation and LLM evaluation. The tool is built using the modern Python package management system uv (Astral), which provides rapid dependency resolution and clean environment isolation. The codebase includes 50 pytest tests covering all major components, ensuring implementation correctness and facilitating reproducibility for other researchers.
+The study's methodology is designed to ensure methodological rigor and reproducibility. A custom Python CLI tool (readability-python-demo) was developed that automates the entire data collection pipeline, from URL detection and web crawling to metrics calculation and LLM evaluation. The tool is built using the modern Python package management system uv (Astral), which provides rapid dependency resolution and clean environment isolation. The codebase includes 50 pytest tests covering all major components, ensuring implementation correctness and facilitating reproducibility for other researchers.
 
 The platforms selected for analysis represent a diverse cross-section of the technical documentation landscape, spanning frontend frameworks (React), backend frameworks (FastAPI, Hono), developer platforms (GitHub, Vercel), infrastructure services (Cloudflare), payment systems (Stripe), AI tools (Cursor, LangChain), and backend-as-a-service platforms (Supabase). This diversity ensures that the findings are not limited to a single documentation genre or technology stack, enhancing the generalizability of the results.
 
@@ -252,7 +252,7 @@ The llm.txt standard, proposed by Jeremy Howard in September 2024, represents a 
 
 The adoption of llm.txt has been substantial, with over 2,088 repositories on GitHub containing llm.txt files and major technology adopters including Vercel, Cloudflare, Postman, Cursor, Anthropic, and Hugging Face \cite{AnswerDotAI2024}. The ecosystem has expanded beyond the core specification to include llms-full.txt (expanded versions), llms-ctx.txt (XML-structured context), and various auto-generation tools for VitePress, Docusaurus, and other documentation platforms \cite{llmstxtSite,llmstxtDirectory}.
 
-This standard explicitly frames the human-vs-machine optimization tension that our research quantifies. While websites serve both human readers and LLMs, the latter benefit from more concise, expert-level information gathered in a single, accessible location. The ``Optional'' section in the llm.txt format has semantic meaning, allowing content to be skipped for shorter context, demonstrating the explicit optimization for machine consumption efficiency.
+This standard explicitly frames the human-vs-machine optimization tension that this research quantifies. While websites serve both human readers and LLMs, the latter benefit from more concise, expert-level information gathered in a single, accessible location. The ``Optional'' section in the llm.txt format has semantic meaning, allowing content to be skipped for shorter context, demonstrating the explicit optimization for machine consumption efficiency.
 
 The llm.txt format typically consists of three sections: a H1 title, an H2 summary providing concise expert-level information, and an optional H2 section containing additional details that may be skipped for shorter contexts. This structured format contrasts sharply with traditional HTML documentation, which intersperses navigation, advertisements, and interactive elements with the actual content. The standardization of machine-optimized documentation represents a maturation of the LLM ecosystem, acknowledging that LLMs are not merely passive consumers of web content but active participants requiring purpose-built information formats.
 
@@ -299,7 +299,7 @@ Despite the extensive literature on readability metrics, tokenization efficiency
 
 \subsection{Research Design}
 
-This study employs a quantitative content analysis approach with a paired comparison design. We compare human-readable HTML documentation and machine-optimized llm.txt files for the same platforms, controlling for content differences by analyzing versions of the same documentation. The methodology combines traditional computational linguistics metrics with a novel LLM-as-a-Judge evaluation system.
+This study employs a quantitative content analysis approach with a paired comparison design. Human-readable HTML documentation and machine-optimized llm.txt files for the same platforms are compared, controlling for content differences by analyzing versions of the same documentation. The methodology combines traditional computational linguistics metrics with a novel LLM-as-a-Judge evaluation system.
 
 \subsection{Corpus Selection}
 
@@ -332,6 +332,10 @@ The corpus comprises ten technical documentation platforms selected for their ad
 \subsection{Data Collection}
 
 Data collection was performed using a custom Python CLI tool (readability-python-demo) developed specifically for this study \cite{Textstat2023}. The tool was built using the modern Python package management system \texttt{uv} (Astral), which provides rapid dependency resolution, clean environment isolation, and reproducible builds across different computing environments. The architecture follows a modular design pattern with clear separation of concerns between data acquisition, processing, evaluation, and export components.
+
+The corpus comprises two distinct documentation formats for each platform. The \textbf{human-readable documentation corpus} consists of crawled HTML documentation converted to Markdown via the Crawl4AI framework, followed by automated prose extraction using Mozilla Readability. This cleaning pipeline removes navigation sidebars, footer links, code blocks, inline images, and advertisement content, preserving only the paragraph text, semantic headings, and link anchor text that human readers consume. The \textbf{machine-optimized documentation corpus} consists of raw \texttt{llm.txt} or \texttt{llms.txt} files downloaded directly from each platform's root domain, with linked files (including \texttt{llms-full.txt} and \texttt{llms-ctx.txt} variants) aggregated in the order specified by the links. Where direct \texttt{llm.txt} files were unavailable, the Context7 API was used as a fallback source.
+
+The two corpora exhibit marked structural differences. Human-readable files average approximately 150,000 characters per platform (range: 12,000 to 1,200,000 characters), with prose-dominant content interspersed with explanatory examples. Machine-optimized files are more variable in length, ranging from 3,000 characters (Cursor) to 8,800,000 characters (Supabase), reflecting heterogeneous implementation strategies: some platforms provide concise, structured summaries, while others aggregate complete documentation into a single file. Representative excerpts from two platforms are provided in Appendix~A.
 
 The tool implements a comprehensive five-step pipeline for automated documentation auditing, as illustrated in Figure~\ref{fig:pipeline}. Each step was designed to ensure methodological rigor, data quality, and reproducibility. The pipeline processes platforms sequentially but supports resumable execution through caching mechanisms, allowing researchers to resume interrupted batches without data loss.
 
@@ -375,7 +379,7 @@ This fallback strategy ensures that the study includes platforms that have adopt
 
 The LLM-as-a-Judge evaluation component employs a robust asynchronous architecture with automatic retry logic and exponential backoff. The system uses \texttt{httpx.AsyncClient} for concurrent API requests to the OpenRouter API \cite{OpenRouter2024}, with the following resilience mechanisms:
 
-(1) \textbf{Response Caching}: All LLM evaluation responses are cached to \texttt{results/llm\_cache/{domain}\_{doc\_type}\_{chunk}.json} files. This enables resumable batch processing; if the API fails mid-batch (e.g., due to rate limiting or network issues), re-running the tool will skip cached evaluations and only process missing items.
+(1) \textbf{Response Caching}: All LLM evaluation responses are cached to \path{results/llm_cache/{domain}_{doc_type}_{chunk}.json} files. This enables resumable batch processing; if the API fails mid-batch (e.g., due to rate limiting or network issues), re-running the tool will skip cached evaluations and only process missing items.
 
 (2) \textbf{Rate Limiting}: The tool automatically handles HTTP 429 (Too Many Requests) responses by respecting the \texttt{Retry-After} header and implementing exponential backoff. The free tier of OpenRouter has strict rate limits, and the tool is designed to work within these constraints.
 
@@ -445,7 +449,7 @@ The LLM evaluation employs a five-dimension Likert scale assessment via the Open
     \item \textbf{LLM-Friendliness} (1-5): Is it optimized for machine consumption?
 \end{enumerate}
 
-\textbf{LLM Readability Index (LRI):} To enable direct comparison with Flesch Reading Ease, we introduce the LLM Readability Index, calculated as:
+\textbf{LLM Readability Index (LRI):} To enable direct comparison with Flesch Reading Ease, the LLM Readability Index is introduced, calculated as:
 
 \begin{equation}
     \text{LRI} = \frac{\text{Average of 5 dimensions} - 1}{4} \times 100
@@ -608,7 +612,7 @@ This lack of correlation provides critical evidence that traditional readability
 
 \subsection{The Readability-Tokenization Paradox}
 
-The findings provide empirical evidence for what we term the ``readability-tokenization paradox'': machine-optimized documentation that reduces token count and improves LLM performance simultaneously decreases traditional human readability metrics. This paradox is demonstrated through the inverse relationship between Flesch Reading Ease and LLM Readability Index:
+The findings provide empirical evidence for what is termed the ``readability-tokenization paradox'': machine-optimized documentation that reduces token count and improves LLM performance simultaneously decreases traditional human readability metrics. This paradox is demonstrated through the inverse relationship between Flesch Reading Ease and LLM Readability Index:
 
 \begin{itemize}
     \item Human documentation: Higher FRE (M=33.39), Lower LRI (M=64.03)
@@ -658,7 +662,7 @@ The study also introduces the LLM Readability Index (LRI) as a standardized metr
 % ============================================================
 \section{Conclusion}
 
-This study provides empirical evidence for the readability-tokenization paradox in technical documentation. Through analysis of ten platforms using both traditional readability metrics and a novel LLM-as-a-Judge methodology, we demonstrate that machine-optimized documentation (llm.txt) significantly improves LLM-perceived quality while generally decreasing traditional human readability metrics.
+This study provides empirical evidence for the readability-tokenization paradox in technical documentation. Through analysis of ten platforms using both traditional readability metrics and a novel LLM-as-a-Judge methodology, it is demonstrated that machine-optimized documentation (llm.txt) significantly improves LLM-perceived quality while generally decreasing traditional human readability metrics.
 
 The key findings are:
 
@@ -703,6 +707,181 @@ The author acknowledges the use of AI tools for statistical analysis, visualizat
 \section*{Data Availability Statement}
 
 The data that support the findings of this study are openly available in the GitHub repository at https://github.com/yehezkielgunawan/codhes-2026, including raw scraped texts, statistical analysis scripts, and generated charts.
+
+% ============================================================
+% APPENDIX
+% ============================================================
+\section*{Appendix: Representative Documentation Samples}
+
+To illustrate the structural and stylistic differences
+between the two documentation corpora, representative
+excerpts from two platforms are provided below.
+The human-readable documentation samples were extracted
+after automated cleaning. The machine-optimized
+documentation samples are the raw \texttt{llm.txt} or
+\texttt{llms.txt} files as retrieved from each platform.
+
+\subsection*{A.1 FastAPI}
+\vspace{6pt}
+
+\textbf{Human-readable documentation excerpt:}
+{\tiny
+\begin{verbatim}
+### GET STARTED
+  * Quick Start
+    * Tutorial: Tic-Tac-Toe
+    * Thinking in React
+  * Installation
+    * Creating a React App
+    * Build a React App from Scratch
+    * Add React to an Existing Project
+  * Setup
+    * Editor Setup
+    * Using TypeScript
+    * React Developer Tools
+  * React Compiler
+    * Introduction
+    * Installation
+    * Incremental Adoption
+    * Debugging and Troubleshooting
+### LEARN REACT
+  * Describing the UI
+    * Your First Component
+    * Importing and Exporting Components
+    * Writing Markup with JSX
+    * JavaScript in JSX with Curly Braces
+    * Passing Props to a Component
+    * Conditional Rendering
+    * Rendering Lists
+    * Keeping Components Pure
+    * Your UI as a Tree
+\end{verbatim}
+}
+
+\textbf{Machine-optimized documentation excerpt:}
+{\tiny
+\begin{verbatim}
+### Add Summary and Description to FastAPI
+### Path Operations
+
+Source: github.com/fastapi/fastapi/...
+
+Provide a concise summary and a more detailed
+description for a path operation, improving its
+clarity in the OpenAPI documentation.
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.post(
+    "/items/",
+    summary="Create an item",
+    description="Create an item with all
+        the information...",
+)
+async def create_item(name: str):
+    return {"name": name}
+```
+
+### Define FastAPI Path Operation Description
+### from Docstring
+
+Source: github.com/fastapi/fastapi/...
+
+Use a function's docstring to provide a multi-line
+description for a path operation. Markdown in
+docstrings is supported.
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.post("/items/")
+async def create_item(name: str):
+    """
+    Create an item with all the information:
+    - **name**: Name of the item
+    - **description**: A long description
+    - **price**: Price of the item
+    """
+    return {"name": name}
+```
+\end{verbatim}
+}
+
+\vspace{12pt}
+\subsection*{A.2 React}
+\vspace{6pt}
+
+\textbf{Human-readable documentation excerpt:}
+{\tiny
+\begin{verbatim}
+Copyright (c) Meta Platforms, Inc
+no uwu plz
+Logo by @sawaratsuki1004
+
+Search
+The library for web and native user interfaces
+## Create user interfaces from components
+React lets you build user interfaces out of
+individual pieces called components. Create your
+own React components like , , and . Then combine
+them into entire screens, pages, and apps.
+
+### Video.js
+My video Video description
+Whether you work on your own or with thousands
+of other developers, using React feels the same.
+It is designed to let you seamlessly combine
+components written by independent people, teams,
+and organizations.
+
+## Write components with code and markup
+React components are JavaScript functions. Want
+to show some content conditionally? Use an
+statement. Displaying a list? Try array .
+Learning React is learning programming.
+
+### VideoList.js
+## 3 Videos
+First video Video description
+Second video Video description
+Third video Video description
+\end{verbatim}
+}
+
+\textbf{Machine-optimized documentation excerpt:}
+{\tiny
+\begin{verbatim}
+# React Documentation
+
+> The library for web and native user interfaces.
+
+## Learn React
+
+### GET STARTED
+
+#### Quick Start
+- [Quick Start](...)
+- [Tutorial: Tic-Tac-Toe](...)
+- [Thinking in React](...)
+
+#### Installation
+- [Installation](...)
+- [Creating a React App](...)
+- [Build a React App from Scratch](...)
+- [Add React to an Existing Project](...)
+
+#### Setup
+- [Setup](...)
+- [Editor Setup](...)
+- [Using TypeScript](...)
+- [React Developer Tools](...)
+\end{verbatim}
+}
 
 % ============================================================
 % REFERENCES
