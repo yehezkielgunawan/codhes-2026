@@ -379,7 +379,7 @@ This fallback strategy ensures that the study includes platforms that have adopt
 
 The LLM-as-a-Judge evaluation component employs a robust asynchronous architecture with automatic retry logic and exponential backoff. The system uses \texttt{httpx.AsyncClient} for concurrent API requests to the OpenRouter API \cite{OpenRouter2024}, with the following resilience mechanisms:
 
-(1) \textbf{Response Caching}: All LLM evaluation responses are cached to \texttt{results/llm\_cache/{domain}\_{doc\_type}\_{chunk}.json} files. This enables resumable batch processing; if the API fails mid-batch (e.g., due to rate limiting or network issues), re-running the tool will skip cached evaluations and only process missing items.
+(1) \textbf{Response Caching}: All LLM evaluation responses are cached to \path{results/llm_cache/{domain}_{doc_type}_{chunk}.json} files. This enables resumable batch processing; if the API fails mid-batch (e.g., due to rate limiting or network issues), re-running the tool will skip cached evaluations and only process missing items.
 
 (2) \textbf{Rate Limiting}: The tool automatically handles HTTP 429 (Too Many Requests) responses by respecting the \texttt{Retry-After} header and implementing exponential backoff. The free tier of OpenRouter has strict rate limits, and the tool is designed to work within these constraints.
 

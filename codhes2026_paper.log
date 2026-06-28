@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  28 JUN 2026 20:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  28 JUN 2026 20:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -723,22 +723,6 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
  [4] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 382--383
-[]\T1/ptm/m/n/10 (+20) (1) \T1/ptm/b/n/10 (+20) Re-sponse Caching\T1/ptm/m/n/10
- (+20) : All LLM
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 382--383
-\T1/ptm/m/n/10 (+20) eval-u-a-tion re-sponses are cached to
- []
-
-
-Overfull \hbox (16.24606pt too wide) in paragraph at lines 382--383
-\T1/pcr/m/n/10 results/llm_cache/domain_doc_type_chunk.json
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 390--391
 []\T1/ptm/m/n/10 (+20) The eval-u-a-tion model,
  []
@@ -820,32 +804,45 @@ L3 programming layer <2026-01-19>
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `codhes2026_paper.out' has not changed.
-(rerunfilecheck)             Checksum: AC28C761AB77E10924B2F4AC98638896;7685.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `codhes2026_paper.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `codhes2026_paper.out':
+(rerunfilecheck)             Before: 6A6A329FD80D237DF1F384AF98C40CB4;7685
+(rerunfilecheck)             After:  AC28C761AB77E10924B2F4AC98638896;7685.
  ) 
 Here is how much of TeX's memory you used:
- 15388 strings out of 467525
- 249136 string characters out of 5408440
- 706387 words of memory out of 5000000
- 43668 multiletter control sequences out of 15000+600000
+ 15394 strings out of 467525
+ 249217 string characters out of 5408440
+ 708218 words of memory out of 5000000
+ 43673 multiletter control sequences out of 15000+600000
  757459 words of font info for 383 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,79p,1412b,701s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/s
-hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar
-/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></o
-pt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/ty
-pe1/urw/courier/ucrr8a.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-d
-ist/fonts/type1/urw/times/utmb8a.pfb></opt/homebrew/Cellar/texlive/20260301/sha
-re/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></opt/homebrew/Cellar/texlive/20
-260301/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on codhes2026_paper.pdf (13 pages, 200335 bytes).
+
+pdfTeX warning (dest): name{section*.17} has been referenced but does not exist
+, replaced by a fixed one
+
+</opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/sha
+re/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/t
+exlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></opt
+/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type
+1/urw/courier/ucrr8a.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dis
+t/fonts/type1/urw/times/utmb8a.pfb></opt/homebrew/Cellar/texlive/20260301/share
+/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></opt/homebrew/Cellar/texlive/2026
+0301/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on codhes2026_paper.pdf (13 pages, 200379 bytes).
 PDF statistics:
- 379 PDF objects out of 1000 (max. 8388607)
- 342 compressed objects within 4 object streams
- 97 named destinations out of 1000 (max. 500000)
+ 380 PDF objects out of 1000 (max. 8388607)
+ 343 compressed objects within 4 object streams
+ 98 named destinations out of 1000 (max. 500000)
  57665 words of extra memory for PDF output out of 61914 (max. 10000000)
 
