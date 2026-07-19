@@ -487,11 +487,11 @@ To ensure validity, the analysis includes multiple verification mechanisms:
 
 (3) \textbf{Sensitivity Analysis for Outliers}: Analysis of the impact of extreme outliers (React: FRE=-430.09, LangChain: FRE=-234.73) on the overall statistical results. Both robust statistics (median, IQR) and trimmed means were calculated to assess whether the outliers disproportionately influence the conclusions. The sensitivity analysis confirmed that the outliers affect the mean but not the median, and that the core findings regarding the LLM evaluation metrics remain robust regardless of outlier treatment. Specifically, when the outliers are removed from the analysis, the mean Flesch Reading Ease for machine documentation changes from -58.18 to 12.45, but the key finding that machine documentation scores lower than human documentation remains consistent. The LLM evaluation results, however, are not affected by the traditional metric outliers, as these are separate measurements.
 
-(4) \textbf{Reproducibility Verification}: The cached LLM evaluation results enable full reproducibility. Any researcher can re-run the evaluation pipeline and obtain identical scores, as the tool skips cached responses and only processes new content. The cache files are stored in JSON format with timestamps and model identifiers, providing complete provenance for each evaluation. The reproducibility verification involved re-running the entire evaluation pipeline on a fresh environment and confirming that the results matched the original evaluation exactly. The cache mechanism ensures that even if the OpenRouter API is unavailable or rate-limited, the evaluation can still be reproduced using the cached responses.
+(4) \textbf{Reproducibility Verification}: The cached LLM evaluation results enable full reproducibility. Bit-identical score reproduction is guaranteed by the cache layer, as the tool skips cached responses and only processes new content; fresh API calls may exhibit minor variance (quantified in step 6). The cache files are stored in JSON format with timestamps and model identifiers, providing complete provenance for each evaluation. The reproducibility verification involved re-running the entire evaluation pipeline on a fresh environment and confirming that the results matched the original evaluation exactly. The cache mechanism ensures that even if the OpenRouter API is unavailable or rate-limited, the evaluation can still be reproduced using the cached responses.
 
 (5) \textbf{Test Suite Validation}: The codebase includes 50 \texttt{pytest} tests covering all major components: LLM detection, text cleaning, metrics calculation, LLM evaluation, and data export. The tests use mock HTTP responses to simulate API interactions, ensuring that the tool functions correctly without requiring live API calls during testing. All 50 tests pass, providing confidence in the implementation correctness. The test suite includes 11 original tests for the core functionality and 39 additional tests for the LLM evaluation components. The tests cover edge cases such as empty content, network failures, invalid API responses, and malformed documentation. The comprehensive test coverage ensures that the tool handles unexpected inputs gracefully and produces reliable results under diverse conditions.
 
-(6) \textbf{Inter-rater Reliability Assessment}: Although the study uses a single LLM evaluator, the consistency of the evaluation was assessed by re-evaluating a random sample of 5 documentation pairs (25 total evaluations) one week after the initial evaluation. The results showed Pearson correlation of r=0.94 between the initial and re-evaluation scores, indicating high temporal consistency. This consistency check provides confidence that the LLM evaluator is not producing random or unstable scores, but rather making reliable assessments based on the documentation content.
+(6) \textbf{Inter-rater Reliability Assessment}: Although the study uses a single LLM evaluator, the consistency of the evaluation was assessed by re-evaluating a random sample of 5 documentation pairs (25 total evaluations) one week after the initial evaluation. The results showed Pearson correlation of r=0.94 between the initial and re-evaluation scores, indicating high temporal consistency. This consistency check directly addresses the non-deterministic nature of LLM inference: despite potential variance from floating-point non-associativity and provider routing, the evaluator produces stable assessments based on the documentation content rather than random or unstable scores.
 
 \subsection{AI Declaration}
 
@@ -527,6 +527,15 @@ The corpus comprises ten technical documentation platforms representing diverse 
     \tablefootnote{Values are mean (SD). Cohen's d calculated for paired samples. Negative d indicates machine docs score higher than human docs.}
 \end{table}
 
+Figure~\ref{fig:readability} presents a side-by-side comparison of Flesch Reading Ease and LLM Readability Index scores across all ten platforms, illustrating the contrast between traditional and machine-perceived readability.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/figure1_readability_comparison.png}
+    \caption{Platform-level comparison of (a) Flesch Reading Ease and (b) LLM Readability Index scores. Human documentation (pink) scores higher on traditional readability, while machine documentation (gold) achieves higher LLM readability scores. The two outliers (React and LangChain) in the FRE panel illustrate the extreme variance in machine documentation scores.}
+    \label{fig:readability}
+\end{figure*}
+
 The analysis of traditional readability metrics reveals mixed results. Flesch Reading Ease shows a mean difference of 91.58 points, with human documentation scoring higher (M=33.39) than machine documentation (M=-58.18). However, the extreme variance in machine documentation scores (SD=155.28) is driven by outliers: React (-430.09) and LangChain (-234.73) exhibit extremely negative FRE scores in their machine-optimized versions, likely due to dense technical content and code-heavy formatting. This high variance suggests that while machine documentation is generally less readable by traditional metrics, the effect is highly platform-dependent.
 
 The Flesch-Kincaid Grade Level shows a more consistent pattern, with machine documentation requiring approximately 10.2 additional grade levels of education (M=23.96 vs. M=13.76). This suggests that machine-optimized documentation is substantially more difficult for human readers, aligning with the theoretical expectation that concise, information-dense text increases reading complexity.
@@ -534,6 +543,15 @@ The Flesch-Kincaid Grade Level shows a more consistent pattern, with machine doc
 Lexical Density shows negligible difference between formats (76.86\% vs. 77.25\%), indicating that both human and machine documentation maintain similar proportions of content words to total words. This suggests that the readability differences are not primarily due to vocabulary density but rather to sentence structure and formatting choices.
 
 The Token-to-Word Ratio reveals a significant difference, with machine documentation requiring more tokens per word (M=2.73) than human documentation (M=1.67). This counterintuitive finding suggests that machine-optimized documentation, while designed for token efficiency, may actually require more tokens due to formatting overhead, markdown syntax, and structured data representations.
+
+Figure~\ref{fig:token} visualizes this platform-by-platform token ratio comparison, showing that individual implementation characteristics strongly influence tokenization efficiency.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/figure2_token_comparison.png}
+    \caption{Token-to-Word Ratio comparison across platforms. Human documentation (pink) generally requires fewer tokens per word than machine documentation (gold), except for FastAPI, whose verbose HTML inflates the ratio. React and LangChain show extreme machine-to-word ratios due to their link-dense content.}
+    \label{fig:token}
+\end{figure}
 
 \subsection{LLM-as-a-Judge Evaluation Results}
 
@@ -566,6 +584,15 @@ The paired t-test results for individual LLM evaluation dimensions confirm the p
 The largest effects are observed for Conciseness (d=-1.347) and LLM-Friendliness (d=-1.371), suggesting that machine-optimized documentation is perceived as substantially more concise and better suited for LLM consumption. The Clarity (d=-1.002) and Completeness (d=-0.964) dimensions also show large effects, indicating that LLM evaluators perceive machine documentation as clearer and more comprehensive.
 
 Technical Accuracy shows the smallest effect (d=-0.245), suggesting that both human and machine documentation maintain similar levels of technical correctness. This is expected, as both versions describe the same technical systems and APIs.
+
+Figure~\ref{fig:effect} provides a visual summary of all Cohen's d effect sizes computed in this study, showing that all LLM evaluation dimensions fall within the large-effect zone favoring machine documentation.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/figure5_effect_sizes.png}
+    \caption{Cohen's d effect sizes for all metrics and evaluation dimensions. Negative values (red) indicate machine documentation scores higher; positive values (blue) indicate human documentation scores higher. Vertical dashed lines denote conventional small, medium, and large effect thresholds. All LLM evaluation dimensions show large effects favoring machine documentation, while only Flesch Reading Ease shows a medium effect favoring human documentation.}
+    \label{fig:effect}
+\end{figure*}
 
 \begin{table}[htbp]
     \centering
@@ -604,11 +631,29 @@ The Hono platform shows an improvement from 73.33 to 87.00 (+13.67), indicating 
 
 The LangChain platform presents a unique case where both human and machine documentation achieve identical LRI scores of 50.00. This parity suggests that LangChain's human documentation is already well-optimized for LLM consumption, possibly due to its AI-native audience and the documentation team's awareness of LLM consumption patterns. The equal scores also indicate that the machine-optimized version does not provide additional value beyond the human-readable version, raising questions about the necessity of maintaining separate machine-optimized documentation when human documentation already achieves high LLM-friendliness. This case suggests that the readability-tokenization paradox may be less pronounced for platforms that naturally serve AI-literate audiences, and that the decision to implement llm.txt should be guided by the existing quality of human documentation rather than applied uniformly across all platforms.
 
+Figure~\ref{fig:lri-box} displays the distribution of LRI differences (Machine $-$ Human) across the ten platforms, confirming that the positive trend toward machine documentation is robust despite the Vercel outlier.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/figure4_lri_difference_boxplot.png}
+    \caption{Boxplot distribution of LRI differences (Machine $-$ Human) across the ten platforms. The median improvement is approximately 17 points. The Vercel outlier ($-12$) is the only platform favoring human documentation. Individual points are labeled by platform name.}
+    \label{fig:lri-box}
+\end{figure}
+
 \subsection{Correlation Analysis}
 
 The Pearson correlation analysis between traditional readability metrics and LLM evaluation scores reveals no significant correlations (p > 0.05) across all tested pairs. The highest correlation is observed between Flesch Reading Ease and LLM-Friendliness (r=0.357, p=0.312), but this does not reach statistical significance.
 
 This lack of correlation provides critical evidence that traditional readability metrics and LLM evaluation scores measure fundamentally different constructs. While Flesch Reading Ease and Flesch-Kincaid Grade Level were designed to predict human reading comprehension based on sentence complexity and syllable density, LLM evaluation scores capture semantic quality, information density, and machine-specific optimization factors that traditional metrics cannot assess.
+
+Figure~\ref{fig:fre-clarity} plots this relationship visually, with each platform represented by two points (human in pink, machine in gold), illustrating the orthogonality of human readability and LLM-perceived quality.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/figure3_fre_vs_clarity.png}
+    \caption{Scatter plot of Flesch Reading Ease versus LLM Clarity scores for human (pink) and machine (gold) documentation. The visual separation demonstrates the orthogonality of human readability and LLM-perceived quality: machine documentation with extremely low FRE (React, LangChain) still achieves high LLM Clarity scores.}
+    \label{fig:fre-clarity}
+\end{figure}
 
 \subsection{The Readability-Tokenization Paradox}
 
@@ -684,7 +729,7 @@ The theoretical implications of the readability-tokenization paradox extend beyo
 
 \subsection{Limitations}
 
-This study has several limitations that should be acknowledged. The small sample size (n=10 platforms) limits generalizability; larger-scale studies are needed to confirm these findings. The English-only corpus restricts applicability to non-English documentation. The single LLM evaluator (nvidia/nemotron-nano-12b-v2-vl) may introduce model-specific bias; multi-model consensus evaluation would strengthen validity, as demonstrated by Chen et al. \cite{Chen2025} in scientific programming contexts. Finally, the purposive sampling strategy limits representativeness across all technical documentation genres.
+This study has several limitations that should be acknowledged. The small sample size (n=10 platforms) limits generalizability; larger-scale studies are needed to confirm these findings. The English-only corpus restricts applicability to non-English documentation. The single LLM evaluator (nvidia/nemotron-nano-12b-v2-vl) may introduce model-specific bias; moreover, although the evaluator was operated at temperature 0.0 to minimize stochastic variance, greedy decoding does not eliminate residual non-determinism from floating-point non-associativity and provider routing, as quantified by the inter-rater reliability assessment (r=0.94). Multi-model consensus evaluation would strengthen validity, as demonstrated by Chen et al. \cite{Chen2025} in scientific programming contexts. Finally, the purposive sampling strategy limits representativeness across all technical documentation genres.
 
 \subsection{Future Work}
 
