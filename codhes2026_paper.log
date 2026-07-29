@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  19 JUL 2026 21:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  29 JUL 2026 13:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -547,33 +547,33 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 ) (./codhes2026_paper.aux)
 \openout1 = `codhes2026_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 150.
+LaTeX Font Info:    ... okay on input line 150.
 
 -- Lines per column: 62 (approximate, difference = 2.04684pt).
-LaTeX Info: Redefining \microtypecontext on input line 144.
-Package microtype Info: Applying patch `item' on input line 144.
-Package microtype Info: Applying patch `toc' on input line 144.
-Package microtype Info: Applying patch `eqnum' on input line 144.
-Package microtype Info: Applying patch `footnote' on input line 144.
-Package microtype Info: Applying patch `verbatim' on input line 144.
-LaTeX Info: Redefining \microtypesetup on input line 144.
+LaTeX Info: Redefining \microtypecontext on input line 150.
+Package microtype Info: Applying patch `item' on input line 150.
+Package microtype Info: Applying patch `toc' on input line 150.
+Package microtype Info: Applying patch `eqnum' on input line 150.
+Package microtype Info: Applying patch `footnote' on input line 150.
+Package microtype Info: Applying patch `verbatim' on input line 150.
+LaTeX Info: Redefining \microtypesetup on input line 150.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -618,7 +618,7 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 144.
+Package hyperref Info: Link coloring OFF on input line 150.
  (./codhes2026_paper.out) (./codhes2026_paper.out)
 \@outlinefile=\write3
 \openout3 = `codhes2026_paper.out'.
@@ -663,19 +663,13 @@ ap/pdftex.map}{/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/enc
 /dvips/base/8r.enc}
 
 
-] [2]
-Underfull \vbox (badness 4366) has occurred while \output is active []
-
-
-Underfull \vbox (badness 1472) has occurred while \output is active []
-
- [3]
+] [2] [3]
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/microtype/mt-
 cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 278
+LaTeX Font Info:    Trying to load font information for U+msa on input line 284
 .
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/amsfonts/umsa
@@ -686,7 +680,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 278
+LaTeX Font Info:    Trying to load font information for U+msb on input line 284
 .
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/amsfonts/umsb
@@ -697,12 +691,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-Overfull \hbox (2.64171pt too wide) in paragraph at lines 278--303
+Overfull \hbox (2.64171pt too wide) in paragraph at lines 284--309
 [][] 
  []
 
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 30
-7.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 31
+3.
 
 (/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/tex/latex/psnfss/t1pcr.
 fd
@@ -713,54 +707,52 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
  [4]
-Underfull \hbox (badness 10000) in paragraph at lines 363--364
+Underfull \hbox (badness 10000) in paragraph at lines 369--370
 []\T1/ptm/m/n/10 (+20) The eval-u-a-tion model,
  []
 
 
-Underfull \hbox (badness 3260) in paragraph at lines 363--364
+Underfull \hbox (badness 3260) in paragraph at lines 369--370
 \T1/pcr/m/n/10 nvidia/nemotron-nano-12b-v2-vl\T1/ptm/m/n/10 (+20) , was se-lect
 ed
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 405--406
+Underfull \hbox (badness 10000) in paragraph at lines 411--412
 []\T1/ptm/b/n/10 (+20) Flesch Read-ing Ease (FRE): \T1/ptm/m/n/10 (+20) Cal-cu-
 lated as
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 405--406
+Underfull \hbox (badness 10000) in paragraph at lines 411--412
 \OT1/cmr/m/n/10 206\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 835 \OMS/cmsy/m/n/10 ^^@ \
 OT1/cmr/m/n/10 1\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 015([]\OML/cmm/m/it/10 =[]\OT
 1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Underfull \hbox (badness 6364) in paragraph at lines 405--406
+Underfull \hbox (badness 6364) in paragraph at lines 411--412
 \OT1/cmr/m/n/10 84\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 6([]\OML/cmm/m/it/10 =[]\OT
 1/cmr/m/n/10 )$\T1/ptm/m/n/10 (+20) . Scores range from 0
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 407--408
+Underfull \hbox (badness 10000) in paragraph at lines 413--414
 []\T1/ptm/b/n/10 (+20) Flesch-Kincaid Grade Level (FKGL):
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 407--408
+Underfull \hbox (badness 10000) in paragraph at lines 413--414
 \T1/ptm/m/n/10 (+20) Cal-cu-lated as $\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/c
 mr/m/n/10 39([]\OML/cmm/m/it/10 =[]\OT1/cmr/m/n/10 ) +
  []
 
 
-Underfull \hbox (badness 2205) in paragraph at lines 415--416
+Underfull \hbox (badness 2205) in paragraph at lines 421--422
 []\T1/ptm/m/n/10 (+20) The LLM eval-u-a-tion uses a five-dimension Lik-ert
  []
 
 [5] [6]
-Underfull \vbox (badness 4726) has occurred while \output is active []
-
 <readability-python-demo/results/figures/figure1_readability_comparison.png, id
 =256, 1002.144pt x 423.984pt>
 File: readability-python-demo/results/figures/figure1_readability_comparison.pn
@@ -768,7 +760,7 @@ g Graphic file (type png)
 <use readability-python-demo/results/figures/figure1_readability_comparison.png
 >
 Package pdftex.def Info: readability-python-demo/results/figures/figure1_readab
-ility_comparison.png  used on input line 488.
+ility_comparison.png  used on input line 494.
 (pdftex.def)             Requested size: 456.75398pt x 193.24295pt.
 <readability-python-demo/results/figures/figure2_token_comparison.png, id=259, 
 857.604pt x 423.7431pt>
@@ -776,10 +768,10 @@ File: readability-python-demo/results/figures/figure2_token_comparison.png Grap
 hic file (type png)
 <use readability-python-demo/results/figures/figure2_token_comparison.png>
 Package pdftex.def Info: readability-python-demo/results/figures/figure2_token_
-comparison.png  used on input line 525.
+comparison.png  used on input line 531.
 (pdftex.def)             Requested size: 247.75394pt x 122.41034pt.
  [7]
-Underfull \vbox (badness 1565) has occurred while \output is active []
+Underfull \vbox (badness 4072) has occurred while \output is active []
 
 <readability-python-demo/results/figures/figure5_effect_sizes.png, id=268, 713.
 064pt x 568.7649pt>
@@ -787,42 +779,53 @@ File: readability-python-demo/results/figures/figure5_effect_sizes.png Graphic
 file (type png)
 <use readability-python-demo/results/figures/figure5_effect_sizes.png>
 Package pdftex.def Info: readability-python-demo/results/figures/figure5_effect
-_sizes.png  used on input line 568.
+_sizes.png  used on input line 574.
 (pdftex.def)             Requested size: 456.75398pt x 364.33807pt.
  [8 <./readability-python-demo/results/figures/figure1_readability_comparison.p
-ng> <./readability-python-demo/results/figures/figure2_token_comparison.png>] [
-9 <./readability-python-demo/results/figures/figure5_effect_sizes.png>]
+ng> <./readability-python-demo/results/figures/figure2_token_comparison.png>]
 <readability-python-demo/results/figures/figure4_lri_difference_boxplot.png, id
-=285, 713.5458pt x 423.984pt>
+=279, 713.5458pt x 423.984pt>
 File: readability-python-demo/results/figures/figure4_lri_difference_boxplot.pn
 g Graphic file (type png)
 <use readability-python-demo/results/figures/figure4_lri_difference_boxplot.png
 >
 Package pdftex.def Info: readability-python-demo/results/figures/figure4_lri_di
-fference_boxplot.png  used on input line 621.
+fference_boxplot.png  used on input line 627.
 (pdftex.def)             Requested size: 247.75394pt x 147.21269pt.
-<readability-python-demo/results/figures/figure3_fre_vs_clarity.png, id=287, 70
+<readability-python-demo/results/figures/figure3_fre_vs_clarity.png, id=281, 70
 9.2096pt x 496.254pt>
 File: readability-python-demo/results/figures/figure3_fre_vs_clarity.png Graphi
 c file (type png)
 <use readability-python-demo/results/figures/figure3_fre_vs_clarity.png>
 Package pdftex.def Info: readability-python-demo/results/figures/figure3_fre_vs
-_clarity.png  used on input line 634.
+_clarity.png  used on input line 640.
 (pdftex.def)             Requested size: 247.75394pt x 173.35832pt.
- [10 <./readability-python-demo/results/figures/figure4_lri_difference_boxplot.
+ [9]
+Underfull \vbox (badness 1205) has occurred while \output is active []
+
+
+Underfull \vbox (badness 7468) has occurred while \output is active []
+
+ [10 <./readability-python-demo/results/figures/figure5_effect_sizes.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11 <./readability-python-demo/results/figures/figure4_lri_difference_boxplot.
 png> <./readability-python-demo/results/figures/figure3_fre_vs_clarity.png>] [1
-1] [12] [13]
-Underfull \hbox (badness 2753) in paragraph at lines 753--754
+2]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+Underfull \hbox (badness 2753) in paragraph at lines 759--760
 []\T1/ptm/m/n/10 (+20) The data that sup-port the find-ings of this study
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 753--754
+Underfull \hbox (badness 10000) in paragraph at lines 759--760
 \T1/ptm/m/n/10 (+20) are openly avail-able in the GitHub repos-i-tory
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 753--754
+Underfull \hbox (badness 10000) in paragraph at lines 759--760
 \T1/ptm/m/n/10 (+20) at []https://github.com/yehezkielgunawan/codhes-
  []
 
@@ -851,11 +854,11 @@ Package rerunfilecheck Info: File `codhes2026_paper.out' has not changed.
 Here is how much of TeX's memory you used:
  15451 strings out of 467525
  252119 string characters out of 5408440
- 714385 words of memory out of 5000000
+ 714875 words of memory out of 5000000
  43708 multiletter control sequences out of 15000+600000
  763123 words of font info for 394 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,1546b,617s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1546b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/s
@@ -870,7 +873,7 @@ llar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></opt/h
 omebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmr8a.p
 fb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/time
 s/utmri8a.pfb>
-Output written on codhes2026_paper.pdf (15 pages, 1102670 bytes).
+Output written on codhes2026_paper.pdf (15 pages, 1102829 bytes).
 PDF statistics:
  422 PDF objects out of 1000 (max. 8388607)
  369 compressed objects within 4 object streams
