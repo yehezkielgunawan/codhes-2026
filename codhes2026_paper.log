@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  29 JUL 2026 19:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  29 JUL 2026 19:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -759,74 +759,72 @@ Underfull \hbox (badness 2205) in paragraph at lines 442--443
  []
 
 [5] [6]
-Underfull \vbox (badness 4726) has occurred while \output is active []
-
 <readability-python-demo/results/figures/figure1_readability_comparison.png, id
-=256, 1002.144pt x 423.984pt>
+=260, 1002.144pt x 423.984pt>
 File: readability-python-demo/results/figures/figure1_readability_comparison.pn
 g Graphic file (type png)
 <use readability-python-demo/results/figures/figure1_readability_comparison.png
 >
 Package pdftex.def Info: readability-python-demo/results/figures/figure1_readab
-ility_comparison.png  used on input line 515.
+ility_comparison.png  used on input line 521.
 (pdftex.def)             Requested size: 456.75398pt x 193.24295pt.
-<readability-python-demo/results/figures/figure2_token_comparison.png, id=259, 
+<readability-python-demo/results/figures/figure2_token_comparison.png, id=263, 
 857.604pt x 423.7431pt>
 File: readability-python-demo/results/figures/figure2_token_comparison.png Grap
 hic file (type png)
 <use readability-python-demo/results/figures/figure2_token_comparison.png>
 Package pdftex.def Info: readability-python-demo/results/figures/figure2_token_
-comparison.png  used on input line 552.
+comparison.png  used on input line 558.
 (pdftex.def)             Requested size: 247.75394pt x 122.41034pt.
  [7]
-Underfull \vbox (badness 1565) has occurred while \output is active []
-
-<readability-python-demo/results/figures/figure5_effect_sizes.png, id=268, 713.
+<readability-python-demo/results/figures/figure5_effect_sizes.png, id=272, 713.
 064pt x 568.7649pt>
 File: readability-python-demo/results/figures/figure5_effect_sizes.png Graphic 
 file (type png)
 <use readability-python-demo/results/figures/figure5_effect_sizes.png>
 Package pdftex.def Info: readability-python-demo/results/figures/figure5_effect
-_sizes.png  used on input line 595.
+_sizes.png  used on input line 601.
 (pdftex.def)             Requested size: 456.75398pt x 364.33807pt.
  [8 <./readability-python-demo/results/figures/figure1_readability_comparison.p
-ng> <./readability-python-demo/results/figures/figure2_token_comparison.png>] [
-9 <./readability-python-demo/results/figures/figure5_effect_sizes.png>]
+ng> <./readability-python-demo/results/figures/figure2_token_comparison.png>]
+Underfull \vbox (badness 1881) has occurred while \output is active []
+
+ [9 <./readability-python-demo/results/figures/figure5_effect_sizes.png>]
 <readability-python-demo/results/figures/figure4_lri_difference_boxplot.png, id
-=285, 713.5458pt x 423.984pt>
+=288, 713.5458pt x 423.984pt>
 File: readability-python-demo/results/figures/figure4_lri_difference_boxplot.pn
 g Graphic file (type png)
 <use readability-python-demo/results/figures/figure4_lri_difference_boxplot.png
 >
 Package pdftex.def Info: readability-python-demo/results/figures/figure4_lri_di
-fference_boxplot.png  used on input line 648.
+fference_boxplot.png  used on input line 654.
 (pdftex.def)             Requested size: 247.75394pt x 147.21269pt.
-<readability-python-demo/results/figures/figure3_fre_vs_clarity.png, id=287, 70
+<readability-python-demo/results/figures/figure3_fre_vs_clarity.png, id=290, 70
 9.2096pt x 496.254pt>
 File: readability-python-demo/results/figures/figure3_fre_vs_clarity.png Graphi
 c file (type png)
 <use readability-python-demo/results/figures/figure3_fre_vs_clarity.png>
 Package pdftex.def Info: readability-python-demo/results/figures/figure3_fre_vs
-_clarity.png  used on input line 661.
+_clarity.png  used on input line 667.
 (pdftex.def)             Requested size: 247.75394pt x 173.35832pt.
  [10 <./readability-python-demo/results/figures/figure4_lri_difference_boxplot.
 png> <./readability-python-demo/results/figures/figure3_fre_vs_clarity.png>] [1
 1] [12] [13]
-Underfull \hbox (badness 2753) in paragraph at lines 780--781
+Underfull \hbox (badness 2753) in paragraph at lines 788--789
 []\T1/ptm/m/n/10 (+20) The data that sup-port the find-ings of this study
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 780--781
+Underfull \hbox (badness 10000) in paragraph at lines 788--789
 \T1/ptm/m/n/10 (+20) are openly avail-able in the GitHub repos-i-tory
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 780--781
+Underfull \hbox (badness 10000) in paragraph at lines 788--789
 \T1/ptm/m/n/10 (+20) at []https://github.com/yehezkielgunawan/codhes-
  []
 
-(./codhes2026_paper.bbl [14])
+[14] (./codhes2026_paper.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -838,9 +836,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[15
-
-] (./codhes2026_paper.aux)
+[15] (./codhes2026_paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -849,31 +845,34 @@ Package rerunfilecheck Info: File `codhes2026_paper.out' has not changed.
 (rerunfilecheck)             Checksum: 6A6A329FD80D237DF1F384AF98C40CB4;7685.
  ) 
 Here is how much of TeX's memory you used:
- 15462 strings out of 467525
- 252279 string characters out of 5408440
- 715894 words of memory out of 5000000
+ 15463 strings out of 467525
+ 252289 string characters out of 5408440
+ 709595 words of memory out of 5000000
  43712 multiletter control sequences out of 15000+600000
  765025 words of font info for 399 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,1546b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1546b,703s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/s
-hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/homebrew/Cellar/t
-exlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></op
-t/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmsy7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmsy8.pfb></opt/homebrew/Cellar/texlive/20260301/share/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></opt/homebrew/Cellar/texlive
-/20260301/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></opt/homebrew/Ce
-llar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></opt/h
-omebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmr8a.p
-fb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/urw/time
-s/utmri8a.pfb>
-Output written on codhes2026_paper.pdf (15 pages, 1102874 bytes).
+sfonts/cm/cmex10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></opt/homebrew/Cellar
+/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></o
+pt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr8.pfb></opt/homebrew/Cellar/texlive/20260301/share/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive
+/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></opt/homeb
+rew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y8.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dis
+t/fonts/type1/urw/courier/ucrr8a.pfb></opt/homebrew/Cellar/texlive/20260301/sha
+re/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></opt/homebrew/Cellar/texlive/20
+260301/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></opt/homebrew/Cellar/
+texlive/20260301/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on codhes2026_paper.pdf (15 pages, 1131961 bytes).
 PDF statistics:
- 422 PDF objects out of 1000 (max. 8388607)
- 369 compressed objects within 4 object streams
- 105 named destinations out of 1000 (max. 500000)
+ 438 PDF objects out of 1000 (max. 8388607)
+ 379 compressed objects within 4 object streams
+ 106 named destinations out of 1000 (max. 500000)
  63834 words of extra memory for PDF output out of 74296 (max. 10000000)
 
