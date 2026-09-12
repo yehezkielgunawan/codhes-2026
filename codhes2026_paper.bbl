@@ -21,6 +21,12 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{Liu2023}
+N.~F. Liu, K.~Lin, J.~Hewitt, A.~Paranjape, M.~Bevilacqua, F.~Petroni, and
+  P.~Liang, ``Lost in the middle: How language models use long contexts,''
+  \emph{Transactions of the Association for Computational Linguistics},
+  vol.~11, 2023.
+
 \bibitem{Howard2024}
 \BIBentryALTinterwordspacing
 J.~Howard. (2024, September 3) The /llms.txt file: A proposal to standardise on
@@ -98,12 +104,6 @@ S.~Ding, A.~Renduchintala, and K.~Duh, ``A call for prudent choice of subword
   \url{https://aclanthology.org/W19-6608/}
 \BIBentrySTDinterwordspacing
 
-\bibitem{Liu2023}
-N.~F. Liu, K.~Lin, J.~Hewitt, A.~Paranjape, M.~Bevilacqua, F.~Petroni, and
-  P.~Liang, ``Lost in the middle: How language models use long contexts,''
-  \emph{Transactions of the Association for Computational Linguistics},
-  vol.~11, 2023.
-
 \bibitem{Jiang2023}
 H.~Jiang, Q.~Wu, C.-Y. Lin, Y.~Yang, and L.~Qiu, ``{LLMLingua}: Compressing
   prompts for accelerated inference of large language models,'' in
@@ -140,12 +140,6 @@ C.~Diggs, M.~Doyle, A.~Madan, S.~Scott, E.~Escamilla, J.~Zimmer, N.~Nekoo,
   opportunities for {LLM-Generated} documentation,'' in \emph{Proceedings of
   the LLM4Code Workshop at ICSE 2025}, 2024. [Online]. Available:
   \url{https://arxiv.org/abs/2411.14971}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Textstat2023}
-\BIBentryALTinterwordspacing
-Textstat. (2023) textstat: Calculate statistical features from text. Python
-  package. [Online]. Available: \url{https://github.com/shivam5992/textstat}
 \BIBentrySTDinterwordspacing
 
 \bibitem{MozillaReadability}
