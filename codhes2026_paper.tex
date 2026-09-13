@@ -286,7 +286,7 @@ Purposive selection provided variation across frontend and backend frameworks, d
 \begin{table}[t]
     \caption{Platform Characteristics}
     \label{tab:platforms}
-    \begin{tabular}{|J{2.5cm}|J{3cm}|J{2cm}|}
+    \begin{tabular}{|J{2.5cm}|J{2.9cm}|J{2cm}|}
         \hline
         \tablecolhead{Platform} & \tablecolhead{Category} & \tablecolhead{Domain} \\
         \hline
@@ -327,7 +327,7 @@ Long documents were divided into approximately 4,000-token chunks. The model \te
 
 The prompt supplied definitions and a 1--5 rubric for every dimension and required parseable scores. Temperature was set to 0.0 to reduce stochastic variation. Each chunk contributed equal weight to the platform score, including a shorter final chunk; this choice simplified aggregation but is treated as a limitation. The model was selected to keep the procedure accessible and reproducible rather than to claim evaluator consensus.
 
-\begin{figure*}[htbp]
+\begin{figure*}[!t]
     \centering
     \fbox{\parbox{0.9\textwidth}{
     \centering
@@ -419,23 +419,16 @@ Manual inspection focused on whether navigation was removed without discarding t
 
 AI was used for the LLM-as-a-Judge evaluation following established protocols \cite{Zheng2023}, for assistance with analysis code and visualization, and for literature retrieval. The primary author retained control of research design, interpretation, and conclusions.
 
-% ============================================================
-% RESULT AND DISCUSSION
-% ============================================================
-\section{Result and Discussion}
-
-\subsection{Traditional Readability Analysis}
-
-The ten platform pairs span frameworks, services, developer tools, and AI platforms. Figure~\ref{fig:readability} contrasts FRE and LRI: human documentation generally has higher FRE, whereas machine documentation generally has higher LRI. React and LangChain are extreme machine-FRE outliers.
-
-\begin{figure*}[t]
+% IEEEtran delays full-width floats by at least one output cycle; queue these
+% here so they appear beside the opening Results discussion on the next page.
+\begin{figure*}[!t]
     \centering
     \includegraphics[width=0.9\textwidth]{readability-python-demo/results/figures/figure1_readability_comparison.png}
     \caption{Platform-level comparison of (a) Flesch Reading Ease and (b) LLM Readability Index scores. Human documentation (pink) generally has higher FRE, while machine documentation (gold) generally has higher LRI. React and LangChain illustrate the extreme variance in machine FRE.}
     \label{fig:readability}
 \end{figure*}
 
-\begin{table*}[t]
+\begin{table*}[!t]
     \caption{Traditional Readability Metrics Comparison}
     \label{tab:traditional}
     \centering
@@ -455,22 +448,26 @@ The ten platform pairs span frameworks, services, developer tools, and AI platfo
     \tablefootnote{Values are mean (SD). Cohen's d calculated for paired samples. Negative d indicates machine docs score higher than human docs.}
 \end{table*}
 
-Table~\ref{tab:traditional} shows mixed traditional-metric outcomes. Human documentation has a 91.58-point higher mean FRE, but machine scores vary widely ($SD=155.28$), driven partly by link-heavy React ($-430.09$) and LangChain ($-234.73$) files for which prose-based formulas have weak construct validity. Machine documentation also has a 10.2-level higher mean FKGL. Lexical density is nearly equal across formats, while mean TWR is higher for machine documentation (2.73 versus 1.67), contrary to a simple token-efficiency expectation. Figure~\ref{fig:token} shows that React and LangChain exceed 5.0 TWR and that implementation structure strongly affects tokenization.
+% ============================================================
+% RESULT AND DISCUSSION
+% ============================================================
+\section{Result and Discussion}
+
+\subsection{Traditional Readability Analysis}
+
+The ten platform pairs span frameworks, services, developer tools, and AI platforms. Figure~\ref{fig:readability} contrasts FRE and LRI: human documentation generally has higher FRE, whereas machine documentation generally has higher LRI. React and LangChain are extreme machine-FRE outliers.
+
+Table~\ref{tab:traditional} shows mixed traditional-metric outcomes. Human documentation has a 91.58-point higher mean FRE, but machine scores vary widely ($SD=155.28$), driven partly by link-heavy React ($-430.09$) and LangChain ($-234.73$) files for which prose-based formulas have weak construct validity. Machine documentation also has a 10.2-level higher mean FKGL. Lexical density is nearly equal across formats, while mean TWR is higher for machine documentation (2.73 versus 1.67), contrary to a simple token-efficiency expectation. React and LangChain exceed 5.0 TWR, showing that implementation structure strongly affects tokenization.
 
 The direction of FRE favors human documentation with a medium paired effect ($d=0.573$), whereas the FKGL effect is smaller ($d=-0.459$). Because the inferential tests for these traditional metrics are not reported, these differences are interpreted descriptively rather than as statistically significant format effects. The near-zero lexical-density effect ($d=-0.028$) indicates that the formats contain similar proportions of content-bearing words even though their sentence structure and markup differ.
 
 The TWR pattern also qualifies the premise that machine-oriented files are inherently token-efficient. A ratio counts token fragments per whitespace-delimited word, not total context length or useful information per token. URLs, punctuation, identifiers, and Markdown links can raise the ratio, while a longer prose document may still contain more tokens overall. TWR therefore identifies one aspect of computational representation rather than an overall efficiency score.
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{readability-python-demo/results/figures/figure2_token_comparison.png}
-    \caption{Token-to-Word Ratio comparison across platforms. Human documentation (pink) generally requires fewer tokens per word than machine documentation (gold), except for FastAPI, whose verbose HTML inflates the ratio. React and LangChain show extreme machine-to-word ratios due to their link-dense content.}
-    \label{fig:token}
-\end{figure}
-
 \subsection{LLM-as-a-Judge Evaluation Results}
 
-\begin{table*}[t]
+The selected evaluator rated machine documentation higher on LRI (M=78.72) than human documentation (M=64.03), a mean difference of 14.69 points ($t=-3.706$, $p=0.005$, $d=-1.172$, 95\% CI [4.89, 24.49]). Conciseness ($p=0.006$), LLM-Friendliness ($p=0.007$), Completeness ($p=0.014$), and Clarity ($p=0.015$) also favored machine documentation with large effects. Technical Accuracy showed only a small, non-significant difference ($d=-0.245$, $p=0.455$). Table~\ref{tab:llm} reports the dimension-level results, and Figure~\ref{fig:effect} summarizes the effect sizes without implying downstream performance.
+
+\begin{table*}[!t]
     \caption{LLM-as-a-Judge Evaluation Results}
     \label{tab:llm}
     \centering
@@ -494,63 +491,20 @@ The TWR pattern also qualifies the premise that machine-oriented files are inher
     \tablefootnote{Values are mean (SD) on 1-5 Likert scale. LRI = LLM Readability Index (0-100). Negative Cohen's d indicates machine docs score higher.}
 \end{table*}
 
-The selected evaluator rated machine documentation higher on LRI (M=78.72) than human documentation (M=64.03), a mean difference of 14.69 points ($t=-3.706$, $p=0.005$, $d=-1.172$, 95\% CI [4.89, 24.49]). Conciseness ($p=0.006$), LLM-Friendliness ($p=0.007$), Completeness ($p=0.014$), and Clarity ($p=0.015$) also favored machine documentation with large effects. Technical Accuracy showed only a small, non-significant difference ($d=-0.245$, $p=0.455$). Figure~\ref{fig:effect} summarizes the effect sizes without implying downstream performance.
-
 The dimension pattern localizes the aggregate difference. Conciseness ($d=-1.347$) and LLM-Friendliness ($d=-1.371$) show the largest effects, followed by Clarity ($d=-1.002$) and Completeness ($d=-0.964$). These are presentation- and access-oriented criteria that the \texttt{llms.txt} convention explicitly targets. Technical Accuracy remains high in both formats (4.20 human and 4.36 machine), and its non-significant difference provides no evidence that either format is more correct.
 
-\begin{figure*}[t]
+\begin{figure*}[!t]
     \centering
-    \includegraphics[width=0.9\textwidth]{readability-python-demo/results/figures/figure5_effect_sizes.png}
+    \includegraphics[width=0.72\textwidth]{readability-python-demo/results/figures/figure5_effect_sizes.png}
     \caption{Cohen's d effect sizes for all metrics and evaluation dimensions. Negative values favor machine documentation and positive values favor human documentation. Clarity, Completeness, Conciseness, LLM-Friendliness, and LRI show large machine-favoring effects; Technical Accuracy shows a small effect.}
     \label{fig:effect}
 \end{figure*}
 
-\begin{table*}[t]
-    \caption{Platform-by-Platform LRI Comparison}
-    \label{tab:platform-lri}
-    \centering
-    \begin{tabular}{|J{2.5cm}|R{2.5cm}|R{2.5cm}|R{1.8cm}|J{1.8cm}|}
-        \hline
-        \tablecolhead{Platform} & \tablecolhead{Human LRI} & \tablecolhead{Machine LRI} & \tablecolhead{Delta} & \tablecolhead{Direction} \\
-        \hline
-        \tablecopy{Stripe} & \tablecopy{55.00} & \tablecopy{80.00} & \tablecopy{+25.00} & \tablecopy{Machine} \\
-        \hline
-        \tablecopy{FastAPI} & \tablecopy{87.00} & \tablecopy{100.00} & \tablecopy{+13.00} & \tablecopy{Machine} \\
-        \hline
-        \tablecopy{Hono} & \tablecopy{73.33} & \tablecopy{87.00} & \tablecopy{+13.67} & \tablecopy{Machine} \\
-        \hline
-        \tablecopy{Cursor} & \tablecopy{75.00} & \tablecopy{100.00} & \tablecopy{+25.00} & \tablecopy{Machine} \\
-        \hline
-        \tablecopy{Supabase} & \tablecopy{56.00} & \tablecopy{82.00} & \tablecopy{+26.00} & \tablecopy{Machine} \\
-        \hline
-        \tablecopy{GitHub} & \tablecopy{55.00} & \tablecopy{81.25} & \tablecopy{+26.25} & \tablecopy{Machine} \\
-        \hline
-        \tablecopy{\textbf{Vercel}} & \tablecopy{\textbf{54.00}} & \tablecopy{\textbf{42.00}} & \tablecopy{\textbf{-12.00}} & \tablecopy{\textbf{Human}} \\
-        \hline
-        \tablecopy{Cloudflare} & \tablecopy{63.00} & \tablecopy{80.00} & \tablecopy{+17.00} & \tablecopy{Machine} \\
-        \hline
-        \tablecopy{React} & \tablecopy{72.00} & \tablecopy{85.00} & \tablecopy{+13.00} & \tablecopy{Machine} \\
-        \hline
-        \tablecopy{LangChain} & \tablecopy{50.00} & \tablecopy{50.00} & \tablecopy{0.00} & \tablecopy{Tie} \\
-        \hline
-    \end{tabular}
-    \tablefootnote{Delta = Machine LRI - Human LRI. Positive values indicate machine documentation preference.}
-\end{table*}
-
-Eight of ten platform pairs favor machine documentation in Table~\ref{tab:platform-lri}. Vercel is the exception (42.00 machine versus 54.00 human), and LangChain is tied at 50.00. FastAPI and Cursor reach the scale ceiling of 100.00, which may reflect favorable ratings but also warrants caution about score compression. These exceptions show that format labels alone do not determine evaluator ratings.
-
-The positive deltas range from 13.00 for React and FastAPI to 26.25 for GitHub. This spread, together with the negative Vercel delta, indicates substantial platform-level heterogeneity around the positive mean. Table~\ref{tab:platform-lri} reports all platform values to avoid inferring domain effects from individual cases.
+Eight of ten platform pairs favor machine documentation. Vercel is the only exception (42.00 machine versus 54.00 human), while LangChain is tied at 50.00. FastAPI and Cursor reach the scale ceiling of 100.00, suggesting potential score compression. Positive deltas range from 13.00 for React and FastAPI to 26.25 for GitHub. This spread, together with Vercel's negative delta, indicates substantial platform-level heterogeneity and shows that format labels alone do not determine evaluator ratings.
 
 \subsection{Correlation Analysis}
 
-No statistically significant correlation was detected between traditional metrics and LLM ratings (all $p>0.05$). FRE and LLM-Friendliness showed $r=0.357$ ($p=0.312$); TWR and LLM-Friendliness showed the largest observed coefficient, $r=0.564$ ($p=0.090$), which fell to $r=0.312$ ($p=0.412$) after removing the React and LangChain TWR outliers. Figure~\ref{fig:fre-clarity} illustrates that low-FRE machine files can still receive high Clarity ratings, but the small sample does not establish independence between constructs.
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{readability-python-demo/results/figures/figure3_fre_vs_clarity.png}
-    \caption{Flesch Reading Ease versus LLM Clarity for human (pink) and machine (gold) documentation. Low-FRE machine files can still receive high Clarity ratings, illustrating divergence between the measures.}
-    \label{fig:fre-clarity}
-\end{figure}
+No statistically significant correlation was detected between traditional metrics and LLM ratings (all $p>0.05$). FRE and LLM-Friendliness showed $r=0.357$ ($p=0.312$); TWR and LLM-Friendliness showed the largest observed coefficient, $r=0.564$ ($p=0.090$), which fell to $r=0.312$ ($p=0.412$) after removing the React and LangChain TWR outliers. Low-FRE machine files could still receive high Clarity ratings, illustrating divergence between the measures, but the small sample does not establish independence between constructs.
 
 \subsection{The Readability-Tokenization Paradox}
 
@@ -718,7 +672,7 @@ async def create_item(name: str):
 \makeatletter
 \def\bibsection{\subparagraph*{\refname}}
 \makeatother
-\IEEEtriggeratref{8}
+\IEEEtriggeratref{23}
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 
